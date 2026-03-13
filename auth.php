@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     } elseif ($action === 'update_pix_config') {
         if (isset($_SESSION['admin_auth']) && $_SESSION['admin_auth'] === true) {
             $pixKey = $_POST['pix_key'] ?? '';
-            $configPath = __DIR__ . '/mp/config.json';
+            $configPath = __DIR__ . '/src/Config/payment.json';
             if (file_put_contents($configPath, json_encode(['pix_key' => $pixKey], JSON_PRETTY_PRINT))) {
                 echo json_encode(['success' => true]);
             } else {

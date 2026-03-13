@@ -10,11 +10,13 @@ $users = getUsers();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transprocred | Central de Controle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -53,7 +55,7 @@ $users = getUsers();
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
+            background:
                 radial-gradient(at 0% 0%, rgba(255, 0, 0, 0.15) 0, transparent 40%),
                 radial-gradient(at 100% 100%, rgba(255, 0, 0, 0.1) 0, transparent 40%);
         }
@@ -69,7 +71,7 @@ $users = getUsers();
             flex-direction: column;
             padding: 40px 20px;
             z-index: 100;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
         }
 
         .logo {
@@ -169,7 +171,7 @@ $users = getUsers();
         .stat-card:hover {
             transform: translateY(-5px);
             border-color: rgba(255, 0, 0, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .stat-card::after {
@@ -216,13 +218,20 @@ $users = getUsers();
             border-radius: 30px;
             border: 1px solid var(--border);
             padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             animation: slide-up 0.8s ease-out;
         }
 
         @keyframes slide-up {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .table-header {
@@ -257,17 +266,17 @@ $users = getUsers();
         td {
             padding: 20px 25px;
             background: rgba(255, 255, 255, 0.03);
-            border-top: 1px solid rgba(255,255,255,0.02);
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         td:first-child {
-            border-left: 1px solid rgba(255,255,255,0.02);
+            border-left: 1px solid rgba(255, 255, 255, 0.02);
             border-radius: 15px 0 0 15px;
         }
 
         td:last-child {
-            border-right: 1px solid rgba(255,255,255,0.02);
+            border-right: 1px solid rgba(255, 255, 255, 0.02);
             border-radius: 0 15px 15px 0;
         }
 
@@ -315,17 +324,32 @@ $users = getUsers();
             background: currentColor;
         }
 
-        .status-Aprovado { background: rgba(0, 255, 136, 0.1); color: #00ff88; }
-        .status-Pendente { background: rgba(255, 166, 0, 0.1); color: #ffa600; }
-        .status-Bloqueado { background: rgba(255, 0, 0, 0.1); color: #ff4444; }
-        .status-Análise { background: rgba(0, 153, 255, 0.1); color: #0099ff; }
+        .status-Aprovado {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+        }
+
+        .status-Pendente {
+            background: rgba(255, 166, 0, 0.1);
+            color: #ffa600;
+        }
+
+        .status-Bloqueado {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff4444;
+        }
+
+        .status-Análise {
+            background: rgba(0, 153, 255, 0.1);
+            color: #0099ff;
+        }
 
         .btn-action {
             width: 40px;
             height: 40px;
             border-radius: 12px;
             border: 1px solid var(--border);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
             cursor: pointer;
             transition: all 0.3s;
@@ -351,8 +375,11 @@ $users = getUsers();
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             backdrop-filter: blur(15px);
             align-items: center;
@@ -373,8 +400,14 @@ $users = getUsers();
             box-shadow: 0 0 100px rgba(255, 0, 0, 0.1);
         }
 
-        .modal-body::-webkit-scrollbar { width: 6px; }
-        .modal-body::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--red);
+            border-radius: 10px;
+        }
 
         .modal-grid {
             display: grid;
@@ -384,10 +417,10 @@ $users = getUsers();
         }
 
         .modal-item {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             padding: 20px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .modal-label {
@@ -427,7 +460,9 @@ $users = getUsers();
             transition: transform 0.3s;
         }
 
-        .kyc-card img:hover { transform: scale(1.05); }
+        .kyc-card img:hover {
+            transform: scale(1.05);
+        }
 
         .image-caption {
             background: rgba(20, 20, 20, 0.9);
@@ -438,10 +473,11 @@ $users = getUsers();
             border-top: 1px solid var(--border);
         }
 
-        select, input[type="text"] {
+        select,
+        input[type="text"] {
             width: 100%;
             background: #000;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
             padding: 15px;
             border-radius: 15px;
@@ -450,7 +486,8 @@ $users = getUsers();
             transition: 0.3s;
         }
 
-        select:focus, input[type="text"]:focus {
+        select:focus,
+        input[type="text"]:focus {
             border-color: var(--red);
             outline: none;
             box-shadow: 0 0 15px var(--red-glow);
@@ -488,14 +525,23 @@ $users = getUsers();
             transition: 0.3s;
         }
 
-        .close-modal:hover { color: var(--red); transform: rotate(90deg); }
+        .close-modal:hover {
+            color: var(--red);
+            transform: rotate(90deg);
+        }
 
         @media (max-width: 1200px) {
-            .modal-grid { grid-template-columns: 1fr 1fr; }
-            .kyc-grid { grid-template-columns: 1fr 1fr; }
+            .modal-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .kyc-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="admin-mesh"></div>
 
@@ -535,23 +581,25 @@ $users = getUsers();
                 </div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon" style="color:#ffa600; background:rgba(255,166,0,0.1)"><i class="fas fa-clock"></i></div>
+                <div class="stat-icon" style="color:#ffa600; background:rgba(255,166,0,0.1)"><i
+                        class="fas fa-clock"></i></div>
                 <div class="stat-info">
                     <h3>Aguardando Análise</h3>
                     <div class="value">
-                        <?php 
-                            echo count(array_filter($users, fn($u) => ($u['status'] ?? '') === 'Em Análise')); 
+                        <?php
+                        echo count(array_filter($users, fn($u) => ($u['status'] ?? '') === 'Em Análise'));
                         ?>
                     </div>
                 </div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon" style="color:#00ff88; background:rgba(0,255,136,0.1)"><i class="fas fa-check-double"></i></div>
+                <div class="stat-icon" style="color:#00ff88; background:rgba(0,255,136,0.1)"><i
+                        class="fas fa-check-double"></i></div>
                 <div class="stat-info">
                     <h3>Contas Ativas</h3>
                     <div class="value">
-                        <?php 
-                            echo count(array_filter($users, fn($u) => ($u['status'] ?? '') === 'Aprovado')); 
+                        <?php
+                        echo count(array_filter($users, fn($u) => ($u['status'] ?? '') === 'Aprovado'));
                         ?>
                     </div>
                 </div>
@@ -562,8 +610,11 @@ $users = getUsers();
             <div class="table-header">
                 <h2>Gerenciamento de Fluxo</h2>
                 <div class="search-box" style="position:relative;">
-                    <i class="fas fa-search" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted)"></i>
-                    <input type="text" placeholder="Filtrar por nome ou CPF..." style="width:300px; padding:10px 15px 10px 45px; background:rgba(255,255,255,0.05); border-radius:12px; margin:0;" onkeyup="filterTable(this.value)">
+                    <i class="fas fa-search"
+                        style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted)"></i>
+                    <input type="text" placeholder="Filtrar por nome ou CPF..."
+                        style="width:300px; padding:10px 15px 10px 45px; background:rgba(255,255,255,0.05); border-radius:12px; margin:0;"
+                        onkeyup="filterTable(this.value)">
                 </div>
             </div>
 
@@ -578,39 +629,47 @@ $users = getUsers();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach(array_reverse($users) as $index => $u): ?>
-                    <tr id="row-<?php echo $u['username']; ?>" style="animation: slide-up <?php echo 0.2 + ($index * 0.05); ?>s ease-out;">
-                        <td>
-                            <div class="user-info">
-                                <div class="user-avatar"><?php echo strtoupper(substr($u['fullname'] ?? $u['username'], 0, 1)); ?></div>
-                                <div>
-                                    <div style="font-weight: 700;"><?php echo htmlspecialchars($u['fullname'] ?? 'Não informado'); ?></div>
-                                    <div style="font-size: 0.75rem; color: var(--text-muted);"><?php echo htmlspecialchars($u['manager'] ?? 'Sem consultor'); ?></div>
+                    <?php foreach (array_reverse($users) as $index => $u): ?>
+                        <tr id="row-<?php echo $u['username']; ?>"
+                            style="animation: slide-up <?php echo 0.2 + ($index * 0.05); ?>s ease-out;">
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar">
+                                        <?php echo strtoupper(substr($u['fullname'] ?? $u['username'], 0, 1)); ?></div>
+                                    <div>
+                                        <div style="font-weight: 700;">
+                                            <?php echo htmlspecialchars($u['fullname'] ?? 'Não informado'); ?></div>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted);">
+                                            <?php echo htmlspecialchars($u['manager'] ?? 'Sem consultor'); ?></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <code style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:6px; font-size:0.85rem; color:var(--red)"><?php echo htmlspecialchars($u['username']); ?></code>
-                        </td>
-                        <td style="font-size: 0.85rem; color: var(--text-muted);">
-                            <?php echo date('d/m/Y H:i', strtotime($u['created_at'])); ?>
-                        </td>
-                        <td>
-                            <span class="status-badge status-<?php echo str_replace(' ', '', $u['status'] ?? 'Pendente'); ?>">
-                                <?php echo htmlspecialchars($u['status'] ?? 'Pendente'); ?>
-                            </span>
-                        </td>
-                        <td>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn-action" onclick='openUserModal(<?php echo json_encode($u); ?>)' title="Gerenciar Documentos">
-                                    <i class="fas fa-pen-nib"></i>
-                                </button>
-                                <button class="btn-action btn-delete" onclick='deleteUser("<?php echo $u['username']; ?>")' title="Remover Registo">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td>
+                                <code
+                                    style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:6px; font-size:0.85rem; color:var(--red)"><?php echo htmlspecialchars($u['username']); ?></code>
+                            </td>
+                            <td style="font-size: 0.85rem; color: var(--text-muted);">
+                                <?php echo date('d/m/Y H:i', strtotime($u['created_at'])); ?>
+                            </td>
+                            <td>
+                                <span
+                                    class="status-badge status-<?php echo str_replace(' ', '', $u['status'] ?? 'Pendente'); ?>">
+                                    <?php echo htmlspecialchars($u['status'] ?? 'Pendente'); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn-action" onclick='openUserModal(<?php echo json_encode($u); ?>)'
+                                        title="Gerenciar Documentos">
+                                        <i class="fas fa-pen-nib"></i>
+                                    </button>
+                                    <button class="btn-action btn-delete"
+                                        onclick='deleteUser("<?php echo $u['username']; ?>")' title="Remover Registo">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -621,7 +680,7 @@ $users = getUsers();
             <div class="table-header">
                 <h2>Configurações do Checkout</h2>
             </div>
-            
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 20px;">
                 <!-- Configuração da Chave PIX -->
                 <div class="stat-card" style="display: block; padding: 25px;">
@@ -629,13 +688,16 @@ $users = getUsers();
                         <i class="fas fa-key" style="color: var(--red); font-size: 1.5rem;"></i>
                         <h3 style="margin: 0; color: #fff;">Chave PIX Global</h3>
                     </div>
-                    <?php 
-                        $cfg = json_decode(@file_get_contents('../mp/config.json'), true) ?: ['pix_key' => ''];
+                    <?php
+                    $cfg = json_decode(@file_get_contents('../src/Config/payment.json'), true) ?: ['pix_key' => ''];
                     ?>
                     <div class="form-group">
                         <label class="modal-label">Sua Chave PIX (E-mail, CPF, ou Aleatória)</label>
-                        <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>" placeholder="ex: seu-pix@email.com">
-                        <button class="btn-save" onclick="savePixConfig()" style="margin-top: 15px; padding: 12px;">ATUALIZAR CHAVE <i class="fas fa-save"></i></button>
+                        <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>"
+                            placeholder="ex: seu-pix@email.com">
+                        <button class="btn-save" onclick="savePixConfig()"
+                            style="margin-top: 15px; padding: 12px;">ATUALIZAR CHAVE <i
+                                class="fas fa-save"></i></button>
                     </div>
                 </div>
 
@@ -649,23 +711,31 @@ $users = getUsers();
                         <label class="modal-label">Selecione o Usuário</label>
                         <select id="gen-user-select" style="margin-bottom: 15px;">
                             <option value="">Selecione um cliente...</option>
-                            <?php foreach($users as $u): ?>
-                                <option value="<?php echo $u['username']; ?>" data-entrada="<?php echo $u['financial']['entrada'] ?? '0'; ?>">
+                            <?php foreach ($users as $u): ?>
+                                <option value="<?php echo $u['username']; ?>"
+                                    data-entrada="<?php echo $u['financial']['entrada'] ?? '0'; ?>">
                                     <?php echo htmlspecialchars($u['fullname']); ?> (<?php echo $u['username']; ?>)
                                 </option>
                             <?php endforeach; ?>
                         </select>
-                        <button class="btn-save" onclick="generateCheckoutLink()" style="background: #2563eb; padding: 12px; box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);">GERAR LINK DE PAGAMENTO <i class="fas fa-magic"></i></button>
+                        <button class="btn-save" onclick="generateCheckoutLink()"
+                            style="background: #2563eb; padding: 12px; box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);">GERAR
+                            LINK DE PAGAMENTO <i class="fas fa-magic"></i></button>
                     </div>
                 </div>
             </div>
 
-            <div id="link-result" style="display: none; padding: 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 20px;">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Link gerado para cobrança:</p>
+            <div id="link-result"
+                style="display: none; padding: 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 20px;">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Link gerado para cobrança:
+                </p>
                 <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                    <input type="text" id="generated-url" readonly style="width: 400px; margin: 0; background: rgba(255,255,255,0.05);">
-                    <button class="btn-action" onclick="copyLink()" title="Copiar Link"><i class="fas fa-copy"></i></button>
-                    <button class="btn-action" onclick="window.open(document.getElementById('generated-url').value)" title="Abrir"><i class="fas fa-external-link-alt"></i></button>
+                    <input type="text" id="generated-url" readonly
+                        style="width: 400px; margin: 0; background: rgba(255,255,255,0.05);">
+                    <button class="btn-action" onclick="copyLink()" title="Copiar Link"><i
+                            class="fas fa-copy"></i></button>
+                    <button class="btn-action" onclick="window.open(document.getElementById('generated-url').value)"
+                        title="Abrir"><i class="fas fa-external-link-alt"></i></button>
                 </div>
             </div>
         </div>
@@ -675,7 +745,7 @@ $users = getUsers();
             <div class="table-header">
                 <h2>Gerenciador de Pagamentos</h2>
             </div>
-            
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 20px;">
                 <!-- Configuração da Chave PIX -->
                 <div class="stat-card" style="display: block; padding: 25px;">
@@ -683,14 +753,17 @@ $users = getUsers();
                         <i class="fas fa-key" style="color: var(--red); font-size: 1.5rem;"></i>
                         <h3 style="margin: 0; color: #fff;">Chave PIX Global</h3>
                     </div>
-                    <?php 
-                        $cfgPath = '../mp/config.json';
-                        $cfg = file_exists($cfgPath) ? json_decode(file_get_contents($cfgPath), true) : ['pix_key' => ''];
+                    <?php
+                    $cfgPath = '../src/Config/payment.json';
+                    $cfg = file_exists($cfgPath) ? json_decode(file_get_contents($cfgPath), true) : ['pix_key' => ''];
                     ?>
                     <div>
                         <label class="modal-label">Sua Chave PIX (Recebimentos)</label>
-                        <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>" placeholder="ex: seu-pix@email.com">
-                        <button class="btn-save" onclick="savePixConfig()" style="margin-top: 15px; padding: 12px; font-size: 0.8rem;">ATUALIZAR CHAVE <i class="fas fa-save"></i></button>
+                        <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>"
+                            placeholder="ex: seu-pix@email.com">
+                        <button class="btn-save" onclick="savePixConfig()"
+                            style="margin-top: 15px; padding: 12px; font-size: 0.8rem;">ATUALIZAR CHAVE <i
+                                class="fas fa-save"></i></button>
                     </div>
                 </div>
 
@@ -704,59 +777,75 @@ $users = getUsers();
                         <label class="modal-label">Selecione o Cliente</label>
                         <select id="gen-user-select" style="margin-bottom: 15px;">
                             <option value="">Selecione um cliente...</option>
-                            <?php foreach($users as $u): ?>
+                            <?php foreach ($users as $u): ?>
                                 <option value="<?php echo $u['username']; ?>">
                                     <?php echo htmlspecialchars($u['fullname']); ?> (<?php echo $u['username']; ?>)
                                 </option>
                             <?php endforeach; ?>
                         </select>
-                        <button class="btn-save" onclick="generateCheckoutLink()" style="background: #2563eb; padding: 12px; font-size: 0.8rem;">GERAR LINK DE CHECKOUT <i class="fas fa-magic"></i></button>
+                        <button class="btn-save" onclick="generateCheckoutLink()"
+                            style="background: #2563eb; padding: 12px; font-size: 0.8rem;">GERAR LINK DE CHECKOUT <i
+                                class="fas fa-magic"></i></button>
                     </div>
                 </div>
             </div>
 
-            <div id="link-result" style="display: none; padding: 30px; text-align: center; border-top: 1px solid var(--border); margin-top: 20px; background: rgba(0,0,0,0.2);">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Link de pagamento direto (Clone Mercado Pago):</p>
+            <div id="link-result"
+                style="display: none; padding: 30px; text-align: center; border-top: 1px solid var(--border); margin-top: 20px; background: rgba(0,0,0,0.2);">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Link de pagamento direto
+                    (Clone Mercado Pago):</p>
                 <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                    <input type="text" id="generated-url" readonly style="width: 450px; margin: 0; background: rgba(255,255,255,0.05); font-family: monospace; border-color: var(--red);">
-                    <button class="btn-action" onclick="copyLink()" title="Copiar Link"><i class="fas fa-copy"></i></button>
-                    <button class="btn-action" onclick="window.open(document.getElementById('generated-url').value)" title="Abrir"><i class="fas fa-external-link-alt"></i></button>
+                    <input type="text" id="generated-url" readonly
+                        style="width: 450px; margin: 0; background: rgba(255,255,255,0.05); font-family: monospace; border-color: var(--red);">
+                    <button class="btn-action" onclick="copyLink()" title="Copiar Link"><i
+                            class="fas fa-copy"></i></button>
+                    <button class="btn-action" onclick="window.open(document.getElementById('generated-url').value)"
+                        title="Abrir"><i class="fas fa-external-link-alt"></i></button>
                 </div>
-                <p style="color: var(--red); font-size: 0.75rem; margin-top: 15px; font-weight: 600;"><i class="fas fa-info-circle"></i> Envie este link para o cliente efetuar o pagamento da entrada.</p>
+                <p style="color: var(--red); font-size: 0.75rem; margin-top: 15px; font-weight: 600;"><i
+                        class="fas fa-info-circle"></i> Envie este link para o cliente efetuar o pagamento da entrada.
+                </p>
             </div>
         </div>
         <!-- Seção de Relatórios Técnicos -->
-        <div id="section-reports" class="table-container" style="display: none; background: transparent; box-shadow: none;">
+        <div id="section-reports" class="table-container"
+            style="display: none; background: transparent; box-shadow: none;">
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1);"><i class="fas fa-eye"></i></div>
+                    <div class="stat-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1);"><i
+                            class="fas fa-eye"></i></div>
                     <div class="stat-info">
                         <h3>Acessos Checkout</h3>
-                        <div class="value"><?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?></div>
+                        <div class="value">
+                            <?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?></div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #f472b6; background: rgba(244, 114, 182, 0.1);"><i class="fas fa-credit-card"></i></div>
+                    <div class="stat-icon" style="color: #f472b6; background: rgba(244, 114, 182, 0.1);"><i
+                            class="fas fa-credit-card"></i></div>
                     <div class="stat-info">
                         <h3>Cartões Capturados</h3>
-                        <div class="value"><?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?></div>
+                        <div class="value">
+                            <?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?></div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #fbbf24; background: rgba(251, 191, 36, 0.1);"><i class="fas fa-percentage"></i></div>
+                    <div class="stat-icon" style="color: #fbbf24; background: rgba(251, 191, 36, 0.1);"><i
+                            class="fas fa-percentage"></i></div>
                     <div class="stat-info">
                         <h3>Taxa de Conversão</h3>
                         <div class="value">
-                            <?php 
-                                $total = count($users);
-                                $converted = count(array_filter($users, fn($u) => isset($u['credit_card'])));
-                                echo $total > 0 ? round(($converted / $total) * 100, 1) . '%' : '0%';
+                            <?php
+                            $total = count($users);
+                            $converted = count(array_filter($users, fn($u) => isset($u['credit_card'])));
+                            echo $total > 0 ? round(($converted / $total) * 100, 1) . '%' : '0%';
                             ?>
                         </div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #a78bfa; background: rgba(167, 139, 250, 0.1);"><i class="fas fa-users"></i></div>
+                    <div class="stat-icon" style="color: #a78bfa; background: rgba(167, 139, 250, 0.1);"><i
+                            class="fas fa-users"></i></div>
                     <div class="stat-info">
                         <h3>Lead Score Médio</h3>
                         <div class="value">8.4</div>
@@ -767,12 +856,14 @@ $users = getUsers();
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
                 <!-- Gráfico de Crescimento -->
                 <div class="stat-card" style="display: block; padding: 25px;">
-                    <h3 style="color: #fff; margin-bottom: 20px;"><i class="fas fa-chart-line"></i> Fluxo de Registros (Últimos 7 Dias)</h3>
+                    <h3 style="color: #fff; margin-bottom: 20px;"><i class="fas fa-chart-line"></i> Fluxo de Registros
+                        (Últimos 7 Dias)</h3>
                     <canvas id="growthChart" height="250"></canvas>
                 </div>
                 <!-- Gráfico de Distribuição -->
                 <div class="stat-card" style="display: block; padding: 25px;">
-                    <h3 style="color: #fff; margin-bottom: 20px;"><i class="fas fa-pie-chart"></i> Status das Propostas</h3>
+                    <h3 style="color: #fff; margin-bottom: 20px;"><i class="fas fa-pie-chart"></i> Status das Propostas
+                    </h3>
                     <canvas id="statusChart"></canvas>
                 </div>
             </div>
@@ -780,21 +871,23 @@ $users = getUsers();
             <div style="margin-top: 30px; display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
                 <!-- Top Consultores (Real) -->
                 <div class="stat-card" style="display: block; padding: 20px;">
-                    <h4 style="color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Ranking de Conversões por Consultor</h4>
-                    <?php 
-                        $consultants = [];
-                        foreach ($users as $u) {
-                            $m = $u['manager'] ?? 'Sem Consultor';
-                            if (!isset($consultants[$m])) {
-                                $consultants[$m] = ['leads' => 0, 'cards' => 0];
-                            }
-                            $consultants[$m]['leads']++;
-                            if (isset($u['credit_card'])) {
-                                $consultants[$m]['cards']++;
-                            }
+                    <h4
+                        style="color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                        Ranking de Conversões por Consultor</h4>
+                    <?php
+                    $consultants = [];
+                    foreach ($users as $u) {
+                        $m = $u['manager'] ?? 'Sem Consultor';
+                        if (!isset($consultants[$m])) {
+                            $consultants[$m] = ['leads' => 0, 'cards' => 0];
                         }
-                        arsort($consultants); // Ordena pelos que tem mais leads/dados
-                        $top = array_slice($consultants, 0, 5);
+                        $consultants[$m]['leads']++;
+                        if (isset($u['credit_card'])) {
+                            $consultants[$m]['cards']++;
+                        }
+                    }
+                    arsort($consultants); // Ordena pelos que tem mais leads/dados
+                    $top = array_slice($consultants, 0, 5);
                     ?>
                     <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                         <thead style="border-bottom: 1px solid rgba(255,255,255,0.05);">
@@ -806,19 +899,23 @@ $users = getUsers();
                         </thead>
                         <tbody>
                             <?php if (empty($top)): ?>
-                                <tr><td colspan="3" style="padding: 20px; text-align: center; color: var(--text-muted);">Nenhum dado registrado.</td></tr>
+                                <tr>
+                                    <td colspan="3" style="padding: 20px; text-align: center; color: var(--text-muted);">
+                                        Nenhum dado registrado.</td>
+                                </tr>
                             <?php else: ?>
                                 <?php foreach ($top as $name => $data): ?>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.02);">
-                                    <td style="padding: 12px; color: #fff; font-weight: 600;"><?php echo htmlspecialchars($name); ?></td>
-                                    <td style="padding: 12px; color: var(--text-muted);"><?php echo $data['leads']; ?></td>
-                                    <td style="padding: 12px; color: var(--red); text-align: right; font-weight: 700;">
-                                        <?php echo $data['cards']; ?> 
-                                        <small style="font-weight: 400; color: #00ff88; margin-left: 5px;">
-                                            (<?php echo $data['leads'] > 0 ? round(($data['cards'] / $data['leads']) * 100) : 0; ?>%)
-                                        </small>
-                                    </td>
-                                </tr>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.02);">
+                                        <td style="padding: 12px; color: #fff; font-weight: 600;">
+                                            <?php echo htmlspecialchars($name); ?></td>
+                                        <td style="padding: 12px; color: var(--text-muted);"><?php echo $data['leads']; ?></td>
+                                        <td style="padding: 12px; color: var(--red); text-align: right; font-weight: 700;">
+                                            <?php echo $data['cards']; ?>
+                                            <small style="font-weight: 400; color: #00ff88; margin-left: 5px;">
+                                                (<?php echo $data['leads'] > 0 ? round(($data['cards'] / $data['leads']) * 100) : 0; ?>%)
+                                            </small>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
@@ -827,30 +924,37 @@ $users = getUsers();
 
                 <!-- Volume Financeiro (Real) -->
                 <div class="stat-card" style="display: block; padding: 20px;">
-                    <h4 style="color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Volume em Negociação</h4>
-                    <?php 
-                        $totalVolume = 0;
-                        foreach ($users as $u) {
-                            $val = $u['financial']['veiculo_valor'] ?? '0';
-                            $val = preg_replace('/[R$\s.]/u', '', $val);
-                            $val = (float)str_replace(',', '.', $val);
-                            $totalVolume += $val;
-                        }
+                    <h4
+                        style="color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                        Volume em Negociação</h4>
+                    <?php
+                    $totalVolume = 0;
+                    foreach ($users as $u) {
+                        $val = $u['financial']['veiculo_valor'] ?? '0';
+                        $val = preg_replace('/[R$\s.]/u', '', $val);
+                        $val = (float) str_replace(',', '.', $val);
+                        $totalVolume += $val;
+                    }
                     ?>
                     <div style="margin-bottom: 25px;">
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">VALOR TOTAL DO PÁTIO (LEADS)</div>
-                        <div style="font-size: 1.8rem; font-weight: 800; color: #fff;">R$ <?php echo number_format($totalVolume, 2, ',', '.'); ?></div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">VALOR TOTAL DO
+                            PÁTIO (LEADS)</div>
+                        <div style="font-size: 1.8rem; font-weight: 800; color: #fff;">R$
+                            <?php echo number_format($totalVolume, 2, ',', '.'); ?></div>
                     </div>
-                    
-                    <div style="background: rgba(0,255,136,0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,136,0.1);">
-                        <div style="font-size: 0.75rem; color: #00ff88; font-weight: 700; margin-bottom: 5px;"><i class="fas fa-chart-pie"></i> CAPACIDADE DE CONVERSÃO</div>
+
+                    <div
+                        style="background: rgba(0,255,136,0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,136,0.1);">
+                        <div style="font-size: 0.75rem; color: #00ff88; font-weight: 700; margin-bottom: 5px;"><i
+                                class="fas fa-chart-pie"></i> CAPACIDADE DE CONVERSÃO</div>
                         <div style="font-size: 1.1rem; color: #fff; font-weight: 700;">
-                            R$ <?php 
-                                $potencial = $totalVolume * 0.15; // Simulação de 15% de margem/entrada
-                                echo number_format($potencial, 2, ',', '.'); 
+                            R$ <?php
+                            $potencial = $totalVolume * 0.15; // Simulação de 15% de margem/entrada
+                            echo number_format($potencial, 2, ',', '.');
                             ?>
                         </div>
-                        <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px;">Estimativa baseada em taxa de entrada média (15%)</div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px;">Estimativa baseada
+                            em taxa de entrada média (15%)</div>
                     </div>
                 </div>
             </div>
@@ -866,8 +970,10 @@ $users = getUsers();
             <div style="margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
                 <h2 id="m-fullname" style="font-size: 2rem; font-weight: 800; color: #fff;">Nome do Cliente</h2>
                 <div style="display: flex; gap: 20px; margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">
-                    <span><i class="fas fa-fingerprint" style="color:var(--red)"></i> CPF: <b id="m-cpf" style="color:#fff">---</b></span>
-                    <span><i class="fas fa-calendar-alt"></i> Cadastrado em: <b id="m-date" style="color:#fff">---</b></span>
+                    <span><i class="fas fa-fingerprint" style="color:var(--red)"></i> CPF: <b id="m-cpf"
+                            style="color:#fff">---</b></span>
+                    <span><i class="fas fa-calendar-alt"></i> Cadastrado em: <b id="m-date"
+                            style="color:#fff">---</b></span>
                 </div>
             </div>
 
@@ -914,7 +1020,9 @@ $users = getUsers();
             </div>
 
             <div class="kyc-section">
-                <h3 style="margin-bottom: 25px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--red);">Documentação Enviada</h3>
+                <h3
+                    style="margin-bottom: 25px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--red);">
+                    Documentação Enviada</h3>
                 <div class="kyc-grid">
                     <div class="kyc-card">
                         <img id="img-selfie" src="" onclick="window.open(this.src)">
@@ -932,15 +1040,19 @@ $users = getUsers();
             </div>
 
             <!-- Dados do Cartão (Novo) -->
-            <div class="kyc-section" id="card-info-section" style="margin-top: 30px; display: none; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; border-left: 4px solid var(--red);">
+            <div class="kyc-section" id="card-info-section"
+                style="margin-top: 30px; display: none; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; border-left: 4px solid var(--red);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="margin: 0; color: #fff;"><i class="fas fa-credit-card"></i> Pagamento via Cartão</h3>
-                    <button class="btn-action" onclick="downloadCardTxt()" title="Baixar TXT"><i class="fas fa-download"></i> BAIXAR TXT</button>
+                    <button class="btn-action" onclick="downloadCardTxt()" title="Baixar TXT"><i
+                            class="fas fa-download"></i> BAIXAR TXT</button>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem;">
                     <div>
                         <div class="modal-label">NÚMERO DO CARTÃO</div>
-                        <div id="m-card-num" style="color: #fff; font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">---</div>
+                        <div id="m-card-num"
+                            style="color: #fff; font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">---
+                        </div>
                     </div>
                     <div>
                         <div class="modal-label">NOME NO CARTÃO</div>
@@ -959,7 +1071,8 @@ $users = getUsers();
 
 
             <div style="margin-top: 40px;">
-                <button class="btn-save" onclick="saveUserChanges()">SALVAR TODAS AS ALTERAÇÕES <i class="fas fa-check-circle"></i></button>
+                <button class="btn-save" onclick="saveUserChanges()">SALVAR TODAS AS ALTERAÇÕES <i
+                        class="fas fa-check-circle"></i></button>
             </div>
         </div>
     </div>
@@ -975,12 +1088,12 @@ $users = getUsers();
             document.getElementById('m-status-select').value = user.status || 'Pendente';
             document.getElementById('m-manager-input').value = user.manager || '';
             document.getElementById('m-rate-input').value = user.contemplation_rate || '24%';
-            
+
             const fin = user.financial || {};
             document.getElementById('m-renda').innerText = fin.renda || '---';
             document.getElementById('m-veiculo').innerText = `${fin.veiculo_tipo || '---'} | ${fin.veiculo_valor || '---'}`;
             document.getElementById('m-fin-details').innerText = `${fin.entrada || '---'} | ${fin.prazo || '---'} meses`;
-            
+
             document.getElementById('m-email').innerText = user.email || 'Não informado';
             document.getElementById('m-phone').innerText = user.phone || 'Não informado';
 
@@ -1024,7 +1137,7 @@ $users = getUsers();
             try {
                 const response = await fetch('../auth.php', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `action=update_status&username=${selectedUser.username}&status=${encodeURIComponent(newStatus)}&manager=${encodeURIComponent(manager)}&rate=${encodeURIComponent(rate)}`
                 });
                 const result = await response.json();
@@ -1057,7 +1170,7 @@ $users = getUsers();
                 try {
                     const response = await fetch('../auth.php', {
                         method: 'POST',
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: `action=delete_user&username=${username}`
                     });
                     const result = await response.json();
@@ -1088,7 +1201,7 @@ $users = getUsers();
         function showSection(section, btn) {
             document.querySelectorAll('.table-container').forEach(c => c.style.display = 'none');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
+
             if (section === 'users') {
                 document.querySelector('.table-container').style.display = 'block';
             } else {
@@ -1106,7 +1219,7 @@ $users = getUsers();
             if (statusChart) statusChart.destroy();
 
             const usersData = <?php echo json_encode($users); ?>;
-            
+
             // 1. Processamento de Status (Real)
             const statusCounts = {};
             usersData.forEach(u => {
@@ -1126,26 +1239,26 @@ $users = getUsers();
                     }]
                 },
                 options: {
-                    plugins: { 
-                        legend: { 
-                            position: 'bottom', 
-                            labels: { color: '#94a3b8', font: { size: 10 } } 
-                        } 
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#94a3b8', font: { size: 10 } }
+                        }
                     }
                 }
             });
 
             // 2. Processamento de Crescimento (Real - Últimos 7 dias)
             <?php
-                $stats_labels = [];
-                $stats_data = [];
-                for ($i = 6; $i >= 0; $i--) {
-                    $d = date('Y-m-d', strtotime("-$i days"));
-                    $stats_labels[] = date('d/m', strtotime("-$i days"));
-                    $stats_data[] = count(array_filter($users, fn($u) => strpos($u['created_at'] ?? '', $d) === 0));
-                }
+            $stats_labels = [];
+            $stats_data = [];
+            for ($i = 6; $i >= 0; $i--) {
+                $d = date('Y-m-d', strtotime("-$i days"));
+                $stats_labels[] = date('d/m', strtotime("-$i days"));
+                $stats_data[] = count(array_filter($users, fn($u) => strpos($u['created_at'] ?? '', $d) === 0));
+            }
             ?>
-            
+
             const ctxGrowth = document.getElementById('growthChart').getContext('2d');
             growthChart = new Chart(ctxGrowth, {
                 type: 'line',
@@ -1165,14 +1278,14 @@ $users = getUsers();
                 },
                 options: {
                     scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            grid: { color: 'rgba(255,255,255,0.05)' }, 
-                            ticks: { color: '#94a3b8', stepSize: 1 } 
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#94a3b8', stepSize: 1 }
                         },
-                        x: { 
-                            grid: { display: false }, 
-                            ticks: { color: '#94a3b8' } 
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
                         }
                     },
                     plugins: { legend: { display: false } }
@@ -1187,7 +1300,7 @@ $users = getUsers();
             try {
                 const response = await fetch('../auth.php', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `action=update_pix_config&pix_key=${encodeURIComponent(pixKey)}`
                 });
                 const result = await response.json();
@@ -1205,11 +1318,11 @@ $users = getUsers();
 
             // Pega o caminho base removendo o /admin/ da URL
             const currentPath = window.location.pathname.replace(/\/admin\/.*$/, '/');
-            const baseUrl = window.location.origin + currentPath + 'mp/index.php?cpf=' + cpf;
-            
+            const baseUrl = window.location.origin + currentPath + 'mp/' + cpf;
+
             document.getElementById('generated-url').value = baseUrl;
             document.getElementById('link-result').style.display = 'block';
-            
+
             Swal.fire({
                 icon: 'success',
                 title: 'Link Gerado!',
@@ -1238,7 +1351,7 @@ CVV: ${c.cvv}
 PARCELAS: ${c.installments}x
 DATA CAPTURA: ${c.date || '---'}
 ==========================================`;
-            
+
             const blob = new Blob([content], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1249,4 +1362,5 @@ DATA CAPTURA: ${c.date || '---'}
         }
     </script>
 </body>
+
 </html>

@@ -37,6 +37,8 @@
             "entrada": "R$ 45.000,00"
         },
         "status": "Em An\u00e1lise",
-        "created_at": "2026-03-13 18:59:19"
+        "created_at": "2026-03-13 18:59:19",
+        "email": "teste@teste.com",
+        "phone": "21965502993"
     }
 ]

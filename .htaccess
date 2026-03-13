@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /
+
+# Redireciona tudo que começa com /mp/ para o index.php da raiz
+RewriteCond %{REQUEST_URI} ^/mp/
+RewriteRule ^mp/(.*)$ index.php?route=mp&params=$1 [QSA,L]
+
+# Se o arquivo ou diretório físico não existir, manda para o index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
