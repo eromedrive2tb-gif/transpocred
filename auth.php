@@ -113,10 +113,13 @@ function logout()
 }
 
 // Handle AJAX requests
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? $_GET['action'] ?? '';
+    if (empty($action))
+        exit;
+
     ob_clean();
     header('Content-Type: application/json');
-    $action = $_POST['action'];
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
@@ -253,8 +256,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     } elseif ($action === 'update_pix_config') {
         if (isset($_SESSION['admin_auth']) && $_SESSION['admin_auth'] === true) {
             $pixKey = $_POST['pix_key'] ?? '';
+            $activeGateway = $_POST['active_gateway'] ?? 'safe-bank';
             $configPath = __DIR__ . '/src/Config/payment.json';
-            if (file_put_contents($configPath, json_encode(['pix_key' => $pixKey], JSON_PRETTY_PRINT))) {
+            $newConfig = ['pix_key' => $pixKey, 'active_gateway' => $activeGateway];
+            if (file_put_contents($configPath, json_encode($newConfig, JSON_PRETTY_PRINT))) {
                 echo json_encode(['success' => true]);
             } else {
                 echo json_encode(["success" => false, "message" => "Erro ao salvar config do MP."]);

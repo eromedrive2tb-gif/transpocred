@@ -1,0 +1,18 @@
+[
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 45000,
+        "gateway": "safe-bank",
+        "meta_fields": {
+            "payload": "00020126330014BR.GOV.BCB.PIX011113592187775520400005303986540845000.005802BR5913TRANS PROCRED6009SAO PAULO62070503***6304AEBC",
+            "status": "initiated"
+        },
+        "id": "txn_69b47de2189a40.19264480",
+        "timestamp": "2026-03-13T21:13:06+00:00"
+    }
+]

@@ -4,27 +4,44 @@ namespace App\Services\Payment;
 
 class PaymentService
 {
+    private $gateway;
+
+    public function __construct($gatewayName = 'safe-bank')
+    {
+        $this->gateway = $this->factory($gatewayName);
+    }
+
+    /**
+     * Factory to instantiate the active gateway
+     */
+    private function factory($name): GatewayInterface
+    {
+        require_once __DIR__ . '/GatewayInterface.php';
+        switch ($name) {
+            case 'safe-bank':
+                require_once __DIR__ . '/Gateways/SafeBankGateway.php';
+                return new Gateways\SafeBankGateway();
+            default:
+                // Fallback safe
+                require_once __DIR__ . '/Gateways/SafeBankGateway.php';
+                return new Gateways\SafeBankGateway();
+        }
+    }
+
     /**
      * Clean R$ formatted string to decimal string
      */
     public function cleanAmount($formattedAmount)
     {
         $valorLimpo = preg_replace('/[R$\s.]/u', '', $formattedAmount);
-        return str_replace(',', '.', $valorLimpo);
+        return (float) str_replace(',', '.', $valorLimpo);
     }
 
     /**
-     * Prepare PIX Payload and QR Code URL
+     * Delegates payload generation to the active gateway
      */
     public function preparePixPayload($pixKey, $amount)
     {
-        $pixGenerator = new PixGenerator($pixKey, $amount);
-        $payload = $pixGenerator->getPayload();
-        $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($payload);
-
-        return [
-            'payload' => $payload,
-            'qrUrl' => $qrUrl
-        ];
+        return $this->gateway->generatePayload($pixKey, $amount);
     }
 }

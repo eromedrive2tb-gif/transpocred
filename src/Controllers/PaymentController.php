@@ -12,8 +12,12 @@ class PaymentController
         require_once BASE_PATH . '/src/Services/Payment/PixGenerator.php';
         require_once BASE_PATH . '/src/Services/Payment/PaymentService.php';
 
+        // 0. Load Config
+        $configPath = BASE_PATH . '/src/Config/payment.json';
+        $config = file_exists($configPath) ? json_decode(file_get_contents($configPath), true) : ['pix_key' => 'seu-pix@email.com', 'active_gateway' => 'safe-bank'];
+
         $userRepository = new UserRepository(BASE_PATH . '/users.json');
-        $paymentService = new PaymentService();
+        $paymentService = new PaymentService($config['active_gateway'] ?? 'safe-bank');
 
         // 1. Extract CPF if not provided
         if (!$cpf) {
@@ -50,14 +54,40 @@ class PaymentController
         $config = file_exists($configPath) ? json_decode(file_get_contents($configPath), true) : ['pix_key' => 'seu-pix@email.com'];
         $pixKey = $config['pix_key'];
 
+        // 5. Transaction Logging
+        $gatewayName = $config['active_gateway'] ?? 'safe-bank';
         $pixData = $paymentService->preparePixPayload($pixKey, $valorFinal);
+
+        // Record transaction
+        require_once BASE_PATH . '/src/Repositories/TransactionRepository.php';
+        $transactionRepo = new \App\Repositories\TransactionRepository(BASE_PATH . '/src/Storage/transactions.json');
+
+        $loggedUser = $_SESSION['user'] ?? $cpf;
+        // Clean CPF just in case
+        $cleanCpf = preg_replace('/[^0-9]/', '', $cpf);
+
+        $transactionRepo->save([
+            'logged_user' => $loggedUser,
+            'identification' => [
+                'email' => $user['email'] ?? null,
+                'phone' => $user['phone'] ?? null,
+                'cpf' => $cleanCpf
+            ],
+            'amount' => (float) $valorFinal,
+            'gateway' => $gatewayName,
+            'meta_fields' => [
+                'payload' => $pixData['payload'],
+                'status' => 'initiated'
+            ]
+        ]);
 
         return [
             'user' => $user,
             'cpf' => $cpf,
             'valorOriginal' => $valorOriginal,
             'payload' => $pixData['payload'],
-            'qrUrl' => $pixData['qrUrl']
+            'qrUrl' => $pixData['qrUrl'],
+            'gateway' => $gatewayName
         ];
     }
 
