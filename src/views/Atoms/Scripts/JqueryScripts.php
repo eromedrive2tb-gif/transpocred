@@ -4,6 +4,6 @@
  * Read-Only: versões fixadas pelo WP/Elementor.
  */
 ?>
-<script type="text/javascript" src="js/v4-shims.min.js" id="font-awesome-4-shim-js"></script>
-<script type="text/javascript" src="js/jquery.min.js" id="jquery-core-js"></script>
-<script type="text/javascript" src="js/jquery-migrate.min.js" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="public/assets/vendor/js/v4-shims.min.js" id="font-awesome-4-shim-js"></script>
+<script type="text/javascript" src="public/assets/vendor/js/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="public/assets/vendor/js/jquery-migrate.min.js" id="jquery-migrate-js"></script>

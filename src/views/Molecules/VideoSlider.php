@@ -7,7 +7,7 @@
 <div class="elementor-element elementor-element-bfe3e14 elementor-widget elementor-widget-security_content_videos"
     data-id="bfe3e14" data-element_type="widget" data-widget_type="security_content_videos.default">
     <div class="elementor-widget-container">
-        <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+        <link rel="stylesheet" href="public/assets/vendor/css/jquery.fancybox.min.css">
         <section class="security-content-video">
             <div class="container">
 

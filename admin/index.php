@@ -999,7 +999,7 @@ $users = getUsers();
 
 
             const getPath = (p) => {
-                if (!p) return '../images/placeholder.jpg';
+                if (!p) return '../public/assets/vendor/images/placeholder.jpg';
                 return p.startsWith('data:') ? p : '../' + p;
             };
 

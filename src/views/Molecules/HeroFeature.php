@@ -22,7 +22,7 @@
 
 
                                     <div class="col-md-5 offset-md-0 col-12 offset-0 offset-lg-1 mobile_order_1">
-                                        <img src="images/PA-transpocred-original-1.png"
+                                        <img src="public/assets/vendor/images/PA-transpocred-original-1.png"
                                             alt="Cartas Contempladas: A forma mais rápida e segura de adquirir seu bem."
                                             class="left bottom yellow">
                                     </div>

@@ -13,9 +13,9 @@
                 <div class="elementor-element elementor-element-c7e0e8d elementor-widget elementor-widget-image"
                     data-id="c7e0e8d" data-element_type="widget" data-widget_type="image.default">
                     <div class="elementor-widget-container">
-                        <img decoding="async" width="1278" height="800" src="images/home-ailos_app-2-transpocred.png"
+                        <img decoding="async" width="1278" height="800" src="public/assets/vendor/images/home-ailos_app-2-transpocred.png"
                             class="attachment-full size-full wp-image-309343" alt=""
-                            srcset="images/home-ailos_app-2-transpocred.png 1278w, images/home-ailos_app-2-transpocred-300x188.png 300w, images/home-ailos_app-2-transpocred-1024x641.png 1024w, images/home-ailos_app-2-transpocred-768x481.png 768w"
+                            srcset="public/assets/vendor/images/home-ailos_app-2-transpocred.png 1278w, public/assets/vendor/images/home-ailos_app-2-transpocred-300x188.png 300w, public/assets/vendor/images/home-ailos_app-2-transpocred-1024x641.png 1024w, public/assets/vendor/images/home-ailos_app-2-transpocred-768x481.png 768w"
                             sizes="(max-width: 1278px) 100vw, 1278px">
                     </div>
                 </div>

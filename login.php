@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,8 @@
             --border-light: #e2e8f0;
         }
 
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -44,14 +46,21 @@
             border-radius: 20px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             animation: fadeIn 0.8s ease-out;
             z-index: 10;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .brand {
@@ -170,18 +179,27 @@
             display: none;
         }
 
-        .message.error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
-        .message.success { background: rgba(0, 208, 132, 0.1); color: var(--primary); border: 1px solid rgba(0, 208, 132, 0.2); }
+        .message.error {
+            background: rgba(255, 71, 87, 0.1);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.2);
+        }
 
-
+        .message.success {
+            background: rgba(0, 208, 132, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 208, 132, 0.2);
+        }
     </style>
 </head>
+
 <body>
     <canvas id="bg-canvas"></canvas>
 
     <div class="login-card">
         <div class="brand">
-            <img src="images/transpoicon.png" alt="Transprocred" style="max-width: 200px; height: auto; margin: 0 auto 10px;">
+            <img src="public/assets/vendor/images/transpoicon.png" alt="Transprocred"
+                style="max-width: 200px; height: auto; margin: 0 auto 10px;">
             <p>Acesse sua plataforma segura</p>
         </div>
 
@@ -198,7 +216,10 @@
             </div>
 
             <div class="captcha-box" id="fake-captcha">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
                 <span class="captcha-text">(site seguro, verificação)</span>
             </div>
 
@@ -278,7 +299,7 @@
                     body: formData
                 });
                 const result = await response.json();
-                
+
                 messageBox.textContent = result.message;
                 messageBox.style.display = 'block';
                 messageBox.className = 'message ' + (result.success ? 'success' : 'error');
@@ -301,7 +322,7 @@
         });
 
         // Fake Captcha feedback
-        document.getElementById('fake-captcha').addEventListener('click', function() {
+        document.getElementById('fake-captcha').addEventListener('click', function () {
             this.style.background = 'rgba(0, 208, 132, 0.3)';
             const text = this.querySelector('.captcha-text');
             text.textContent = "Verificado com sucesso! ✓";
@@ -312,4 +333,5 @@
         });
     </script>
 </body>
+
 </html>

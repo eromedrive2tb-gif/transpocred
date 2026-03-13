@@ -1,6 +1,6 @@
 <?php
 /**
- * Atom/Script: API Script — carrega o js/api.js com defer para não bloquear o parsing.
+ * Atom/Script: API Script — carrega o public/assets/vendor/js/api.js com defer para não bloquear o parsing.
  */
 ?>
-<script src="js/api.js" defer=""></script>
+<script src="public/assets/vendor/js/api.js" defer=""></script>

@@ -8,6 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, maximum-scale=5">
 <link href="//www.google-analytics.com" rel="dns-prefetch">
-<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="icon" type="image/png" href="public/assets/vendor/images/favicon.png">
 <meta name="google-site-verification" content="9hsWoAqPgw2q_55XL-JXnB_Tfhbk17ljs8slRmbqhLU">
 <link rel="dns-prefetch" href="//www.transpocred.coop.br">

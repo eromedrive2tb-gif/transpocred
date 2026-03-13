@@ -36,7 +36,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartões
@@ -56,7 +56,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartão de
@@ -78,7 +78,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_tag_plus_frota.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_tag_plus_frota.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartão
@@ -100,7 +100,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartão
@@ -120,7 +120,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title">
@@ -139,7 +139,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartões
@@ -158,7 +158,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartão
@@ -178,7 +178,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Cartão
@@ -197,7 +197,7 @@
                                                     <div class="common_columns-slider-item">
 
                                                         <div class="common_columns-slider-item-image"
-                                                            style="background-image:url(images/Icones_cartoes.svg);">
+                                                            style="background-image:url(public/assets/vendor/images/Icones_cartoes.svg);">
                                                         </div>
 
                                                         <p class="common_columns-slider-item-title"> Educação

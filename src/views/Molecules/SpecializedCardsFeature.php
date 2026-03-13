@@ -22,7 +22,7 @@
 
 
                                     <div class="col-md-5 offset-md-0 col-12 offset-0 offset-lg-1 mobile_order_1">
-                                        <img src="images/Imagem_solucoes_para_o_segmento-1.png"
+                                        <img src="public/assets/vendor/images/Imagem_solucoes_para_o_segmento-1.png"
                                             alt="Crédito especializado" class="none">
                                     </div>
 

@@ -33,9 +33,9 @@
                                                                 <div class="swiper-wrapper">
 
                                                                     <div class="swiper-slide white"
-                                                                        data-bg-desktop="images/caminhoes_scania.png"
-                                                                        data-bg-ipad="images/caminhoes_scania.png"
-                                                                        data-bg-mobile="images/caminhoes_scania.png"
+                                                                        data-bg-desktop="public/assets/vendor/images/caminhoes_scania.png"
+                                                                        data-bg-ipad="public/assets/vendor/images/caminhoes_scania.png"
+                                                                        data-bg-mobile="public/assets/vendor/images/caminhoes_scania.png"
                                                                         style="background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; background-color: #000 !important; min-height: 400px;">
                                                                         <div class="banner-filter"
                                                                             style="background:rgba(0, 20, 10, 0.75); mix-blend-mode:normal; height: 100%; width: 100%; position: absolute; top: 0; left: 0;">

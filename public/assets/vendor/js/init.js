@@ -60,5 +60,4 @@
     var i = document.getElementById('nuvidio-widget');
     i.appendChild(n);
   }
-})('nuvidio-widget-script', 0, {
-});
+})('nuvidio-widget-script', 0, {});

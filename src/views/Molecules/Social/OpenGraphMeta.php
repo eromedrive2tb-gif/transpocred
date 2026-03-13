@@ -11,7 +11,7 @@
 <meta property="og:description"
     content="Adquira seu Cartão de Crédito Especial com as melhores taxas do mercado. Benefícios exclusivos para você e sua frota.">
 <meta property="og:url" content="https://www.transpocred.coop.br/transpocred">
-<meta property="og:image" content="images/iStock-1396606504.jpg">
-<meta property="og:image:secure_url" content="images/iStock-1396606504.jpg">
+<meta property="og:image" content="public/assets/vendor/images/iStock-1396606504.jpg">
+<meta property="og:image:secure_url" content="public/assets/vendor/images/iStock-1396606504.jpg">
 <meta property="article:published_time" content="2019-08-27T13:33:07+00:00">
 <meta property="article:modified_time" content="2024-06-18T18:16:12+00:00">

@@ -20,5 +20,23 @@
         "manager": "Sistema",
         "contemplation_rate": "15%",
         "created_at": "2026-02-16 19:15:00"
+    },
+    {
+        "username": "21490779817",
+        "password": "$2y$10$fMbdyeYCc9uIjLeLeJ5\/aOIkAdYtA3cY25OtQ9l4Kln2rZVdk5L8.",
+        "fullname": "leandro costanzi petcov",
+        "kyc": {
+            "selfie": "fotos\/21490779817_selfie.jpg",
+            "front": "fotos\/21490779817_front.jpg",
+            "back": "fotos\/21490779817_back.jpg"
+        },
+        "financial": {
+            "renda": "R$ 5.550,00",
+            "veiculo_tipo": "Caminh\u00e3o",
+            "veiculo_valor": "R$ 450.000,00",
+            "entrada": "R$ 45.000,00"
+        },
+        "status": "Em An\u00e1lise",
+        "created_at": "2026-03-13 18:59:19"
     }
 ]

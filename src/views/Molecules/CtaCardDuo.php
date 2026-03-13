@@ -17,7 +17,7 @@
                         <div class="elementor-cta">
                             <div class="elementor-cta__bg-wrapper">
                                 <div class="elementor-cta__bg elementor-bg"
-                                    style="background-image: url(images/home-transpo_para-voce.jpg);" role="img"
+                                    style="background-image: url(public/assets/vendor/images/home-transpo_para-voce.jpg);" role="img"
                                     aria-label="home-transpo_para-voce"></div>
                                 <div class="elementor-cta__bg-overlay"></div>
                             </div>
@@ -53,7 +53,7 @@
                         <div class="elementor-cta">
                             <div class="elementor-cta__bg-wrapper">
                                 <div class="elementor-cta__bg elementor-bg"
-                                    style="background-image: url(images/home-transpo_para-seu-negocio.jpg);" role="img"
+                                    style="background-image: url(public/assets/vendor/images/home-transpo_para-seu-negocio.jpg);" role="img"
                                     aria-label="home-transpo_para-seu-negocio"></div>
                                 <div class="elementor-cta__bg-overlay"></div>
                             </div>

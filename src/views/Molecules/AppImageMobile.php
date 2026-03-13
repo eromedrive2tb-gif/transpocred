@@ -14,9 +14,9 @@
                     data-id="0e492c6" data-element_type="widget" data-widget_type="image.default">
                     <div class="elementor-widget-container">
                         <img decoding="async" width="412" height="700"
-                            src="images/home-ailos_app_mobile-2-Transpocred.png"
+                            src="public/assets/vendor/images/home-ailos_app_mobile-2-Transpocred.png"
                             class="attachment-full size-full wp-image-309345" alt=""
-                            srcset="images/home-ailos_app_mobile-2-Transpocred.png 412w, images/home-ailos_app_mobile-2-Transpocred-177x300.png 177w"
+                            srcset="public/assets/vendor/images/home-ailos_app_mobile-2-Transpocred.png 412w, public/assets/vendor/images/home-ailos_app_mobile-2-Transpocred-177x300.png 177w"
                             sizes="(max-width: 412px) 100vw, 412px">
                     </div>
                 </div>

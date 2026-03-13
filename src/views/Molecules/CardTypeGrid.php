@@ -16,7 +16,7 @@
                         <div class="elementor-cta">
                             <div class="elementor-cta__bg-wrapper">
                                 <div class="elementor-cta__bg elementor-bg"
-                                    style="background-image: url(images/home-transpo_credito.jpg);" role="img"
+                                    style="background-image: url(public/assets/vendor/images/home-transpo_credito.jpg);" role="img"
                                     aria-label="home-transpo_credito"></div>
                                 <div class="elementor-cta__bg-overlay"></div>
                             </div>
@@ -52,7 +52,7 @@
                         <div class="elementor-cta">
                             <div class="elementor-cta__bg-wrapper">
                                 <div class="elementor-cta__bg elementor-bg"
-                                    style="background-image: url(images/home-transpo_financiamentos.jpg);" role="img"
+                                    style="background-image: url(public/assets/vendor/images/home-transpo_financiamentos.jpg);" role="img"
                                     aria-label="home-transpo_financiamentos"></div>
                                 <div class="elementor-cta__bg-overlay"></div>
                             </div>
@@ -88,7 +88,7 @@
                         <div class="elementor-cta">
                             <div class="elementor-cta__bg-wrapper">
                                 <div class="elementor-cta__bg elementor-bg"
-                                    style="background-image: url(images/home-transpo_seguros.jpg);" role="img"
+                                    style="background-image: url(public/assets/vendor/images/home-transpo_seguros.jpg);" role="img"
                                     aria-label="home-transpo_seguros"></div>
                                 <div class="elementor-cta__bg-overlay"></div>
                             </div>
