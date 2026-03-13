@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="icon-send" transform="translate(-1007 -1380)">
+    <g id="Chat_Fixo" data-name="Chat Fixo" transform="translate(-190 700)">
+      <path id="Caminho_471" data-name="Caminho 471" d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Z" transform="translate(1197 680)" fill="#ffa300"/>
+    </g>
+    <g id="Grupo_915" data-name="Grupo 915" transform="translate(963 1130.557)">
+      <path id="Caminho_774" data-name="Caminho 774" d="M52,265.975V256.9a.577.577,0,0,1,.848-.51l8.549,4.538a.577.577,0,0,1,0,1.02l-8.549,4.538A.577.577,0,0,1,52,265.975Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Linha_164" data-name="Linha 164" x2="9.5" transform="translate(52 261.437)" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

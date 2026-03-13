@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42.552" height="42.552" viewBox="0 0 42.552 42.552">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00a8d7"/>
+      <stop offset="0.385" stop-color="#00a6d4"/>
+      <stop offset="0.616" stop-color="#009fcc"/>
+      <stop offset="0.807" stop-color="#0094bd"/>
+      <stop offset="0.975" stop-color="#0085a9"/>
+      <stop offset="1" stop-color="#0083a6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f7a600"/>
+      <stop offset="0.365" stop-color="#f4a400"/>
+      <stop offset="0.584" stop-color="#ec9e00"/>
+      <stop offset="0.765" stop-color="#dd9500"/>
+      <stop offset="0.924" stop-color="#c98800"/>
+      <stop offset="1" stop-color="#bd8000"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00a547"/>
+      <stop offset="0.429" stop-color="#00a245"/>
+      <stop offset="0.687" stop-color="#009a42"/>
+      <stop offset="0.899" stop-color="#028b3b"/>
+      <stop offset="1" stop-color="#038237"/>
+    </linearGradient>
+  </defs>
+  <g id="ailos-rings" transform="translate(0)">
+    <path id="Caminho_10" data-name="Caminho 10" d="M63.463,71.512a15.551,15.551,0,0,1-11.418,4.974c-.477,0-.948-.023-1.413-.065a16.934,16.934,0,0,1-10.063-.432A16.849,16.849,0,0,0,70.63,63.511,16.911,16.911,0,0,1,63.463,71.512Z" transform="translate(-29.443 -40.018)" fill="url(#linear-gradient)"/>
+    <path id="Caminho_11" data-name="Caminho 11" d="M58.542,25.442a15.613,15.613,0,0,1,11.376,8.5A16.787,16.787,0,0,1,74.5,43.425,16.85,16.85,0,0,0,48.968,23.257c.395-.027.793-.043,1.2-.043A16.773,16.773,0,0,1,58.542,25.442Z" transform="translate(-33.315 -19.932)" fill="url(#linear-gradient-2)"/>
+    <path id="Caminho_12" data-name="Caminho 12" d="M87.213,52.788A15.53,15.53,0,0,1,83.037,63.4a16.911,16.911,0,0,0,7.168-8,16.787,16.787,0,0,0-4.584-9.484A15.516,15.516,0,0,1,87.213,52.788Z" transform="translate(-49.018 -31.91)" fill="#906e0f"/>
+    <path id="Caminho_13" data-name="Caminho 13" d="M27.574,48.063a15.616,15.616,0,0,1,1.761-12.715,16.859,16.859,0,0,1,6.25-9.249,16.845,16.845,0,0,0-4.528,32.646,16.766,16.766,0,0,1-3.488-10.262C27.568,48.343,27.57,48.2,27.574,48.063Z" transform="translate(-19.932 -22.774)" fill="url(#linear-gradient-3)"/>
+    <path id="Caminho_14" data-name="Caminho 14" d="M47.649,77.956A15.6,15.6,0,0,1,34.1,66.842c0,.14-.005.28-.005.42a16.766,16.766,0,0,0,3.488,10.262,16.934,16.934,0,0,0,10.063.432Z" transform="translate(-26.461 -41.553)" fill="#007f92"/>
+    <path id="Caminho_15" data-name="Caminho 15" d="M37.374,35.312A15.613,15.613,0,0,1,53.2,28.248a16.773,16.773,0,0,0-8.379-2.228c-.4,0-.8.015-1.2.043A16.859,16.859,0,0,0,37.374,35.312Z" transform="translate(-27.971 -22.738)" fill="#006d33"/>
+  </g>
+</svg>

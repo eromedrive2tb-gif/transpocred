@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.577" height="26.226" viewBox="0 0 21.577 26.226">
+  <g id="icon-map-phone-yellow" transform="translate(1.366 5.939) rotate(-30)">
+    <path id="Caminho_96" data-name="Caminho 96" d="M9.146,4.705V.376A.376.376,0,0,0,8.77,0H4.058A4.058,4.058,0,0,0,0,4.058V17.79a4.058,4.058,0,0,0,4.058,4.058H8.77a.376.376,0,0,0,.376-.376V17.143a.376.376,0,0,0-.376-.376H5.936A1.871,1.871,0,0,1,4.065,14.9V6.952A1.871,1.871,0,0,1,5.936,5.081H8.77A.376.376,0,0,0,9.146,4.705Z" transform="translate(0 0)" fill="none" stroke="#ffa300" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="Linha_5" data-name="Linha 5" y2="4.603" transform="translate(6.151 0.392)" fill="none" stroke="#ffa300" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+    <line id="Linha_6" data-name="Linha 6" y2="4.603" transform="translate(6.151 17.159)" fill="none" stroke="#ffa300" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="icon-range-grip" transform="translate(-374 -780)">
+    <circle id="Elipse_31" data-name="Elipse 31" cx="12" cy="12" r="12" transform="translate(374 780)" fill="#007d8a"/>
+    <g id="Seta" transform="translate(382.828 789) rotate(45)">
+      <line id="Linha_2" data-name="Linha 2" y1="4" transform="translate(0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+      <line id="Linha_4" data-name="Linha 4" x2="4" transform="translate(0 4)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+    </g>
+    <g id="Seta-2" data-name="Seta" transform="translate(388.828 794.657) rotate(-135)">
+      <line id="Linha_2-2" data-name="Linha 2" y1="4" transform="translate(0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+      <line id="Linha_4-2" data-name="Linha 4" x2="4" transform="translate(0 4)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

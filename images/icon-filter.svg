@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="17" viewBox="0 0 54 17">
+  <g id="icon-filter" transform="translate(-41 -453)">
+    <text id="Filtrar" transform="translate(62 466)" fill="#575757" font-size="12" font-family="OpenSans-Regular, Open Sans"><tspan x="0" y="0">Filtrar</tspan></text>
+    <g id="Grupo_254" data-name="Grupo 254" transform="translate(6 -1)">
+      <g id="Retângulo_614" data-name="Retângulo 614" transform="translate(35 457)" fill="#fff" stroke="#575757" stroke-width="1">
+        <rect width="12" height="3" rx="1.5" stroke="none"/>
+        <rect x="0.5" y="0.5" width="11" height="2" rx="1" fill="none"/>
+      </g>
+      <g id="Retângulo_615" data-name="Retângulo 615" transform="translate(36 461)" fill="#fff" stroke="#575757" stroke-width="1">
+        <rect width="10" height="3" rx="1.5" stroke="none"/>
+        <rect x="0.5" y="0.5" width="9" height="2" rx="1" fill="none"/>
+      </g>
+      <g id="Retângulo_616" data-name="Retângulo 616" transform="translate(37 465)" fill="#fff" stroke="#575757" stroke-width="1">
+        <rect width="8" height="3" rx="1.5" stroke="none"/>
+        <rect x="0.5" y="0.5" width="7" height="2" rx="1" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
