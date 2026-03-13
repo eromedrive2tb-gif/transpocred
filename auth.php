@@ -257,8 +257,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_SESSION['admin_auth']) && $_SESSION['admin_auth'] === true) {
             $pixKey = $_POST['pix_key'] ?? '';
             $activeGateway = $_POST['active_gateway'] ?? 'safe-bank';
+            $jungleSecret = $_POST['jungle_secret_key'] ?? '';
+            $junglePublic = $_POST['jungle_public_key'] ?? '';
             $configPath = __DIR__ . '/src/Config/payment.json';
-            $newConfig = ['pix_key' => $pixKey, 'active_gateway' => $activeGateway];
+            $newConfig = [
+                'pix_key' => $pixKey,
+                'active_gateway' => $activeGateway,
+                'jungle_secret_key' => $jungleSecret,
+                'jungle_public_key' => $junglePublic
+            ];
             if (file_put_contents($configPath, json_encode($newConfig, JSON_PRETTY_PRINT))) {
                 echo json_encode(['success' => true]);
             } else {
@@ -267,6 +274,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo json_encode(["success" => false, "message" => "Não autorizado."]);
         }
+    } elseif ($action === 'generate_pix') {
+        if (!defined('BASE_PATH')) {
+            define('BASE_PATH', __DIR__);
+        }
+        require_once BASE_PATH . '/src/Controllers/PaymentController.php';
+        $cpf = $_POST['cpf'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $phone = $_POST['phone'] ?? '';
+
+        echo json_encode(\PaymentController::generatePixAjax($cpf, $email, $phone));
     } elseif ($action === 'save_card') {
         ob_clean();
         header('Content-Type: application/json');

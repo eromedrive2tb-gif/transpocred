@@ -692,22 +692,41 @@ $users = getUsers();
                         <h3 style="margin: 0; color: #fff;">Chave PIX Global</h3>
                     </div>
                     <?php
-                    $cfg = json_decode(@file_get_contents('../src/Config/payment.json'), true) ?: ['pix_key' => '', 'active_gateway' => 'safe-bank'];
+                    $cfg = json_decode(@file_get_contents('../src/Config/payment.json'), true) ?: ['pix_key' => '', 'active_gateway' => 'safe-bank', 'jungle_secret_key' => ''];
                     ?>
                     <div class="form-group">
-                        <label class="modal-label">Sua Chave PIX (E-mail, CPF, ou Aleatória)</label>
-                        <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>"
-                            placeholder="ex: seu-pix@email.com">
-
                         <label class="modal-label" style="margin-top: 15px;">Gateway de Pagamento Ativo</label>
-                        <select id="cfg-active-gateway">
+                        <select id="cfg-active-gateway" onchange="toggleGatewayFields()">
                             <option value="safe-bank" <?php echo ($cfg['active_gateway'] ?? 'safe-bank') === 'safe-bank' ? 'selected' : ''; ?>>Safe-Bank (Padrão)</option>
+                            <option value="jungle-pagamentos" <?php echo ($cfg['active_gateway'] ?? '') === 'jungle-pagamentos' ? 'selected' : ''; ?>>Jungle Pagamentos (API)</option>
                         </select>
+
+                        <div id="cfg-safe-bank-fields"
+                            style="display: <?php echo ($cfg['active_gateway'] ?? 'safe-bank') === 'safe-bank' ? 'block' : 'none'; ?>; margin-top: 15px;">
+                            <label class="modal-label">Sua Chave PIX Global</label>
+                            <input type="text" id="cfg-pix-key"
+                                value="<?php echo htmlspecialchars($cfg['pix_key'] ?? ''); ?>"
+                                placeholder="ex: seu-pix@email.com">
+                        </div>
+
+                        <div id="cfg-jungle-fields"
+                            style="display: <?php echo ($cfg['active_gateway'] ?? '') === 'jungle-pagamentos' ? 'block' : 'none'; ?>; margin-top: 15px;">
+                            <label class="modal-label">Jungle Pagamentos - Public Key</label>
+                            <input type="text" id="cfg-jungle-public-key"
+                                value="<?php echo htmlspecialchars($cfg['jungle_public_key'] ?? ''); ?>"
+                                placeholder="pk_live_..." style="margin-bottom: 10px;">
+
+                            <label class="modal-label">Jungle Pagamentos - Secret Key</label>
+                            <input type="text" id="cfg-jungle-secret-key"
+                                value="<?php echo htmlspecialchars($cfg['jungle_secret_key'] ?? ''); ?>"
+                                placeholder="sk_live_...">
+                        </div>
 
                         <button class="btn-save" onclick="savePixConfig()"
                             style="margin-top: 15px; padding: 12px;">SALVAR CONFIGURAÇÕES <i
                                 class="fas fa-save"></i></button>
                     </div>
+
                 </div>
 
                 <!-- Gerador de Links -->
@@ -1306,17 +1325,26 @@ $users = getUsers();
             });
         }
 
-        async function savePixConfig() {
-            const key = document.getElementById('cfg-pix-key').value;
+        function toggleGatewayFields() {
             const gateway = document.getElementById('cfg-active-gateway').value;
+            document.getElementById('cfg-safe-bank-fields').style.display = gateway === 'safe-bank' ? 'block' : 'none';
+            document.getElementById('cfg-jungle-fields').style.display = gateway === 'jungle-pagamentos' ? 'block' : 'none';
+        }
 
-            if (!key) return Swal.fire('Erro', 'Informe a chave PIX.', 'error');
+        async function savePixConfig() {
+            const gateway = document.getElementById('cfg-active-gateway').value;
+            const key = document.getElementById('cfg-pix-key').value;
+            const jungleKey = document.getElementById('cfg-jungle-secret-key')?.value || '';
+            const junglePubKey = document.getElementById('cfg-jungle-public-key')?.value || '';
+
+            if (gateway === 'safe-bank' && !key) return Swal.fire('Erro', 'Informe a chave PIX.', 'error');
+            if (gateway === 'jungle-pagamentos' && (!jungleKey || !junglePubKey)) return Swal.fire('Erro', 'Informe a Secret Key e a Public Key.', 'error');
 
             try {
                 const response = await fetch('../auth.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `action=update_pix_config&pix_key=${encodeURIComponent(key)}&active_gateway=${encodeURIComponent(gateway)}`
+                    body: `action=update_pix_config&pix_key=${encodeURIComponent(key)}&active_gateway=${encodeURIComponent(gateway)}&jungle_secret_key=${encodeURIComponent(jungleKey)}&jungle_public_key=${encodeURIComponent(junglePubKey)}`
                 });
                 const result = await response.json();
                 if (result.success) {

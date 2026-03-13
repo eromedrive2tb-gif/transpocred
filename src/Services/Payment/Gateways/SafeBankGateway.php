@@ -15,7 +15,7 @@ class SafeBankGateway implements GatewayInterface
         }
     }
 
-    public function generatePayload(string $pixKey, float $amount): array
+    public function generatePayload(string $pixKey, float $amount, array $options = []): array
     {
         $pixGenerator = new PixGenerator($pixKey, $amount);
         $payload = $pixGenerator->getPayload();

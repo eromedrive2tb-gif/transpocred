@@ -1,4 +1,6 @@
 {
     "pix_key": "13592187775",
-    "active_gateway": "safe-bank"
+    "active_gateway": "jungle-pagamentos",
+    "jungle_secret_key": "sk_live_v2dU5puwnJDqbEqoAzR5xKABdNQQYgyYaUBeh0IAp6",
+    "jungle_public_key": "pk_live_v2Mnsmv4BmmFvlpeO0aQMu2O9rDHdUxjIT"
 }

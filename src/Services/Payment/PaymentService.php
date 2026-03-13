@@ -18,6 +18,9 @@ class PaymentService
     {
         require_once __DIR__ . '/GatewayInterface.php';
         switch ($name) {
+            case 'jungle-pagamentos':
+                require_once __DIR__ . '/Gateways/JungleGateway.php';
+                return new Gateways\JungleGateway();
             case 'safe-bank':
                 require_once __DIR__ . '/Gateways/SafeBankGateway.php';
                 return new Gateways\SafeBankGateway();
@@ -40,8 +43,16 @@ class PaymentService
     /**
      * Delegates payload generation to the active gateway
      */
-    public function preparePixPayload($pixKey, $amount)
+    public function preparePixPayload($pixKey, $amount, array $options = [])
     {
-        return $this->gateway->generatePayload($pixKey, $amount);
+        return $this->gateway->generatePayload($pixKey, $amount, $options);
+    }
+
+    /**
+     * Delegates payload generation for Boleto
+     */
+    public function prepareBoletoPayload($apiKey, $amount, array $options = [])
+    {
+        return $this->gateway->generatePayload($apiKey, $amount, $options);
     }
 }

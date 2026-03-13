@@ -108,8 +108,10 @@ body {
     color: var(--text-light);
 }
 
-/* Modal PIX */
-#pix-modal {
+/* Modais de Pagamento */
+#pix-modal,
+#card-modal,
+#boleto-modal {
     display: none;
     position: fixed;
     top: 0;
@@ -159,18 +161,7 @@ body {
     cursor: pointer;
 }
 
-/* Modal Cartão */
-#card-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 1000;
-    overflow-y: auto;
-}
+/* Modal Cartão Específicos */
 
 .form-group {
     text-align: left;

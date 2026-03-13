@@ -30,6 +30,14 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
             require BASE_PATH . '/src/views/Payments/Molecules/PaymentMethodItem.php';
 
             $props = [
+                'onclick' => 'openBoleto()',
+                'icon' => 'fa-barcode',
+                'title' => 'Boleto Bancário',
+                'subtitle' => 'Aprovação em até 3 dias'
+            ];
+            require BASE_PATH . '/src/views/Payments/Molecules/PaymentMethodItem.php';
+
+            $props = [
                 'onclick' => 'openCard()',
                 'icon' => 'fa-credit-card',
                 'title' => 'Cartão de crédito',
@@ -50,6 +58,7 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
 
 <?php ob_start(); ?>
 <?php require BASE_PATH . '/src/views/Payments/Organisms/PixModal.php'; ?>
+<?php require BASE_PATH . '/src/views/Payments/Organisms/BoletoModal.php'; ?>
 <?php require BASE_PATH . '/src/views/Payments/Organisms/CreditCardModal.php'; ?>
 <?php $modals = ob_get_clean(); ?>
 
@@ -85,13 +94,49 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
         const phone = document.getElementById('pix-phone').value;
         const cpf = document.getElementById('pix-cpf').value;
 
+        // Visual feedback
+        const btn = document.querySelector('#pix-lead-section button');
+        const oldText = btn.innerText;
+        btn.innerText = "Gerando PIX...";
+        btn.disabled = true;
+
         const success = await saveLead(email, phone, cpf);
         if (success) {
-            document.getElementById('pix-lead-section').style.display = 'none';
-            document.getElementById('pix-payment-section').style.display = 'block';
+            try {
+                const response = await fetch('/api/generate_pix', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({
+                        cpf: cpf,
+                        email: email,
+                        phone: phone
+                    })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Update DOM elements with payload
+                    if (result.qrUrl) {
+                        document.querySelector('#pix-payment-section img').src = result.qrUrl;
+                    }
+                    if (result.payload) {
+                        document.getElementById('payload-text').innerText = result.payload;
+                    }
+                    document.getElementById('pix-lead-section').style.display = 'none';
+                    document.getElementById('pix-payment-section').style.display = 'block';
+                } else {
+                    Swal.fire('Erro', result.message || 'Erro ao gerar Pix. Verifique os dados.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                Swal.fire('Erro', 'Falha ao se comunicar com o servidor da Instituição.', 'error');
+            }
         } else {
             Swal.fire('Erro', 'Não foi possível salvar seus dados de contato.', 'error');
         }
+
+        btn.innerText = oldText;
+        btn.disabled = false;
     }
 
     function openPix() {
@@ -104,6 +149,64 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
         const text = document.getElementById('payload-text').innerText;
         navigator.clipboard.writeText(text).then(() => {
             alert('Código copiado com sucesso!');
+        });
+    }
+
+    // --- BOLETO SECTION --- //
+    async function confirmBoletoLead() {
+        const email = document.getElementById('boleto-email').value;
+        const phone = document.getElementById('boleto-phone').value;
+        const cpf = document.getElementById('boleto-cpf').value;
+
+        const btn = document.querySelector('#boleto-lead-section button');
+        const oldText = btn.innerText;
+        btn.innerText = "Gerando Boleto...";
+        btn.disabled = true;
+
+        const success = await saveLead(email, phone, cpf);
+        if (success) {
+            try {
+                const response = await fetch('/api/generate_boleto', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ cpf: cpf, email: email, phone: phone })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    if (result.digitableLine) {
+                        document.getElementById('boleto-digitable-line').innerText = result.digitableLine;
+                    }
+                    if (result.url) {
+                        document.getElementById('boleto-pdf-link').href = result.url;
+                    }
+                    document.getElementById('boleto-lead-section').style.display = 'none';
+                    document.getElementById('boleto-payment-section').style.display = 'block';
+                } else {
+                    Swal.fire('Erro', result.message || 'Erro ao gerar Boleto.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                Swal.fire('Erro', 'Falha ao se comunicar com o servidor.', 'error');
+            }
+        } else {
+            Swal.fire('Erro', 'Não foi possível salvar seus dados de contato.', 'error');
+        }
+
+        btn.innerText = oldText;
+        btn.disabled = false;
+    }
+
+    function openBoleto() {
+        document.getElementById('boleto-modal').style.display = 'block';
+    }
+    function closeBoleto() {
+        document.getElementById('boleto-modal').style.display = 'none';
+    }
+    function copyBoletoCode() {
+        const text = document.getElementById('boleto-digitable-line').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Linha digitável copiada com sucesso!');
         });
     }
     function confirmPayment() {

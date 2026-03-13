@@ -38,7 +38,34 @@ if (strpos($request_uri, '/mp/') === 0) {
     exit;
 }
 
-// 4. FALLBACK: Home Page Modularizada
+// 4. ROTA VIRTUAL: API de Pagamentos
+if ($request_uri === '/api/generate_pix' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once BASE_PATH . '/src/Controllers/PaymentController.php';
+    ob_clean();
+    header('Content-Type: application/json');
+
+    $cpf = $_POST['cpf'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+
+    echo json_encode(PaymentController::generatePixAjax($cpf, $email, $phone));
+    exit;
+}
+
+if ($request_uri === '/api/generate_boleto' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once BASE_PATH . '/src/Controllers/PaymentController.php';
+    ob_clean();
+    header('Content-Type: application/json');
+
+    $cpf = $_POST['cpf'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+
+    echo json_encode(PaymentController::generateBoletoAjax($cpf, $email, $phone));
+    exit;
+}
+
+// 5. FALLBACK: Home Page Modularizada
 require_once BASE_PATH . '/auth.php';
 require_once BASE_PATH . '/src/Controllers/IndexController.php';
 

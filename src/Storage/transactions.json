@@ -14,5 +14,667 @@
         },
         "id": "txn_69b47de2189a40.19264480",
         "timestamp": "2026-03-13T21:13:06+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 45000,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b4816000e938.27620320",
+        "timestamp": "2026-03-13T21:28:00+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 45000,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b481c7b38e70.57722992",
+        "timestamp": "2026-03-13T21:29:43+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 45000,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b481d25e31c0.25354140",
+        "timestamp": "2026-03-13T21:29:54+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 45000,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b481d8812108.31048313",
+        "timestamp": "2026-03-13T21:30:00+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 45000,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b48287523589.17350803",
+        "timestamp": "2026-03-13T21:32:55+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 900,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b482b8113e84.35351616",
+        "timestamp": "2026-03-13T21:33:44+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 900,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b483d5bae596.76209332",
+        "timestamp": "2026-03-13T21:38:29+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 530,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b484fe80b788.76353170",
+        "timestamp": "2026-03-13T21:43:26+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 30,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/82d5ce38-5e07-4724-a8f7-de42780aeffb5204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***630418B6",
+            "qrUrl": "",
+            "transaction_id": 129422947,
+            "raw": {
+                "id": 129422947,
+                "amount": 3000,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "3703c1b5-05f7-4039-a8dd-a881e4d996fe",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/3703c1b5-05f7-4039-a8dd-a881e4d996fe",
+                "createdAt": "2026-03-13T21:44:17.000Z",
+                "updatedAt": "2026-03-13T21:44:17.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 205,
+                    "netAmount": 2795
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/82d5ce38-5e07-4724-a8f7-de42780aeffb5204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***630418B6",
+                    "expirationDate": "2026-03-16",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 3000,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 3000,
+                        "netAmount": 2795,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b4853102afa7.85624938",
+        "timestamp": "2026-03-13T21:44:17+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 490,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b485c987b6f2.69076934",
+        "timestamp": "2026-03-13T21:46:49+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 300,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b485d58970c1.23026799",
+        "timestamp": "2026-03-13T21:47:01+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 200,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: {\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+            "raw_response": {
+                "message": "{\"msg\":\"Operation failed! Please try again or contact our support team\"}",
+                "status": 418
+            }
+        },
+        "id": "txn_69b485e01498e9.01076443",
+        "timestamp": "2026-03-13T21:47:12+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 99,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/2e33958a-631e-4bd9-88e0-e492082ab0415204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***630426ED",
+            "qrUrl": "",
+            "transaction_id": 129423088,
+            "raw": {
+                "id": 129423088,
+                "amount": 9900,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "7a7e78a8-bedf-4e95-b2ac-0cb9c79b87f0",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/7a7e78a8-bedf-4e95-b2ac-0cb9c79b87f0",
+                "createdAt": "2026-03-13T21:47:29.000Z",
+                "updatedAt": "2026-03-13T21:47:29.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 378,
+                    "netAmount": 9522
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/2e33958a-631e-4bd9-88e0-e492082ab0415204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***630426ED",
+                    "expirationDate": "2026-03-16",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 9900,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 9900,
+                        "netAmount": 9522,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b485f0b67d51.73335759",
+        "timestamp": "2026-03-13T21:47:28+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 99,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/32675087-985d-4bb7-a1e4-cfc3cf9592d25204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***63042E90",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br%2Fv2%2Fqr%2Fcob%2F32675087-985d-4bb7-a1e4-cfc3cf9592d25204000053039865802BR5925AMERICAN+TAILOR+MADE+MARK6009SAO+PAULO62070503%2A%2A%2A63042E90",
+            "transaction_id": 129423299,
+            "raw": {
+                "id": 129423299,
+                "amount": 9900,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "2c13eae2-9eb6-4c0c-ba93-fe588778994a",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/2c13eae2-9eb6-4c0c-ba93-fe588778994a",
+                "createdAt": "2026-03-13T21:51:10.000Z",
+                "updatedAt": "2026-03-13T21:51:10.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 378,
+                    "netAmount": 9522
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/32675087-985d-4bb7-a1e4-cfc3cf9592d25204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***63042E90",
+                    "expirationDate": "2026-03-16",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 9900,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 9900,
+                        "netAmount": 9522,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b486cd396cd5.80468537",
+        "timestamp": "2026-03-13T21:51:09+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 99,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: M\u00e9todo de pagamento n\u00e3o permitido na adquirente (PN-AX).",
+            "raw_response": {
+                "message": "M\u00e9todo de pagamento n\u00e3o permitido na adquirente (PN-AX).",
+                "status": 412
+            }
+        },
+        "id": "txn_69b48825544363.08950009",
+        "timestamp": "2026-03-13T21:56:53+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 99,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: M\u00e9todo de pagamento n\u00e3o permitido na adquirente (PN-AX).",
+            "raw_response": {
+                "message": "M\u00e9todo de pagamento n\u00e3o permitido na adquirente (PN-AX).",
+                "status": 412
+            }
+        },
+        "id": "txn_69b488b0dad2e5.93508717",
+        "timestamp": "2026-03-13T21:59:12+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 99,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: M\u00e9todo de pagamento n\u00e3o permitido na adquirente (PN-AX).",
+            "raw_response": {
+                "message": "M\u00e9todo de pagamento n\u00e3o permitido na adquirente (PN-AX).",
+                "status": 412
+            }
+        },
+        "id": "txn_69b48941869b55.88545846",
+        "timestamp": "2026-03-13T22:01:37+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 99,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/e62674d2-3399-4bf0-94a7-851a0cc971a75204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***6304CC4A",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br%2Fv2%2Fqr%2Fcob%2Fe62674d2-3399-4bf0-94a7-851a0cc971a75204000053039865802BR5925AMERICAN+TAILOR+MADE+MARK6009SAO+PAULO62070503%2A%2A%2A6304CC4A",
+            "transaction_id": 129423823,
+            "raw": {
+                "id": 129423823,
+                "amount": 9900,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "edfda447-e089-433c-a113-88302f7ada39",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/edfda447-e089-433c-a113-88302f7ada39",
+                "createdAt": "2026-03-13T22:01:58.000Z",
+                "updatedAt": "2026-03-13T22:01:58.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 378,
+                    "netAmount": 9522
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226940014br.gov.bcb.pix2572qrcode.somossimpay.com.br\/v2\/qr\/cob\/e62674d2-3399-4bf0-94a7-851a0cc971a75204000053039865802BR5925AMERICAN TAILOR MADE MARK6009SAO PAULO62070503***6304CC4A",
+                    "expirationDate": "2026-03-16",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 9900,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 9900,
+                        "netAmount": 9522,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b48955213fe7.17242929",
+        "timestamp": "2026-03-13T22:01:57+00:00"
     }
 ]
