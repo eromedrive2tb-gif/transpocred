@@ -17,7 +17,7 @@
   }
 })('nuvidio-widget-container');
 
-(function(window) {
+(function (window) {
   if (window.NuVidioWidget) {
     return
   }
@@ -25,7 +25,7 @@
   window.NuVidioWidget._c = []
   const methods = ['init'];
   methods.forEach(methodName => {
-    window.NuVidioWidget[methodName] = function() {
+    window.NuVidioWidget[methodName] = function () {
       window.NuVidioWidget._c.push([methodName, arguments]);
     }
   });
@@ -36,30 +36,29 @@
     var n = document.createElement('script');
     for (var a in ((n.src =
       'https://widget.nuvidio.com/js/nuvidio-widget.min.js'),
-    (n.type = 'text/javascript'),
-    (n.id = t),
-    (n.async = true),
-    r))
-    n.onload = (() => {
-      if (window.NuVidioWidget._c.length > 0) {
-        window.NuVidioWidget._c.forEach((f) => {
-          switch(f[0]) {
-            case 'init':
-              window.NuVidio.init(...f[1]);
-              break;
+      (n.type = 'text/javascript'),
+      (n.id = t),
+      (n.async = true),
+      r))
+      n.onload = (() => {
+        if (window.NuVidioWidget._c.length > 0) {
+          window.NuVidioWidget._c.forEach((f) => {
+            switch (f[0]) {
+              case 'init':
+                window.NuVidio.init(...f[1]);
+                break;
+            }
+          });
+        } else {
+          if (window.NuVidio && window.NuVidioId) {
+            window.NuVidio.init(window.NuVidioId, window.NuVidioConfigs);
           }
-        });
-      } else {
-        if (window.NuVidio && window.NuVidioId) {
-          window.NuVidio.init(window.NuVidioId, window.NuVidioConfigs);
         }
-      }
-      window.NuVidioWidget.init = window.NuVidio.init;
-    });
+        window.NuVidioWidget.init = window.NuVidio.init;
+      });
     r.hasOwnProperty(a) && n.setAttribute(a, r[a]);
     var i = document.getElementById('nuvidio-widget');
     i.appendChild(n);
   }
 })('nuvidio-widget-script', 0, {
-  crossorigin: 'anonymous',
 });

@@ -1,0 +1,10 @@
+<?php
+/**
+ * Molecule/Seo: Schema JSON-LD — estruturado AIOSEO com BreadcrumbList, Organization, WebPage e WebSite.
+ * Read-Only: dados gerados pelo plugin AIOSEO. Não modificar os valores de conteúdo.
+ */
+?>
+<script type="application/ld+json" class="aioseo-schema">
+        {"@context":"https:\/\/schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https:\/\/www.transpocred.coop.br\/transpocred#breadcrumblist","itemListElement":[{"@type":"ListItem","@id":"https:\/\/www.transpocred.coop.br\/#listItem","position":1,"name":"In\u00edcio","item":"https:\/\/www.transpocred.coop.br\/","nextItem":"https:\/\/www.transpocred.coop.br\/transpocred#listItem"},{"@type":"ListItem","@id":"https:\/\/www.transpocred.coop.br\/transpocred#listItem","position":2,"name":"Transpocred","previousItem":"https:\/\/www.transpocred.coop.br\/#listItem"}]},{"@type":"Organization","@id":"https:\/\/www.transpocred.coop.br\/#organization","name":"Ailos","description":"Cooperativa de cr\u00e9dito","url":"https:\/\/www.transpocred.coop.br\/","telephone":"+558006472200","sameAs":["https:\/\/www.youtube.com\/c\/sistemaailos"]},{"@type":"WebPage","@id":"https:\/\/www.transpocred.coop.br\/transpocred#webpage","url":"https:\/\/www.transpocred.coop.br\/transpocred","name":"Solu\u00e7\u00f5es financeiras feitas por quem entende de transportes \u2013 Transpocred","description":"Transpocred: a \u00fanica institui\u00e7\u00e3o financeira cooperativa dos segmentos de transporte, log\u00edstica e Correios. Conhe\u00e7a nossos produtos e servi\u00e7os.","inLanguage":"pt-BR","isPartOf":{"@id":"https:\/\/www.transpocred.coop.br\/#website"},"breadcrumb":{"@id":"https:\/\/www.transpocred.coop.br\/transpocred#breadcrumblist"},"datePublished":"2019-08-27T10:33:07-03:00","dateModified":"2024-06-18T15:16:12-03:00"},{"@type":"WebSite","@id":"https:\/\/www.transpocred.coop.br\/#website","url":"https:\/\/www.transpocred.coop.br\/","name":"Ailos","description":"Cooperativa de cr\u00e9dito","inLanguage":"pt-BR","publisher":{"@id":"https:\/\/www.transpocred.coop.br\/#organization"}}]}
+    </script>
+<!-- All in One SEO Pro -->

