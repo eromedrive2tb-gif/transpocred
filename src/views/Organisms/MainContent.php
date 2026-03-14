@@ -12,7 +12,7 @@
 
 <?php require BASE_PATH . '/src/views/Molecules/BannerSlider.php'; ?>
 
-<?php require BASE_PATH . '/src/views/Molecules/TrustTagline.php'; ?>
+<?php require BASE_PATH . '/src/views/Molecules/VidarTagline.php'; ?>
 
 <?php require BASE_PATH . '/src/views/Molecules/HeroFeature.php'; ?>
 
