@@ -1,0 +1,35 @@
+[2026-03-13 23:12:37] /api/kyc_lookup POST: {"cpf":"99999999999"}
+[2026-03-13 23:14:03] /api/kyc_lookup POST: {"cpf":"99999999999"}
+[2026-03-13 23:15:36] /api/kyc_lookup POST: {"cpf":"99999999999"}
+[2026-03-13 23:17:15] /api/kyc_lookup POST: {"cpf":"99999999999"}
+[2026-03-13 23:19:01] /api/login POST: {"username":"99999999999","password":"password123"}
+[2026-03-13 23:23:50] /api/kyc_lookup POST: {"cpf":"13592187775"}
+[2026-03-13 23:24:06] /api/kyc_lookup POST: {"cpf":"99999999999"}
+[2026-03-13 23:24:18] /api/register POST: {"username":"13592187775","password":"Grau1234","fullname":"isaac dugim assad","renda":"R$ 5.550,00","veiculo_tipo":"Caminh\u00e3o","veiculo_valor":"R$ 450.000,00","entrada":"R$ 45.000,00","kyc_selfie":"","kyc_front":"","kyc_back":"","captcha":"verified"}
+[2026-03-13 23:26:40] /api/update_lead POST: {"username":"13592187775","email":"teste@teste.com","phone":"21965502993"}
+[2026-03-13 23:26:40] /api/generate_pix POST: {"cpf":"13592187775","email":"teste@teste.com","phone":"21965502993"}
+[2026-03-13 23:33:00] /api/login POST: {"username":"21490779817","password":"Grau1234"}
+[2026-03-13 23:39:50] /api/update_lead POST: {"username":"13592187775","email":"teste@teste.com","phone":"21965502993"}
+[2026-03-13 23:39:50] /api/generate_pix POST: {"cpf":"13592187775","email":"teste@teste.com","phone":"21965502993"}
+[2026-03-13 23:40:35] /api/kyc_lookup POST: {"cpf":"05489369191"}
+[2026-03-13 23:41:16] /api/kyc_lookup POST: {"cpf":"05489369191"}
+[2026-03-13 23:42:11] /api/kyc_lookup POST: {"cpf":"05489369191"}
+[2026-03-13 23:42:41] /api/kyc_lookup POST: {"cpf":"13592187775"}
+[2026-03-13 23:43:43] /api/kyc_lookup POST: {"cpf":"05489369191"}
+[2026-03-13 23:44:45] /api/kyc_lookup POST: {"cpf":"05489369191"}
+[2026-03-13 23:48:05] /api/kyc_lookup POST: {"cpf":"00000000000"}
+[2026-03-13 23:48:46] /api/kyc_lookup POST: {"cpf":"00000000000"}
+[2026-03-13 23:48:58] [KYC_LOOKUP] CPF: 00000000000 | Time: 12.3617s | Error: Connection Failed (Timeout)
+[2026-03-13 23:50:39] /api/kyc_lookup POST: {"cpf":"05489369191"}
+[2026-03-13 23:50:39] [KYC_LOOKUP] CPF: 05489369191 | Time: 0.527s
+[2026-03-13 23:50:57] /api/kyc_lookup POST: {"cpf":"21490779817"}
+[2026-03-13 23:50:57] [KYC_LOOKUP] CPF: 21490779817 | Time: 0.3685s
+[2026-03-13 23:51:08] /api/kyc_lookup POST: {"cpf":"13592187775"}
+[2026-03-13 23:51:20] [KYC_LOOKUP] CPF: 13592187775 | Time: 12.0627s | Error: Connection Failed (Timeout)
+[2026-03-13 23:51:23] /api/kyc_lookup POST: {"cpf":"13592187775"}
+[2026-03-13 23:51:35] [KYC_LOOKUP] CPF: 13592187775 | Time: 12.1313s | Error: Connection Failed (Timeout)
+[2026-03-13 23:51:57] /api/kyc_lookup POST: {"cpf":"13592187775"}
+[2026-03-13 23:52:09] [KYC_LOOKUP] CPF: 13592187775 | Time: 12.1036s | Error: Connection Failed (Timeout)
+[2026-03-13 23:52:39] /api/kyc_lookup POST: {"cpf":"13592187775"}
+[2026-03-13 23:52:51] [KYC_LOOKUP] CPF: 13592187775 | Time: 12.1082s | Error: Connection Failed (Timeout)
+[2026-03-13 23:58:45] /api/login POST: {"username":"21490779817","password":"Grau1234"}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,8 @@
             --border-light: #e2e8f0;
         }
 
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -33,7 +35,7 @@
             border-radius: 20px;
             width: 100%;
             max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border-light);
         }
 
@@ -85,11 +87,29 @@
             color: #fff;
         }
 
-        h2 { margin-bottom: 10px; font-weight: 600; color: var(--primary); }
-        p { color: #64748b; font-size: 0.9rem; margin-bottom: 25px; }
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
 
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
+        p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
         input {
             width: 100%;
             padding: 14px;
@@ -99,7 +119,11 @@
             transition: border 0.3s;
             box-sizing: border-box;
         }
-        input:focus { outline: none; border-color: var(--primary); }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
 
         .btn {
             width: 100%;
@@ -112,8 +136,15 @@
             cursor: pointer;
             transition: opacity 0.3s;
         }
-        .btn:hover { opacity: 0.9; }
-        .btn:disabled { background: #94a3b8; cursor: not-allowed; }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
 
         .option-card {
             border: 1px solid var(--border-light);
@@ -125,27 +156,54 @@
             display: flex;
             align-items: center;
         }
-        .option-card:hover { border-color: var(--primary); background: #f0f9ff; }
-        .option-card.selected { border-color: var(--primary); background: #f0f9ff; box-shadow: 0 0 0 2px var(--primary); }
 
-        #register-steps > div { display: none; }
-        #register-steps > div.active { display: block; animation: slideIn 0.4s ease-out; }
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: #f0f9ff;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        #register-steps>div {
+            display: none;
+        }
+
+        #register-steps>div.active {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .loading-spinner {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
+            border: 3px solid rgba(255, 255, 255, .3);
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         .contemplation-gauge {
             width: 100%;
@@ -156,12 +214,14 @@
             overflow: hidden;
             position: relative;
         }
+
         .contemplation-fill {
             height: 100%;
             width: 20%;
             background: #ef4444;
             transition: all 0.5s ease;
         }
+
         .chance-badge {
             font-size: 0.75rem;
             padding: 2px 8px;
@@ -169,6 +229,7 @@
             color: #fff;
             font-weight: 700;
         }
+
         .progress-container {
             width: 100%;
             height: 12px;
@@ -178,12 +239,14 @@
             margin: 20px 0;
             display: none;
         }
+
         .progress-bar {
             height: 100%;
             width: 0%;
             background: linear-gradient(to right, #ef4444, #eab308, #22c55e);
             transition: width 0.1s linear;
         }
+
         .analysis-status {
             text-align: center;
             font-weight: 600;
@@ -192,6 +255,7 @@
             font-size: 1.1rem;
             display: none;
         }
+
         .analysis-spinner {
             width: 60px;
             height: 60px;
@@ -202,6 +266,7 @@
             margin: 0 auto 20px;
             display: none;
         }
+
         .success-checkmark {
             width: 80px;
             height: 80px;
@@ -215,9 +280,19 @@
             font-size: 2.5rem;
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes popIn { 0% { scale: 0; } 100% { scale: 1; } }
+
+        @keyframes popIn {
+            0% {
+                scale: 0;
+            }
+
+            100% {
+                scale: 1;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="step-indicator">
@@ -243,16 +318,21 @@
                     <label>Nome Completo</label>
                     <input type="text" id="reg-nome" placeholder="Como no seu documento">
                 </div>
-                
+
                 <!-- Simple Portuguese CAPTCHA -->
-                <div style="margin: 20px 0; padding: 15px; border: 1px solid var(--border-light); border-radius: 12px; text-align: center;">
+                <div
+                    style="margin: 20px 0; padding: 15px; border: 1px solid var(--border-light); border-radius: 12px; text-align: center;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                         <input type="checkbox" id="human-check" style="width: 22px; height: 22px; cursor: pointer;">
-                        <label for="human-check" style="margin: 0; font-size: 0.95rem; cursor: pointer;">Não sou um robô</label>
+                        <label for="human-check" style="margin: 0; font-size: 0.95rem; cursor: pointer;">Não sou um
+                            robô</label>
                     </div>
-                    <p id="captcha-status" style="margin-top: 10px; font-size: 0.85rem; color: #007d89; font-weight: 600; display: none;"><i class="fas fa-check-circle"></i> Verificado</p>
+                    <p id="captcha-status"
+                        style="margin-top: 10px; font-size: 0.85rem; color: #007d89; font-weight: 600; display: none;">
+                        <i class="fas fa-check-circle"></i> Verificado
+                    </p>
                 </div>
-                
+
                 <button class="btn" id="btn-next-1" disabled>Continuar</button>
             </div>
 
@@ -275,7 +355,8 @@
                     <input type="text" id="reg-renda" placeholder="R$ 0,00">
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);" onclick="showStep(1)">Voltar</button>
+                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);"
+                        onclick="showStep(1)">Voltar</button>
                     <button class="btn" id="btn-next-2">Próximo</button>
                 </div>
             </div>
@@ -286,7 +367,8 @@
                 <p>Qual tipo de veículo você busca?</p>
                 <div class="form-group">
                     <label>Tipo de Veículo</label>
-                    <select id="reg-veiculo-tipo" style="width: 100%; padding: 14px; border: 1px solid var(--border-light); border-radius: 12px; font-size: 1rem;">
+                    <select id="reg-veiculo-tipo"
+                        style="width: 100%; padding: 14px; border: 1px solid var(--border-light); border-radius: 12px; font-size: 1rem;">
                         <option value="Caminhão">Caminhão</option>
                         <option value="Van">Van</option>
                         <option value="Ônibus">Ônibus</option>
@@ -297,7 +379,8 @@
                     <input type="text" id="reg-veiculo-valor" placeholder="R$ 0,00">
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);" onclick="showStep(2)">Voltar</button>
+                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);"
+                        onclick="showStep(2)">Voltar</button>
                     <button class="btn" id="btn-next-3">Próximo</button>
                 </div>
             </div>
@@ -307,12 +390,14 @@
                 <h2>Entrada e Prazo</h2>
                 <p>Defina sua proposta de entrada e o prazo.</p>
                 <div class="form-group">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
                         <label style="margin-bottom: 0;">Valor de Entrada</label>
-                        <span id="perc-display" style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">10%</span>
+                        <span id="perc-display"
+                            style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">10%</span>
                     </div>
                     <input type="text" id="reg-entrada" placeholder="R$ 0,00">
-                    
+
                     <div class="contemplation-gauge">
                         <div id="gauge-fill" class="contemplation-fill"></div>
                     </div>
@@ -325,7 +410,8 @@
                     </p>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);" onclick="showStep(3)">Voltar</button>
+                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);"
+                        onclick="showStep(3)">Voltar</button>
                     <button class="btn" id="btn-next-4">Próximo</button>
                 </div>
             </div>
@@ -343,7 +429,8 @@
                     <input type="password" id="reg-pass-confirm" placeholder="••••••••">
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);" onclick="showStep(4)">Voltar</button>
+                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark);"
+                        onclick="showStep(4)">Voltar</button>
                     <button class="btn" id="btn-next-5">Próximo</button>
                 </div>
             </div>
@@ -352,22 +439,31 @@
             <div id="step-7">
                 <h2>Revisão</h2>
                 <p>Verifique se os dados estão corretos.</p>
-                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--border-light);">
-                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Nome:</strong> <span id="rev-nome"></span></div>
-                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>CPF:</strong> <span id="rev-cpf"></span></div>
-                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Valor Desejado:</strong> <span id="rev-valor"></span></div>
-                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Entrada:</strong> <span id="rev-entrada"></span></div>
-                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Chance de Contemplação:</strong> <span id="rev-chance" style="color: var(--primary); font-weight: 700;">24%</span></div>
-                    <div style="font-size: 0.9rem;"><strong>Tempo Estimado:</strong> <span id="rev-tempo">8 dias</span></div>
+                <div
+                    style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--border-light);">
+                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Nome:</strong> <span
+                            id="rev-nome"></span></div>
+                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>CPF:</strong> <span
+                            id="rev-cpf"></span></div>
+                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Valor Desejado:</strong> <span
+                            id="rev-valor"></span></div>
+                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Entrada:</strong> <span
+                            id="rev-entrada"></span></div>
+                    <div style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Chance de Contemplação:</strong> <span
+                            id="rev-chance" style="color: var(--primary); font-weight: 700;">24%</span></div>
+                    <div style="font-size: 0.9rem;"><strong>Tempo Estimado:</strong> <span id="rev-tempo">8 dias</span>
+                    </div>
                 </div>
                 <div id="review-area">
                     <button class="btn" id="btn-finish">Enviar para Análise</button>
-                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark); margin-top: 10px;" onclick="showStep(5)">Voltar</button>
+                    <button class="btn" style="background: #f1f5f9; color: var(--text-dark); margin-top: 10px;"
+                        onclick="showStep(5)">Voltar</button>
                 </div>
 
                 <div id="simulation-area" style="text-align: center; padding: 20px 0; display: none;">
                     <div class="analysis-spinner" id="main-spinner"></div>
-                    <div class="analysis-status" id="status-text">Consultando situação financeira e analisando os dados...</div>
+                    <div class="analysis-status" id="status-text">Consultando situação financeira e analisando os
+                        dados...</div>
                     <div class="progress-container" id="prog-cont">
                         <div class="progress-bar" id="prog-bar"></div>
                     </div>
@@ -378,22 +474,28 @@
             <div id="step-8">
                 <div class="success-checkmark" id="check-icon" style="display: flex;"><i class="fas fa-check"></i></div>
                 <h2 style="color: #22c55e; text-align: center;">Crédito Pré-Aprovado!</h2>
-                <p style="text-align: center; margin-bottom: 25px;">Sua proposta foi analisada com sucesso e você possui um limite disponível imediato.</p>
-                
-                <div style="background: #f0f9ff; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #bae6fd; text-align: center;">
-                    <div style="color: #0369a1; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px;">Saldo Pré-Aprovado</div>
+                <p style="text-align: center; margin-bottom: 25px;">Sua proposta foi analisada com sucesso e você possui
+                    um limite disponível imediato.</p>
+
+                <div
+                    style="background: #f0f9ff; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #bae6fd; text-align: center;">
+                    <div
+                        style="color: #0369a1; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px;">
+                        Saldo Pré-Aprovado</div>
                     <div style="font-size: 2.2rem; font-weight: 800; color: #0369a1;" id="final-balance"></div>
                     <div style="margin-top: 15px; font-size: 0.9rem; color: #0c4a6e;">
-                        <i class="fas fa-info-circle"></i> Para concluir, você deve verificar sua identidade no conta digital após o login.
+                        <i class="fas fa-info-circle"></i> Para concluir, você deve verificar sua identidade no conta
+                        digital após o login.
                     </div>
                 </div>
 
                 <button class="btn" id="btn-go-finish">Concluir e Acessar Conta Digital</button>
             </div>
         </div>
-        
+
         <p style="text-align:center; margin-top:20px; margin-bottom:0;">
-            Já tem conta? <a href="login.php" style="color: var(--primary); font-weight:600; text-decoration:none;">Login</a>
+            Já tem conta? <a href="login.php"
+                style="color: var(--primary); font-weight:600; text-decoration:none;">Login</a>
         </p>
     </div>
 
@@ -412,13 +514,13 @@
 
         const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8'];
         let currentStep = 0;
-        
+
         let captchaVerified = false;
 
         function showStep(idx) {
             document.querySelectorAll('#register-steps > div').forEach(d => d.classList.remove('active'));
             document.getElementById(steps[idx]).classList.add('active');
-            
+
             document.querySelectorAll('.step').forEach((s, i) => {
                 s.classList.remove('active', 'done');
                 if (i === idx) s.classList.add('active');
@@ -436,7 +538,7 @@
                 alert("Por favor, preencha os dados corretamente.");
                 return;
             }
-            
+
             if (!captchaVerified) {
                 alert("Por favor, verifique que você não é um robô antes de continuar.");
                 return;
@@ -447,10 +549,10 @@
             btn.innerHTML = '<span class="loading-spinner"></span> Consultando...';
 
             try {
-                const response = await fetch('auth.php', {
+                const response = await fetch('/api/kyc_lookup', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: `action=kyc_lookup&cpf=${cpf}`
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `cpf=${cpf}`
                 });
                 const result = await response.json();
 
@@ -476,11 +578,11 @@
         function generateKycOptions(realDob) {
             const container = document.getElementById('kyc-options');
             container.innerHTML = '';
-            
+
             const [d, m, y] = realDob.split('/');
             const fakes = [
-                `${String(Math.min(28, parseInt(d)+2)).padStart(2,'0')}/${m}/${parseInt(y)-1}`,
-                `${d}/${String(Math.min(12, parseInt(m)+1)).padStart(2,'0')}/${y}`
+                `${String(Math.min(28, parseInt(d) + 2)).padStart(2, '0')}/${m}/${parseInt(y) - 1}`,
+                `${d}/${String(Math.min(12, parseInt(m) + 1)).padStart(2, '0')}/${y}`
             ];
 
             const options = [...fakes, realDob].sort(() => Math.random() - 0.5);
@@ -571,7 +673,7 @@
             if (veiculoValor > 0) {
                 const perc = (val / veiculoValor) * 100;
                 document.getElementById('perc-display').textContent = Math.floor(perc) + '%';
-                
+
                 let chance = 24;
                 let color = '#ef4444';
                 let label = 'BAIXA';
@@ -579,7 +681,7 @@
 
                 if (perc >= 10 && perc < 20) {
                     chance = 24 + (perc - 10) * 1.5;
-                    color = '#ef4444'; 
+                    color = '#ef4444';
                     label = 'BAIXA';
                     gaugeWidth = 20 + (perc - 10) * 2;
                 } else if (perc >= 20 && perc < 30) {
@@ -601,12 +703,12 @@
 
                 const fill = document.getElementById('gauge-fill');
                 const chanceDisplay = document.getElementById('chance-val');
-                
+
                 fill.style.width = gaugeWidth + '%';
                 fill.style.background = color;
                 chanceDisplay.style.background = color;
                 chanceDisplay.textContent = `${label} (${Math.floor(chance)}%)`;
-                
+
                 userData.contemplation_chance = Math.floor(chance);
             }
         });
@@ -650,7 +752,7 @@
             document.getElementById('rev-entrada').textContent = userData.entrada;
             document.getElementById('rev-chance').textContent = (userData.contemplation_chance || 24) + '%';
             document.getElementById('final-balance').textContent = userData.veiculo_valor;
-            
+
             showStep(6);
         });
 
@@ -667,7 +769,7 @@
             const interval = setInterval(() => {
                 progress += 1; // 10s (100 / 100 increments of 100ms)
                 bar.style.width = Math.min(progress, 100) + '%';
-                
+
                 if (progress >= 100) {
                     clearInterval(interval);
                     showStep(7); // Final step
@@ -682,24 +784,19 @@
             btn.innerHTML = '<span class="loading-spinner"></span> Finalizando...';
 
             const formData = new FormData();
-            formData.append('action', 'register');
             formData.append('username', userData.cpf.replace(/\D/g, ''));
             formData.append('password', userData.password);
             formData.append('fullname', userData.nome);
-            
-            // New fields
             formData.append('renda', userData.renda);
             formData.append('veiculo_tipo', userData.veiculo_tipo);
             formData.append('veiculo_valor', userData.veiculo_valor);
             formData.append('entrada', userData.entrada);
-            
-            // Empty KYC for now
             formData.append('kyc_selfie', '');
             formData.append('kyc_front', '');
             formData.append('kyc_back', '');
             formData.append('captcha', captchaVerified ? 'verified' : '');
 
-            const response = await fetch('auth.php', {
+            const response = await fetch('/api/register', {
                 method: 'POST',
                 body: formData
             });
@@ -714,11 +811,11 @@
                 btn.textContent = 'Enviar para Análise';
             }
         });
-        
+
         // Handle the simple Portuguese captcha
-        document.getElementById('human-check').addEventListener('change', function() {
+        document.getElementById('human-check').addEventListener('change', function () {
             const nextBtn = document.getElementById('btn-next-1');
-            
+
             if (this.checked) {
                 captchaVerified = true;
                 document.getElementById('captcha-status').style.display = 'block';
@@ -731,7 +828,9 @@
         });
     </script>
 </body>
+
 </html>
-    <!-- Removed the fake captcha script since we're using a simpler solution -->
+<!-- Removed the fake captcha script since we're using a simpler solution -->
 </body>
+
 </html>

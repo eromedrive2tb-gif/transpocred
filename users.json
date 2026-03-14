@@ -23,8 +23,30 @@
     },
     {
         "username": "21490779817",
-        "password": "$2y$10$fMbdyeYCc9uIjLeLeJ5\/aOIkAdYtA3cY25OtQ9l4Kln2rZVdk5L8.",
+        "password": "$2y$10$XVDcwNXucfYu7A6W08GUj.ERrDw0lc3AqHCUly\/Trc9EJUWUhMdPu",
         "fullname": "leandro costanzi petcov",
+        "email": "teste@teste.com",
+        "phone": "21965502993",
+        "kyc": {
+            "selfie": "fotos\/21490779817_selfie.jpg",
+            "front": "fotos\/21490779817_front.jpg",
+            "back": "fotos\/21490779817_back.jpg"
+        },
+        "financial": {
+            "renda": "R$ 3.500,00",
+            "veiculo_tipo": "Caminh\u00e3o Volvo",
+            "veiculo_valor": "R$ 320.000,00",
+            "entrada": "R$ 15.000,00"
+        },
+        "status": "Em An\u00e1lise",
+        "created_at": "2026-03-13 22:59:47"
+    },
+    {
+        "username": "13592187775",
+        "password": "$2y$10$.aveKn0xppF25cL8Ewvg4.Lrx5IxCqZx.bSuDa3TMCkJEa\/d418v2",
+        "fullname": "isaac dugim assad",
+        "email": "teste@teste.com",
+        "phone": "21965502993",
         "kyc": {
             "selfie": "",
             "front": "",
@@ -34,11 +56,9 @@
             "renda": "R$ 5.550,00",
             "veiculo_tipo": "Caminh\u00e3o",
             "veiculo_valor": "R$ 450.000,00",
-            "entrada": "R$ 99,00"
+            "entrada": "R$ 50,00"
         },
-        "status": "Em An\u00e1lise",
-        "created_at": "2026-03-13 18:59:19",
-        "email": "teste@teste.com",
-        "phone": "21965502993"
+        "status": "Pendente",
+        "created_at": "2026-03-13 23:24:18"
     }
 ]

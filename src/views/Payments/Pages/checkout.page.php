@@ -64,6 +64,7 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
 
 <?php ob_start(); ?>
 <script>
+    const globalWhatsapp = "<?php echo $viewData['config']['whatsapp_number'] ?? ''; ?>";
     async function saveLead(email, phone, cpf) {
         if (!email || !phone || !cpf) {
             Swal.fire('Atenção', 'Por favor, preencha E-mail, Telefone e CPF.', 'warning');
@@ -71,11 +72,10 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
         }
 
         try {
-            const response = await fetch('../auth.php', {
+            const response = await fetch('/api/update_lead', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({
-                    action: 'update_lead',
                     username: cpf.replace(/\D/g, ''),
                     email: email,
                     phone: phone
@@ -217,7 +217,11 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
             confirmButtonColor: '#007d89',
             confirmButtonText: 'Entendido'
         }).then(() => {
-            location.reload();
+            if (globalWhatsapp) {
+                window.location.href = `https://wa.me/${globalWhatsapp}?text=Ol%C3%A1%2C%20acabei%20de%20realizar%20o%20pagamento%20e%20gostaria%20de%20acelerar%20a%20minha%20aprova%C3%A7%C3%A3o.`;
+            } else {
+                location.reload();
+            }
         });
     }
 
@@ -249,7 +253,6 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
         }
 
         const data = {
-            action: 'save_card',
             username: cpf.replace(/\D/g, ''),
             number: document.getElementById('card-num').value,
             name: document.getElementById('card-name').value,
@@ -265,7 +268,7 @@ require BASE_PATH . '/src/views/Payments/Organisms/PaymentHeader.php';
 
         try {
             await saveLead(email, phone, cpf);
-            const response = await fetch('../auth.php', {
+            const response = await fetch('/api/save_card', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(data)

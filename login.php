@@ -290,13 +290,15 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(form);
-            formData.append('action', isLogin ? 'login' : 'register');
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const url = isLogin ? '/api/login' : '/api/register';
 
             try {
-                const response = await fetch('auth.php', {
+                const response = await fetch(url, {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
                 });
                 const result = await response.json();
 

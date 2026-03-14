@@ -5,23 +5,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-define('USERS_FILE', __DIR__ . '/users.json');
+require_once __DIR__ . '/src/Repositories/UserRepository.php';
+require_once __DIR__ . '/src/Repositories/ConfigRepository.php';
 
-function getUsers() {
-    if (!file_exists(USERS_FILE)) return [];
-    return json_decode(file_get_contents(USERS_FILE), true) ?: [];
-}
+$userRepo = new \App\Repositories\UserRepository(__DIR__ . '/users.json');
+$configRepo = new \App\Repositories\ConfigRepository(__DIR__ . '/src/Config/payment.json');
 
-$username = $_SESSION['user'];
-$users = getUsers();
-$user = null;
-
-foreach ($users as $u) {
-    if ($u['username'] === $username) {
-        $user = $u;
-        break;
-    }
-}
+$username = preg_replace('/[^0-9]/', '', $_SESSION['user'] ?? '');
+$user = $userRepo->findByUsername($username);
 
 if (!$user) {
     header("Location: auth.php?action=logout");
@@ -29,10 +20,14 @@ if (!$user) {
 }
 $userStatus = $user['status'] ?? 'Pendente';
 $userStatusColor = '#94a3b8';
-if ($userStatus === 'Aprovado') $userStatusColor = '#00d084';
-if ($userStatus === 'Pré-aprovado' || $userStatus === 'Pendente' || $userStatus === 'Em Análise') $userStatusColor = '#f59e0b';
-if ($userStatus === 'Bloqueado') $userStatusColor = '#ef4444';
-if ($userStatus === 'Recusado') $userStatusColor = '#1e293b';
+if ($userStatus === 'Aprovado')
+    $userStatusColor = '#00d084';
+if ($userStatus === 'Pré-aprovado' || $userStatus === 'Pendente' || $userStatus === 'Em Análise')
+    $userStatusColor = '#f59e0b';
+if ($userStatus === 'Bloqueado')
+    $userStatusColor = '#ef4444';
+if ($userStatus === 'Recusado')
+    $userStatusColor = '#1e293b';
 
 // Helper to calculate financial values
 $fin = $user['financial'] ?? [];
@@ -43,7 +38,8 @@ $prazo = $fin['prazo'] ?? '0';
 $veiculoTipo = $fin['veiculo_tipo'] ?? '---';
 
 // Numeric clean function
-function parseCurrency($str) {
+function parseCurrency($str)
+{
     return (float) str_replace(['R$', '.', ','], ['', '', '.'], $str);
 }
 
@@ -53,13 +49,16 @@ $restante = $valorVeiculo - $entrada;
 $percentualEntrada = ($valorVeiculo > 0) ? round(($entrada / $valorVeiculo) * 100) : 0;
 
 
-function formatCurrency($val) {
+function formatCurrency($val)
+{
     return 'R$ ' . number_format($val, 2, ',', '.');
 }
 
+$siteConfig = $configRepo->getPaymentConfig();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -239,7 +238,7 @@ function formatCurrency($val) {
             border-radius: 24px;
             padding: 25px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -258,7 +257,7 @@ function formatCurrency($val) {
 
         .section-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
         }
 
         .btn {
@@ -288,12 +287,10 @@ function formatCurrency($val) {
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
+            background: linear-gradient(120deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
             transition: 0.5s;
         }
 
@@ -375,7 +372,7 @@ function formatCurrency($val) {
             left: -20%;
             width: 150%;
             height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -408,7 +405,7 @@ function formatCurrency($val) {
             letter-spacing: 3px;
             margin: 20px 0;
             word-spacing: 12px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .card-footer {
@@ -528,11 +525,30 @@ function formatCurrency($val) {
         }
 
         @media (max-width: 1024px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .sidebar { width: 80px; padding: 20px 0; }
-            .sidebar .logo h1, .sidebar span, .sidebar .logout-btn span { display: none; }
-            .main { margin-left: 80px; padding: 20px; }
-            .logo { justify-content: center; padding: 0; }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 80px;
+                padding: 20px 0;
+            }
+
+            .sidebar .logo h1,
+            .sidebar span,
+            .sidebar .logout-btn span {
+                display: none;
+            }
+
+            .main {
+                margin-left: 80px;
+                padding: 20px;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 0;
+            }
         }
 
         .dashboard-grid.three-cols {
@@ -558,9 +574,20 @@ function formatCurrency($val) {
         }
 
         @keyframes pulse-dot {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
         }
 
         .nav-item:hover .notification-dot {
@@ -583,25 +610,38 @@ function formatCurrency($val) {
                 padding: 20px !important;
                 overflow-y: auto;
             }
+
             .sidebar.active {
                 left: 0;
             }
-            .sidebar .logo h1, .sidebar span, .sidebar .logout-btn span {
+
+            .sidebar .logo h1,
+            .sidebar span,
+            .sidebar .logout-btn span {
                 display: block !important;
             }
+
             .main {
                 margin-left: 0 !important;
-                padding: 15px !important;
+                padding: 0 !important;
             }
+
+            .mobile-content {
+                padding: 0 15px;
+            }
+
             .mobile-header {
                 display: flex !important;
             }
+
             .mobile-close-btn {
                 display: flex !important;
             }
+
             .sidebar-overlay {
                 display: block !important;
             }
+
             .sidebar-overlay.active {
                 opacity: 1 !important;
                 pointer-events: all !important;
@@ -633,8 +673,10 @@ function formatCurrency($val) {
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.03);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            width: 100%;
+            margin-bottom: 25px;
         }
 
         .menu-toggle {
@@ -651,7 +693,7 @@ function formatCurrency($val) {
             background: #ffffff;
             margin-bottom: 20px;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
         }
 
         .mq-item {
@@ -728,20 +770,26 @@ function formatCurrency($val) {
             left: -150%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
+            background: linear-gradient(120deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
             transition: all 0.6s;
             animation: shine 4s infinite;
         }
 
         @keyframes shine {
-            0% { left: -150%; }
-            20% { left: 150%; }
-            100% { left: 150%; }
+            0% {
+                left: -150%;
+            }
+
+            20% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
         }
 
         .mb-balance-card::after {
@@ -751,7 +799,7 @@ function formatCurrency($val) {
             right: -30px;
             width: 120px;
             height: 120px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
         }
 
@@ -764,15 +812,34 @@ function formatCurrency($val) {
         }
 
         @keyframes dance {
-            0% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-3px) rotate(10deg); }
-            100% { transform: translateY(0) rotate(-10deg); }
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-3px) rotate(10deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(-10deg);
+            }
         }
 
         @keyframes pulse-alert {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
 
         .notification-btn {
@@ -793,6 +860,7 @@ function formatCurrency($val) {
             border: 2px solid white;
             border-radius: 50%;
         }
+
         /* Camera Guides */
         #camera-overlay {
             position: absolute;
@@ -805,66 +873,43 @@ function formatCurrency($val) {
             z-index: 10;
         }
 
-        .face-guide {
-            background: radial-gradient(ellipse 180px 240px at 50% 50%, transparent 99%, rgba(0, 0, 0, 0.8) 100%);
-            box-shadow: none !important;
-        }
 
-        .face-guide::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 180px;
-            height: 240px;
-            border-radius: 50%;
-            border: 4px solid #00d2ff;
-            -webkit-mask-image: repeating-linear-gradient(-45deg, black, black 10px, transparent 10px, transparent 20px);
-            mask-image: repeating-linear-gradient(-45deg, black, black 10px, transparent 10px, transparent 20px);
-            animation: face-line-walk 0.8s linear infinite;
-        }
-
-        .face-guide::before {
-            content: none;
-        }
-
-        @keyframes face-line-walk {
-            from { -webkit-mask-position: 0 0; mask-position: 0 0; }
-            to { -webkit-mask-position: 28px 0; mask-position: 28px 0; }
-        }
-
-        .doc-guide {
-            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.6);
-            border: 2px dashed rgba(255, 255, 255, 0.4);
-            margin: 30px;
-            border-radius: 12px;
-        }
 
         @media (max-width: 768px) {
-            .mobile-bank-quick-actions, .mb-balance-card {
+
+            .mobile-bank-quick-actions,
+            .mb-balance-card {
                 display: grid;
             }
+
             #view-conta .credit-card {
-                display: none; /* Hide large credit card on mobile redundant with balance card */
+                display: none;
+                /* Hide large credit card on mobile redundant with balance card */
             }
+
             .main header {
-                display: none; /* Hide desktop header on mobile */
+                display: none;
+                /* Hide desktop header on mobile */
             }
         }
     </style>
+    <link rel="stylesheet" href="public/assets/css/kyc-custom.css">
 </head>
+
 <body>
 
     <aside class="sidebar">
         <!-- Sidebar content remains same for desktop -->
         <div class="logo">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
             <h1>Transprocred</h1>
         </div>
-        
+
         <!-- Mobile Close Button -->
-        <div class="mobile-close-btn" onclick="toggleSidebar()" style="display: none; position: absolute; top: 20px; right: 20px; width: 35px; height: 35px; background: rgba(0, 125, 137, 0.1); border-radius: 50%; cursor: pointer; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; z-index: 1000;">
+        <div class="mobile-close-btn" onclick="toggleSidebar()"
+            style="display: none; position: absolute; top: 20px; right: 20px; width: 35px; height: 35px; background: rgba(0, 125, 137, 0.1); border-radius: 50%; cursor: pointer; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; z-index: 1000;">
             <i class="fas fa-times"></i>
         </div>
 
@@ -900,10 +945,14 @@ function formatCurrency($val) {
                 <span>Suporte Transprocred</span>
             </a>
             <?php if ($userStatus === 'Aprovado' && !empty($user['manager'])): ?>
-                <div style="margin-top: 20px; padding: 15px; background: rgba(0, 125, 137, 0.05); border-radius: 12px; border: 1px dashed var(--primary);">
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Consultor Financeiro</div>
-                    <div style="font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-top: 5px; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-user-tie" style="color: #d4af37;"></i> <?php echo htmlspecialchars($user['manager']); ?>
+                <div
+                    style="margin-top: 20px; padding: 15px; background: rgba(0, 125, 137, 0.05); border-radius: 12px; border: 1px dashed var(--primary);">
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                        Consultor Financeiro</div>
+                    <div
+                        style="font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-top: 5px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-user-tie" style="color: #d4af37;"></i>
+                        <?php echo htmlspecialchars($user['manager']); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -924,12 +973,17 @@ function formatCurrency($val) {
     <main class="main">
         <div class="mobile-header">
             <div style="display: flex; align-items: center; gap: 12px; cursor: pointer;" onclick="toggleSidebar()">
-                <div style="width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; box-shadow: 0 4px 15px rgba(0, 125, 137, 0.3); position: relative;">
+                <div
+                    style="width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; box-shadow: 0 4px 15px rgba(0, 125, 137, 0.3); position: relative;">
                     <i class="fas fa-user" style="font-size: 1.4rem;"></i>
-                    <div style="position: absolute; top: -2px; right: -2px; width: 14px; height: 14px; background: #ef4444; border-radius: 50%; border: 2px solid white; animation: pulse-alert 1.5s infinite;"></div>
+                    <div
+                        style="position: absolute; top: -2px; right: -2px; width: 14px; height: 14px; background: #ef4444; border-radius: 50%; border: 2px solid white; animation: pulse-alert 1.5s infinite;">
+                    </div>
                 </div>
                 <div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Olá, <?php echo explode(' ', ucwords($user['fullname']))[0]; ?></div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Olá,
+                        <?php echo explode(' ', ucwords($user['fullname']))[0]; ?>
+                    </div>
                     <div style="font-size: 0.9rem; font-weight: 700;">Transprocred</div>
                 </div>
             </div>
@@ -943,440 +997,607 @@ function formatCurrency($val) {
             </div>
         </div>
 
-        <div class="mb-balance-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
-                <span style="font-size: 0.9rem; opacity: 0.9;">Saldo em conta</span>
-                <i class="fas fa-eye-slash" id="mobile-eye" onclick="toggleMobileBalance()" style="cursor: pointer;"></i>
-            </div>
-            <div id="mobile-balance" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;">
-                <?php echo formatCurrency($valorVeiculo); ?>
-            </div>
-            <div style="margin-top: 15px; font-size: 0.75rem; opacity: 0.8; background: rgba(255,255,255,0.15); display: inline-block; padding: 4px 12px; border-radius: 20px;">
-                <i class="fas fa-gift"></i> Saldo pré-aprovado
-            </div>
-        </div>
+        <div class="mobile-content">
 
-        <div class="mobile-bank-quick-actions">
-            <div class="mq-item" onclick="handleRetirarFundos()">
-                <div class="mq-icon-box">
-                    <i class="fas fa-qrcode"></i>
-                    <?php if ($userStatus !== 'Aprovado'): ?>
-                        <i class="fas fa-lock" style="position: absolute; top: 5px; right: 5px; font-size: 0.55rem; opacity: 0.5;"></i>
-                    <?php endif; ?>
+            <div class="mb-balance-card">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                    <span style="font-size: 0.9rem; opacity: 0.9;">Saldo em conta</span>
+                    <i class="fas fa-eye-slash" id="mobile-eye" onclick="toggleMobileBalance()"
+                        style="cursor: pointer;"></i>
                 </div>
-                <span class="mq-label">Pix</span>
-            </div>
-            <div class="mq-item" onclick="handleRetirarFundos()">
-                <div class="mq-icon-box">
-                    <i class="fas fa-barcode"></i>
-                    <?php if ($userStatus !== 'Aprovado'): ?>
-                        <i class="fas fa-lock" style="position: absolute; top: 5px; right: 5px; font-size: 0.55rem; opacity: 0.5;"></i>
-                    <?php endif; ?>
+                <div id="mobile-balance" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;">
+                    <?php echo formatCurrency($valorVeiculo); ?>
                 </div>
-                <span class="mq-label">Pagar</span>
-            </div>
-            <div class="mq-item" onclick="handleRetirarFundos()">
-                <div class="mq-icon-box">
-                    <i class="fas fa-paper-plane"></i>
-                    <?php if ($userStatus !== 'Aprovado'): ?>
-                        <i class="fas fa-lock" style="position: absolute; top: 5px; right: 5px; font-size: 0.55rem; opacity: 0.5;"></i>
-                    <?php endif; ?>
+                <div
+                    style="margin-top: 15px; font-size: 0.75rem; opacity: 0.8; background: rgba(255,255,255,0.15); display: inline-block; padding: 4px 12px; border-radius: 20px;">
+                    <i class="fas fa-gift"></i> Saldo pré-aprovado
                 </div>
-                <span class="mq-label">Transferir</span>
             </div>
-            <div class="mq-item" onclick="showView('conta')">
-                <div class="mq-icon-box"><i class="fas fa-list-ul"></i></div>
-                <span class="mq-label">Extrato</span>
-            </div>
-        </div>
 
-        <header>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(0, 125, 137, 0.2); position: relative;">
-                    <i class="fas fa-user" style="font-size: 1.5rem;"></i>
-                    <div style="position: absolute; top: -2px; right: -2px; width: 15px; height: 15px; background: #ef4444; border-radius: 50%; border: 3px solid white; animation: pulse-alert 1.5s infinite;"></div>
+            <div class="mobile-bank-quick-actions">
+                <div class="mq-item" onclick="handleRetirarFundos()">
+                    <div class="mq-icon-box">
+                        <i class="fas fa-qrcode"></i>
+                        <?php if ($userStatus !== 'Aprovado'): ?>
+                            <i class="fas fa-lock"
+                                style="position: absolute; top: 5px; right: 5px; font-size: 0.55rem; opacity: 0.5;"></i>
+                        <?php endif; ?>
+                    </div>
+                    <span class="mq-label">Pix</span>
                 </div>
-                <div class="user-welcome">
-                    <h2>Olá, <?php echo ucwords($user['fullname']); ?>!</h2>
-                    <p>Conta Digital Transprocred | |transpocred</p>
+                <div class="mq-item" onclick="handleRetirarFundos()">
+                    <div class="mq-icon-box">
+                        <i class="fas fa-barcode"></i>
+                        <?php if ($userStatus !== 'Aprovado'): ?>
+                            <i class="fas fa-lock"
+                                style="position: absolute; top: 5px; right: 5px; font-size: 0.55rem; opacity: 0.5;"></i>
+                        <?php endif; ?>
+                    </div>
+                    <span class="mq-label">Pagar</span>
+                </div>
+                <div class="mq-item" onclick="handleRetirarFundos()">
+                    <div class="mq-icon-box">
+                        <i class="fas fa-paper-plane"></i>
+                        <?php if ($userStatus !== 'Aprovado'): ?>
+                            <i class="fas fa-lock"
+                                style="position: absolute; top: 5px; right: 5px; font-size: 0.55rem; opacity: 0.5;"></i>
+                        <?php endif; ?>
+                    </div>
+                    <span class="mq-label">Transferir</span>
+                </div>
+                <div class="mq-item" onclick="showView('conta')">
+                    <div class="mq-icon-box"><i class="fas fa-list-ul"></i></div>
+                    <span class="mq-label">Extrato</span>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-                <div class="status-badge" style="border-color: <?php echo $userStatusColor; ?>; color: <?php echo $userStatusColor; ?>;">
-                    <i class="fas fa-circle" style="font-size: 0.6rem;"></i> Status: <?php echo strtoupper($userStatus); ?>
-                </div>
-                <small style="color: var(--text-muted); font-size: 0.75rem;">
-                    <?php 
-                        if ($userStatus === 'Pendente') echo "Aguardando pagamento da entrada.";
-                        elseif ($userStatus === 'Em Análise') echo "Documentos em análise técnica.";
-                        elseif ($userStatus === 'Aprovado') echo "Crédito liberado em sua conta digital.";
-                        elseif ($userStatus === 'Bloqueado') echo "Acesso restrito. Entre em contato com o suporte.";
-                        else echo "Acompanhe o status da sua proposta.";
-                    ?>
-                </small>
-            </div>
-        </header>
 
-        <div id="view-resumo" class="view-content">
-            <div class="dashboard-grid">
-                
-                <!-- Resumo da Proposta -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <h3><i class="fas fa-clipboard-list" style="color: var(--primary);"></i> Resumo da Proposta</h3>
-                    </div>
-                    
-                    <div class="info-row">
-                        <span class="info-label">Valor Total Solicitado</span>
-                        <span class="info-value"><?php echo formatCurrency($valorVeiculo); ?></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Valor de Entrada (<?php echo $percentualEntrada; ?>%)</span>
-                        <span class="info-value"><?php echo formatCurrency($entrada); ?></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Valor Restante a Financiar</span>
-                        <span class="info-value"><?php echo formatCurrency($restante); ?></span>
-                    </div>
-
-                    <div class="info-row">
-                        <span class="info-label">Renda Mensal Informada</span>
-                        <span class="info-value"><?php echo $renda; ?></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Tipo de Veículo</span>
-                        <span class="info-value"><?php echo $veiculoTipo; ?></span>
-                    </div>
-
-                    <div class="balance-summary" style="margin-top: 25px; border-left: 4px solid var(--primary);">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                            <div>
-                                <div class="card-label">TITULAR</div>
-                                <div class="info-value" style="font-size: 0.9rem;"><?php echo strtoupper($user['fullname']); ?></div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div class="card-label">SALDO PRÉ-APROVADO</div>
-                                <div class="balance-amount" style="font-size: 1.4rem;"><?php echo formatCurrency($valorVeiculo); ?></div>
-                            </div>
+            <header>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div
+                        style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(0, 125, 137, 0.2); position: relative;">
+                        <i class="fas fa-user" style="font-size: 1.5rem;"></i>
+                        <div
+                            style="position: absolute; top: -2px; right: -2px; width: 15px; height: 15px; background: #ef4444; border-radius: 50%; border: 3px solid white; animation: pulse-alert 1.5s infinite;">
                         </div>
                     </div>
-                </div>
-
-                <!-- Status de Liberação -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <h3><i class="fas fa-chart-line" style="color: var(--primary);"></i> Status de Liberação</h3>
-                    </div>
-
-                    <div class="status-tracker">
-                        <div class="track-item <?php echo ($userStatus === 'Aprovado') ? 'done' : 'pending'; ?>">
-                            <div class="track-circle"><i class="fas <?php echo ($userStatus === 'Aprovado') ? 'fa-check' : 'fa-dollar-sign'; ?>"></i></div>
-                            <div class="track-info">
-                                <h4>Pagamento da Entrada</h4>
-                                <p><?php echo ($userStatus === 'Aprovado') ? 'Pagamento confirmado.' : 'Aguardando pagamento de <strong>'.formatCurrency($entrada).'</strong>'; ?></p>
-
-                                <?php if ($userStatus !== 'Aprovado'): ?>
-                                    <a href="javascript:void(0)" onclick="showView('pagamentos')" class="action-link" style="display: inline-block; margin-top: 5px; padding: 4px 12px; background: var(--primary); color: white; border-radius: 6px; text-decoration: none;">Pagar Agora</a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="track-item <?php echo ($userStatus === 'Aprovado' || !empty($user['kyc']['selfie'])) ? 'done' : 'pending'; ?>">
-                            <div class="track-circle"><i class="fas <?php echo ($userStatus === 'Aprovado' || !empty($user['kyc']['selfie'])) ? 'fa-check' : 'fa-id-card'; ?>"></i></div>
-                            <div class="track-info">
-                                <h4>Verificação de Documentos</h4>
-                                <p style="<?php echo ($userStatus === 'Aprovado' || !empty($user['kyc']['selfie'])) ? 'color: var(--success); font-weight: 600;' : ''; ?>">
-                                    <?php 
-                                        if ($userStatus === 'Aprovado') echo 'Documentos Validados.';
-                                        elseif (!empty($user['kyc']['selfie'])) echo 'Recebido - Em Análise';
-                                        else echo 'Aguardando envio.';
-                                    ?>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="track-item <?php echo ($userStatus === 'Aprovado') ? 'done' : ''; ?>">
-                            <div class="track-circle"><i class="fas <?php echo ($userStatus === 'Aprovado') ? 'fa-unlock' : 'fa-lock'; ?>"></i></div>
-                            <div class="track-info">
-                                <h4>Saldo Liberado</h4>
-                                <p><?php echo ($userStatus === 'Aprovado') ? 'Seu saldo está disponível para retirada.' : 'Disponível após compensação bancária.'; ?></p>
-                            </div>
-                        </div>
+                    <div class="user-welcome">
+                        <h2>Olá, <?php echo ucwords($user['fullname']); ?>!</h2>
+                        <p>Conta Digital Transprocred | |transpocred</p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div id="view-fila" class="view-content">
-            <div class="section-card">
-                <div class="section-header">
-                    <h3><i class="fas fa-hourglass-half" style="color: var(--warning);"></i> Fila de Contemplação</h3>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                    <div class="status-badge"
+                        style="border-color: <?php echo $userStatusColor; ?>; color: <?php echo $userStatusColor; ?>;">
+                        <i class="fas fa-circle" style="font-size: 0.6rem;"></i> Status:
+                        <?php echo strtoupper($userStatus); ?>
+                    </div>
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">
+                        <?php
+                        if ($userStatus === 'Pendente')
+                            echo "Aguardando pagamento da entrada.";
+                        elseif ($userStatus === 'Em Análise')
+                            echo "Documentos em análise técnica.";
+                        elseif ($userStatus === 'Aprovado')
+                            echo "Crédito liberado em sua conta digital.";
+                        elseif ($userStatus === 'Bloqueado')
+                            echo "Acesso restrito. Entre em contato com o suporte.";
+                        else
+                            echo "Acompanhe o status da sua proposta.";
+                        ?>
+                    </small>
                 </div>
+            </header>
 
-                <?php if ($userStatus === 'Aprovado'): ?>
-                    <div style="background: #f0fdf4; padding: 25px; border-radius: 20px; border: 1px solid var(--success); margin-bottom: 30px;">
-                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                            <div style="width: 50px; height: 50px; background: var(--success); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                                <i class="fas fa-map-marked-alt"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--success); margin: 0; font-size: 1.2rem;">Mapa de Contemplação</h4>
-                                <p style="margin: 0; font-size: 0.9rem; color: #166534;">Sua jornada para o crédito liberado</p>
-                            </div>
+            <div id="view-resumo" class="view-content">
+                <div class="dashboard-grid">
+
+                    <!-- Resumo da Proposta -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-clipboard-list" style="color: var(--primary);"></i> Resumo da Proposta
+                            </h3>
                         </div>
 
-                        <!-- Timeline Visual -->
-                        <div style="position: relative; padding-left: 30px; border-left: 2px dashed rgba(22, 101, 52, 0.2); margin-left: 10px;">
-                            <div style="position: relative; margin-bottom: 25px;">
-                                <div style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);"></div>
-                                <h5 style="margin: 0; color: #1e293b; font-size: 0.95rem;">Análise de Proposta</h5>
-                                <p style="margin: 5px 0 0; font-size: 0.8rem; color: #64748b;">Concluída com sucesso.</p>
-                            </div>
-                            <div style="position: relative; margin-bottom: 25px;">
-                                <div style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);"></div>
-                                <h5 style="margin: 0; color: #1e293b; font-size: 0.95rem;">Assembleia Geral</h5>
-                                <p style="margin: 5px 0 0; font-size: 0.8rem; color: #64748b;">Cota sorteada e contemplada.</p>
-                            </div>
-                            <div style="position: relative; margin-bottom: 25px;">
-                                <div style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: var(--warning); border-radius: 50%; box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2); animation: pulse-warning 2s infinite;"></div>
-                                <h5 style="margin: 0; color: #1e293b; font-size: 0.95rem;">Liberação de Saldo</h5>
-                                <p style="margin: 5px 0 0; font-size: 0.85rem; color: #92400e; font-weight: 600;">Processando transferência final...</p>
-                                <div style="margin-top: 10px; background: #fffbeb; padding: 10px; border-radius: 8px; border: 1px solid #fef3c7;">
-                                    <i class="fas fa-info-circle" style="color: #d97706;"></i> 
-                                    <span style="font-size: 0.75rem; color: #92400e;">Prazo estimado: de 2 a 8 dias úteis após contemplação.</span>
+                        <div class="info-row">
+                            <span class="info-label">Valor Total Solicitado</span>
+                            <span class="info-value"><?php echo formatCurrency($valorVeiculo); ?></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Valor de Entrada (<?php echo $percentualEntrada; ?>%)</span>
+                            <span class="info-value"><?php echo formatCurrency($entrada); ?></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Valor Restante a Financiar</span>
+                            <span class="info-value"><?php echo formatCurrency($restante); ?></span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="info-label">Renda Mensal Informada</span>
+                            <span class="info-value"><?php echo $renda; ?></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Tipo de Veículo</span>
+                            <span class="info-value"><?php echo $veiculoTipo; ?></span>
+                        </div>
+
+                        <div class="balance-summary" style="margin-top: 25px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div>
+                                    <div class="card-label">TITULAR</div>
+                                    <div class="info-value" style="font-size: 0.9rem;">
+                                        <?php echo strtoupper($user['fullname']); ?>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="card-label">SALDO PRÉ-APROVADO</div>
+                                    <div class="balance-amount" style="font-size: 1.4rem;">
+                                        <?php echo formatCurrency($valorVeiculo); ?>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="position: relative;">
-                                <div style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: #e2e8f0; border-radius: 50%;"></div>
-                                <h5 style="margin: 0; color: #94a3b8; font-size: 0.95rem;">Crédito Disponível</h5>
-                                <p style="margin: 5px 0 0; font-size: 0.8rem; color: #94a3b8;">Aguardando compensação.</p>
+                        </div>
+                    </div>
+
+                    <!-- Status de Liberação -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-chart-line" style="color: var(--primary);"></i> Status de Liberação
+                            </h3>
+                        </div>
+
+                        <div class="status-tracker">
+                            <div class="track-item <?php echo ($userStatus === 'Aprovado') ? 'done' : 'pending'; ?>">
+                                <div class="track-circle"><i
+                                        class="fas <?php echo ($userStatus === 'Aprovado') ? 'fa-check' : 'fa-dollar-sign'; ?>"></i>
+                                </div>
+                                <div class="track-info">
+                                    <h4>Pagamento da Entrada</h4>
+                                    <p><?php echo ($userStatus === 'Aprovado') ? 'Pagamento confirmado.' : 'Aguardando pagamento de <strong>' . formatCurrency($entrada) . '</strong>'; ?>
+                                    </p>
+
+                                    <?php if ($userStatus !== 'Aprovado'): ?>
+                                        <a href="javascript:void(0)" onclick="showView('pagamentos')" class="action-link"
+                                            style="display: inline-block; margin-top: 5px; padding: 4px 12px; background: var(--primary); color: white; border-radius: 6px; text-decoration: none;">Pagar
+                                            Agora</a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div
+                                class="track-item <?php echo ($userStatus === 'Aprovado' || !empty($user['kyc']['selfie'])) ? 'done' : 'pending'; ?>">
+                                <div class="track-circle"><i
+                                        class="fas <?php echo ($userStatus === 'Aprovado' || !empty($user['kyc']['selfie'])) ? 'fa-check' : 'fa-id-card'; ?>"></i>
+                                </div>
+                                <div class="track-info">
+                                    <h4>Verificação de Documentos</h4>
+                                    <p
+                                        style="<?php echo ($userStatus === 'Aprovado' || !empty($user['kyc']['selfie'])) ? 'color: var(--success); font-weight: 600;' : ''; ?>">
+                                        <?php
+                                        if ($userStatus === 'Aprovado')
+                                            echo 'Documentos Validados.';
+                                        elseif (!empty($user['kyc']['selfie']))
+                                            echo 'Recebido - Em Análise';
+                                        else
+                                            echo 'Aguardando envio.';
+                                        ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="track-item <?php echo ($userStatus === 'Aprovado') ? 'done' : ''; ?>">
+                                <div class="track-circle"><i
+                                        class="fas <?php echo ($userStatus === 'Aprovado') ? 'fa-unlock' : 'fa-lock'; ?>"></i>
+                                </div>
+                                <div class="track-info">
+                                    <h4>Saldo Liberado</h4>
+                                    <p><?php echo ($userStatus === 'Aprovado') ? 'Seu saldo está disponível para retirada.' : 'Disponível após compensação bancária.'; ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <style>
-                        @keyframes pulse-warning {
-                            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-                            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
-                            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-                        }
-                    </style>
-                <?php else: ?>
-                    <div style="margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
-                        <h4 style="color: var(--warning); margin-bottom: 5px;">Status: Pré-aprovado</h4>
-                        <p style="font-size: 0.9rem; color: var(--text-muted);">Aguardando pagamento da entrada para confirmar contemplação.</p>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
-                        <div style="background: rgba(0, 208, 132, 0.1); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(0, 208, 132, 0.2);">
-                            <div class="card-label" style="color: var(--primary); font-weight: 700;">Chance de Contemplação</div>
-                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);"><?php echo $user['contemplation_rate'] ?? '24%'; ?></div>
-                        </div>
-                        <div style="background: rgba(0, 125, 137, 0.05); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(0, 125, 137, 0.1);">
-                            <div class="card-label" style="color: var(--text-muted);">Tempo Médio de Espera</div>
-                            <div style="font-size: 2rem; font-weight: 800; color: var(--text-main);">8 dias</div>
-                        </div>
+            <div id="view-fila" class="view-content">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-hourglass-half" style="color: var(--warning);"></i> Fila de Contemplação
+                        </h3>
                     </div>
 
-                    <div class="status-tracker">
-                        <h3 style="font-size: 1rem; color: var(--text-muted); margin-bottom: 20px;">Posição Atual</h3>
-                        <div class="track-item pending">
-                            <div class="track-circle"><i class="fas fa-users"></i></div>
-                            <div class="track-info">
-                                <h4>Monitoramento de Grupo</h4>
-                                <p>Sua proposta está sendo processada no grupo atual de contemplação.</p>
+                    <?php if ($userStatus === 'Aprovado'): ?>
+                        <div
+                            style="background: #f0fdf4; padding: 25px; border-radius: 20px; border: 1px solid var(--success); margin-bottom: 30px;">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                <div
+                                    style="width: 50px; height: 50px; background: var(--success); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--success); margin: 0; font-size: 1.2rem;">Mapa de Contemplação
+                                    </h4>
+                                    <p style="margin: 0; font-size: 0.9rem; color: #166534;">Sua jornada para o crédito
+                                        liberado
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Timeline Visual -->
+                            <div
+                                style="position: relative; padding-left: 30px; border-left: 2px dashed rgba(22, 101, 52, 0.2); margin-left: 10px;">
+                                <div style="position: relative; margin-bottom: 25px;">
+                                    <div
+                                        style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);">
+                                    </div>
+                                    <h5 style="margin: 0; color: #1e293b; font-size: 0.95rem;">Análise de Proposta</h5>
+                                    <p style="margin: 5px 0 0; font-size: 0.8rem; color: #64748b;">Concluída com sucesso.
+                                    </p>
+                                </div>
+                                <div style="position: relative; margin-bottom: 25px;">
+                                    <div
+                                        style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);">
+                                    </div>
+                                    <h5 style="margin: 0; color: #1e293b; font-size: 0.95rem;">Assembleia Geral</h5>
+                                    <p style="margin: 5px 0 0; font-size: 0.8rem; color: #64748b;">Cota sorteada e
+                                        contemplada.
+                                    </p>
+                                </div>
+                                <div style="position: relative; margin-bottom: 25px;">
+                                    <div
+                                        style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: var(--warning); border-radius: 50%; box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2); animation: pulse-warning 2s infinite;">
+                                    </div>
+                                    <h5 style="margin: 0; color: #1e293b; font-size: 0.95rem;">Liberação de Saldo</h5>
+                                    <p style="margin: 5px 0 0; font-size: 0.85rem; color: #92400e; font-weight: 600;">
+                                        Processando transferência final...</p>
+                                    <div
+                                        style="margin-top: 10px; background: #fffbeb; padding: 10px; border-radius: 8px; border: 1px solid #fef3c7;">
+                                        <i class="fas fa-info-circle" style="color: #d97706;"></i>
+                                        <span style="font-size: 0.75rem; color: #92400e;">Prazo estimado: de 2 a 8 dias
+                                            úteis
+                                            após contemplação.</span>
+                                    </div>
+                                </div>
+                                <div style="position: relative;">
+                                    <div
+                                        style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: #e2e8f0; border-radius: 50%;">
+                                    </div>
+                                    <h5 style="margin: 0; color: #94a3b8; font-size: 0.95rem;">Crédito Disponível</h5>
+                                    <p style="margin: 5px 0 0; font-size: 0.8rem; color: #94a3b8;">Aguardando compensação.
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
 
-        <div id="view-documentos" class="view-content">
-            <div class="section-card">
-                <h3><i class="fas fa-file-invoice" style="color: var(--primary);"></i> Verificação de Documentos</h3>
-                <br>
-                <?php if ($userStatus === 'Aprovado'): ?>
-                    <div style="background: #f0fdf4; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid var(--success);">
-                        <i class="fas fa-user-check" style="font-size: 3rem; color: var(--success); margin-bottom: 15px;"></i>
-                        <h4 style="color: var(--success);">Documentação Validada</h4>
-                        <p>Seus documentos foram verificados e aprovados com sucesso pelo nosso setor de compliance.</p>
-                        <br>
-                        <span class="status-badge" style="display: inline-flex; background: var(--success); color: white; border: none;">VALIDADO</span>
-                    </div>
-                <?php elseif (empty($user['kyc']['selfie'])): ?>
-                    <div style="background: #f8fafc; padding: 30px; border-radius: 16px; text-align: center;">
-                        <i class="fas fa-id-card" style="font-size: 3rem; color: var(--warning); margin-bottom: 15px;"></i>
-                        <h4>Verificação Pendente</h4>
-                        <p>Você ainda não enviou seus documentos de identificação.</p>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">A verificação é obrigatória para a retirada de fundos da sua conta digital.</p>
-                        <br>
-                        <button class="btn" onclick="openKycModal()" style="display: inline-block; background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">VERIFICAR AGORA</button>
-                    </div>
-                <?php else: ?>
-                    <div style="background: #f8fafc; padding: 30px; border-radius: 16px; text-align: center;">
-                        <i class="fas fa-file-signature" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
-                        <h4>Documentos Recebidos</h4>
-                        <p>Sua selfie e fotos do documento já foram enviadas e estão em análise pelo nosso setor de segurança.</p>
-                        <br>
-                        <span class="status-badge" style="display: inline-flex; border-color: #f59e0b; color: #f59e0b;">AGUARDANDO ANÁLISE</span>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
+                        <style>
+                            @keyframes pulse-warning {
+                                0% {
+                                    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+                                }
 
-        <div id="view-pagamentos" class="view-content">
-            <div class="section-card">
-                <h3><i class="fas fa-credit-card" style="color: var(--primary);"></i> Pagamento de Entrada</h3>
-                <br>
-                <p>Para confirmar sua contemplação e liberar o saldo, realize o pagamento da entrada solicitada:</p>
-                <br>
-                <div style="background: var(--bg); padding: 25px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <div class="card-label">VALOR DA ENTRADA</div>
-                        <div style="font-size: 1.5rem; font-weight: 800;"><?php echo formatCurrency($entrada); ?></div>
-                    </div>
+                                70% {
+                                    box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+                                }
 
-                    <button class="btn" onclick="solicitarPagamento()" style="background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">SOLICITAR PAGAMENTO</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-conta" class="view-content active">
-            <div class="section-card">
-                <div class="section-header">
-                    <h3>🏦 Conta Digital</h3>
-                    <span class="status-badge approved">ATIVA</span>
-                </div>
-
-                <div class="card-container" style="max-width: 400px; margin: 0 auto;">
-                    <div class="credit-card">
-                        <div class="card-logo">
-                            <svg viewBox="0 0 24 24" fill="#fff" width="24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                            <span>TRANSPROCRED</span>
-                        </div>
-                        <div class="card-chip"></div>
-                        <div style="margin-top: 15px;">
-                            <div class="card-label" style="font-size: 0.8rem; letter-spacing: 2px; opacity: 1;">SALDO PRÉ-APROVADO</div>
-                            <div class="card-number" style="font-size: 2.2rem; margin: 5px 0; letter-spacing: 0; word-spacing: 0;">
-                                <?php echo formatCurrency($valorVeiculo); ?>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-holder"><div class="card-label">Titular do Cartão</div><div class="card-val"><?php echo strtoupper($user['fullname']); ?></div></div>
-                            <div class="card-expiry"><div class="card-label">Válido até</div><div class="card-val">12/2026</div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 20px;">
-                    <?php if ($userStatus !== 'Aprovado'): ?>
-                        <div style="background: #fffbeb; padding: 15px; border-radius: 12px; border: 1px solid #fef3c7; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                            <i class="fas fa-info-circle" style="color: #d97706;"></i>
-                            <p style="margin: 0; font-size: 0.8rem; color: #92400e; text-align: left; line-height: 1.3;">
-                                <strong>Acesso Restrito:</strong> Aguardando contemplação. As opções Transferir PIX e Saque estão disponíveis apenas após aprovação. <strong>Verifique seus documentos</strong> (clique no perfil e opção documentos) e aguarde o prazo de sua contemplação.
-                            </p>
-                        </div>
-                        <button class="btn" onclick="handleRetirarFundos()" style="background: #cbd5e1; color: white; padding: 15px 40px; border: none; border-radius: 12px; font-weight: 700; cursor: not-allowed; width: 100%; max-width: 400px; font-size: 1.1rem;">
-                            <i class="fas fa-lock"></i> RETIRAR FUNDOS
-                        </button>
+                                100% {
+                                    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+                                }
+                            }
+                        </style>
                     <?php else: ?>
-                        <button class="btn" onclick="handleRetirarFundos()" style="background: var(--primary); color: white; padding: 15px 40px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; max-width: 400px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0, 125, 137, 0.3);">
-                            <i class="fas fa-money-bill-transfer"></i> RESGATAR CRÉDITO NO BANCO
-                        </button>
+                        <div style="margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+                            <h4 style="color: var(--warning); margin-bottom: 5px;">Status: Pré-aprovado</h4>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Aguardando pagamento da entrada para
+                                confirmar contemplação.</p>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                            <div
+                                style="background: rgba(0, 208, 132, 0.1); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(0, 208, 132, 0.2);">
+                                <div class="card-label" style="color: var(--primary); font-weight: 700;">Chance de
+                                    Contemplação
+                                </div>
+                                <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">
+                                    <?php echo $user['contemplation_rate'] ?? '24%'; ?>
+                                </div>
+                            </div>
+                            <div
+                                style="background: rgba(0, 125, 137, 0.05); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(0, 125, 137, 0.1);">
+                                <div class="card-label" style="color: var(--text-muted);">Tempo Médio de Espera</div>
+                                <div style="font-size: 2rem; font-weight: 800; color: var(--text-main);">8 dias</div>
+                            </div>
+                        </div>
+
+                        <div class="status-tracker">
+                            <h3 style="font-size: 1rem; color: var(--text-muted); margin-bottom: 20px;">Posição Atual</h3>
+                            <div class="track-item pending">
+                                <div class="track-circle"><i class="fas fa-users"></i></div>
+                                <div class="track-info">
+                                    <h4>Monitoramento de Grupo</h4>
+                                    <p>Sua proposta está sendo processada no grupo atual de contemplação.</p>
+                                </div>
+                            </div>
+                        </div>
                     <?php endif; ?>
-                    <p style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted);">Acompanhe o mapa de contemplação para acompanhar a liberação.</p>
                 </div>
-
-                <?php if ($userStatus === 'Aprovado' && !empty($user['manager'])): ?>
-                <div style="margin-top: 25px; padding: 25px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); background: linear-gradient(135deg, #ffffff 0%, #fff9e6 100%); text-align: center; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 4rem; color: rgba(212, 175, 55, 0.05); transform: rotate(15deg);">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 15px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); border: 3px solid #fff;">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div style="font-size: 0.75rem; color: #b8860b; text-transform: uppercase; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px;">Consultor Exclusive</div>
-                    <div style="font-size: 1.5rem; color: #1e293b; font-weight: 900; margin: 5px 0;"><?php echo htmlspecialchars($user['manager']); ?></div>
-                    <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">Especialista Transprocred</div>
-                </div>
-                <?php endif; ?>
-
-                <?php if ($userStatus === 'Aprovado'): ?>
-                    <div class="info-row" style="margin-top: 30px;">
-                        <span class="info-label">Número da Conta</span>
-                        <span class="info-value">000<?php echo substr($user['username'], -5); ?>-<?php echo mt_rand(0, 9); ?></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Agência</span>
-                        <span class="info-value">0001</span>
-                    </div>
-                <?php else: ?>
-                    <div style="margin-top: 30px; padding: 15px; background: #f8fafc; border-radius: 12px; text-align: center; border: 1px dashed #cbd5e1;">
-                        <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">
-                            <i class="fas fa-lock" style="margin-right: 5px;"></i> Dados bancários liberados após aprovação
-                        </span>
-                    </div>
-                <?php endif; ?>
             </div>
-        </div>
 
-        <!-- KYC Modal Overlay -->
-        <div id="kyc-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-            <div style="background: white; width: 100%; max-width: 450px; border-radius: 20px; padding: 30px; position: relative; overflow-y: auto; max-height: 90vh;">
-                <button onclick="closeKycModal()" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
-                
-                <div id="kyc-step-content text-center">
-                    <h2 id="kyc-title" style="color: var(--primary); margin-bottom: 10px; text-align: center;">Verificação de Identidade</h2>
-                    <p id="kyc-desc" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; text-align: center;">Para sua segurança, precisamos validar seus documentos antes de liberar a retirada de fundos.</p>
-                    
-                    <div id="camera-section">
-                        <div id="camera-container" style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 4/3; margin-bottom: 20px;">
-                            <video id="video" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-                            <canvas id="canvas" style="display: none;"></canvas>
-                            <img id="photo-preview" style="display: none; width: 100%; height: 100%; object-fit: cover;">
-                            <div id="camera-overlay" class="face-guide"></div>
+            <div id="view-documentos" class="view-content">
+                <div class="section-card">
+                    <h3><i class="fas fa-file-invoice" style="color: var(--primary);"></i> Verificação de Documentos
+                    </h3>
+                    <br>
+                    <?php if ($userStatus === 'Aprovado'): ?>
+                        <div
+                            style="background: #f0fdf4; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid var(--success);">
+                            <i class="fas fa-user-check"
+                                style="font-size: 3rem; color: var(--success); margin-bottom: 15px;"></i>
+                            <h4 style="color: var(--success);">Documentação Validada</h4>
+                            <p>Seus documentos foram verificados e aprovados com sucesso pelo nosso setor de compliance.</p>
+                            <br>
+                            <span class="status-badge"
+                                style="display: inline-flex; background: var(--success); color: white; border: none;">VALIDADO</span>
+                        </div>
+                    <?php elseif (empty($user['kyc']['selfie'])): ?>
+                        <div style="background: #f8fafc; padding: 30px; border-radius: 16px; text-align: center;">
+                            <i class="fas fa-id-card"
+                                style="font-size: 3rem; color: var(--warning); margin-bottom: 15px;"></i>
+                            <h4>Verificação Pendente</h4>
+                            <p>Você ainda não enviou seus documentos de identificação.</p>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">A verificação é
+                                obrigatória para a retirada de fundos da sua conta digital.</p>
+                            <br>
+                            <button class="btn" onclick="openKycModal()"
+                                style="display: inline-block; background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">VERIFICAR
+                                AGORA</button>
+                        </div>
+                    <?php else: ?>
+                        <div style="background: #f8fafc; padding: 30px; border-radius: 16px; text-align: center;">
+                            <i class="fas fa-file-signature"
+                                style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                            <h4>Documentos Recebidos</h4>
+                            <p>Sua selfie e fotos do documento já foram enviadas e estão em análise pelo nosso setor de
+                                segurança.</p>
+                            <br>
+                            <span class="status-badge"
+                                style="display: inline-flex; border-color: #f59e0b; color: #f59e0b;">AGUARDANDO
+                                ANÁLISE</span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div id="view-pagamentos" class="view-content">
+                <div class="section-card">
+                    <h3><i class="fas fa-credit-card" style="color: var(--primary);"></i> Pagamento de Entrada</h3>
+                    <br>
+                    <p>Para confirmar sua contemplação e liberar o saldo, realize o pagamento da entrada solicitada:</p>
+                    <br>
+                    <div
+                        style="background: var(--bg); padding: 25px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="card-label">VALOR DA ENTRADA</div>
+                            <div style="font-size: 1.5rem; font-weight: 800;"><?php echo formatCurrency($entrada); ?>
+                            </div>
                         </div>
 
-                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                            <button class="btn" id="btn-capture" onclick="capturePhoto()" style="flex: 2; background: var(--primary); color: white; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;"><i class="fas fa-camera"></i> Tirar Foto</button>
-                            <button class="btn" id="btn-retake" onclick="retakePhoto()" style="flex: 1; background: #f1f5f9; color: var(--text-dark); padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; display: none;">Refazer</button>
-                        </div>
-
-                        <div id="kyc-progress" style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px; text-align: center;">Etapa: 1 de 3</div>
-                        <button class="btn" id="btn-kyc-next" onclick="nextKycStep()" disabled style="width: 100%; background: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; opacity: 0.5;">Próxima Foto</button>
-                    </div>
-
-                    <div id="kyc-loading" style="display: none; text-align: center; padding: 40px 0;">
-                        <div style="display: inline-block; width: 50px; height: 50px; border: 5px solid rgba(0,125,137,0.1); border-radius: 50%; border-top-color: var(--primary); animation: k-spin 1s linear infinite; margin-bottom: 20px;"></div>
-                        <h4 style="color: var(--primary); margin-bottom: 10px;">Analisando seus documentos</h4>
-                        <p style="font-weight: 600; color: #64748b; font-size: 0.9rem;">Processando e validando seus documentos...</p>
-                        <div style="width: 100%; height: 10px; background: #e2e8f0; border-radius: 10px; margin-top: 20px; overflow: hidden;">
-                            <div id="kyc-progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: width 1s linear;"></div>
-                        </div>
+                        <button class="btn" onclick="solicitarPagamento()"
+                            style="background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">SOLICITAR
+                            PAGAMENTO</button>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <style>
-            @keyframes k-spin { to { transform: rotate(360deg); } }
-        </style>
+            <div id="view-conta" class="view-content active">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>🏦 Conta Digital</h3>
+                        <span class="status-badge approved">ATIVA</span>
+                    </div>
 
-        <div id="recent-activity" class="section-card" style="margin-top: 30px;">
+                    <div class="card-container" style="max-width: 400px; margin: 0 auto;">
+                        <div class="credit-card">
+                            <div class="card-logo">
+                                <svg viewBox="0 0 24 24" fill="#fff" width="24">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                </svg>
+                                <span>TRANSPROCRED</span>
+                            </div>
+                            <div class="card-chip"></div>
+                            <div style="margin-top: 15px;">
+                                <div class="card-label" style="font-size: 0.8rem; letter-spacing: 2px; opacity: 1;">
+                                    SALDO
+                                    PRÉ-APROVADO</div>
+                                <div class="card-number"
+                                    style="font-size: 2.2rem; margin: 5px 0; letter-spacing: 0; word-spacing: 0;">
+                                    <?php echo formatCurrency($valorVeiculo); ?>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-holder">
+                                    <div class="card-label">Titular do Cartão</div>
+                                    <div class="card-val"><?php echo strtoupper($user['fullname']); ?></div>
+                                </div>
+                                <div class="card-expiry">
+                                    <div class="card-label">Válido até</div>
+                                    <div class="card-val">12/2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="section-header"><h3><i class="fas fa-history" style="color: var(--primary);"></i> Transações Recentes</h3></div>
-            <div class="info-row">
-                <div style="display:flex; gap:15px; align-items:center;">
-                    <div style="background:#eef2ff; color:#6366f1; width:40px; height:40px; border-radius:80%; display:flex; align-items:center; justify-content:center;"><i class="fas fa-file-invoice"></i></div>
-                    <div><div class="info-value">Simulação criada</div><div style="font-size:0.8rem; color:var(--text-muted);">31/10/2025</div></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <?php if ($userStatus !== 'Aprovado'): ?>
+                            <div
+                                style="background: #fffbeb; padding: 15px; border-radius: 12px; border: 1px solid #fef3c7; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                                <i class="fas fa-info-circle" style="color: #d97706;"></i>
+                                <p
+                                    style="margin: 0; font-size: 0.8rem; color: #92400e; text-align: left; line-height: 1.3;">
+                                    <strong>Acesso Restrito:</strong> Aguardando contemplação. As opções Transferir PIX e
+                                    Saque
+                                    estão disponíveis apenas após aprovação. <strong>Verifique seus documentos</strong>
+                                    (clique
+                                    no perfil e opção documentos) e aguarde o prazo de sua contemplação.
+                                </p>
+                            </div>
+                            <button class="btn" onclick="handleRetirarFundos()"
+                                style="background: #cbd5e1; color: white; padding: 15px 40px; border: none; border-radius: 12px; font-weight: 700; cursor: not-allowed; width: 100%; max-width: 400px; font-size: 1.1rem;">
+                                <i class="fas fa-lock"></i> RETIRAR FUNDOS
+                            </button>
+                        <?php else: ?>
+                            <button class="btn" onclick="handleRetirarFundos()"
+                                style="background: var(--primary); color: white; padding: 15px 40px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; max-width: 400px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0, 125, 137, 0.3);">
+                                <i class="fas fa-money-bill-transfer"></i> RESGATAR CRÉDITO NO BANCO
+                            </button>
+                        <?php endif; ?>
+                        <p style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted);">Acompanhe o mapa de
+                            contemplação para acompanhar a liberação.</p>
+                    </div>
+
+                    <?php if ($userStatus === 'Aprovado' && !empty($user['manager'])): ?>
+                        <div
+                            style="margin-top: 25px; padding: 25px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); background: linear-gradient(135deg, #ffffff 0%, #fff9e6 100%); text-align: center; position: relative; overflow: hidden;">
+                            <div
+                                style="position: absolute; top: -10px; right: -10px; font-size: 4rem; color: rgba(212, 175, 55, 0.05); transform: rotate(15deg);">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div
+                                style="width: 60px; height: 60px; background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 15px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); border: 3px solid #fff;">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div
+                                style="font-size: 0.75rem; color: #b8860b; text-transform: uppercase; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px;">
+                                Consultor Exclusive</div>
+                            <div style="font-size: 1.5rem; color: #1e293b; font-weight: 900; margin: 5px 0;">
+                                <?php echo htmlspecialchars($user['manager']); ?>
+                            </div>
+                            <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">Especialista Transprocred
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($userStatus === 'Aprovado'): ?>
+                        <div class="info-row" style="margin-top: 30px;">
+                            <span class="info-label">Número da Conta</span>
+                            <span
+                                class="info-value">000<?php echo substr($user['username'], -5); ?>-<?php echo mt_rand(0, 9); ?></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Agência</span>
+                            <span class="info-value">0001</span>
+                        </div>
+                    <?php else: ?>
+                        <div
+                            style="margin-top: 30px; padding: 15px; background: #f8fafc; border-radius: 12px; text-align: center; border: 1px dashed #cbd5e1;">
+                            <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">
+                                <i class="fas fa-lock" style="margin-right: 5px;"></i> Dados bancários liberados após
+                                aprovação
+                            </span>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <div class="info-value" style="color: var(--text-muted);">-</div>
             </div>
-            <div class="info-row">
-                <div style="display:flex; gap:15px; align-items:center;">
-                    <div style="background:#f0fdf4; color:#22c55e; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;"><i class="fas fa-user-check"></i></div>
-                    <div><div class="info-value">Pré-aprovação concedida</div><div style="font-size:0.8rem; color:var(--text-muted);">31/10/2025</div></div>
+
+            <!-- KYC Modal Overlay -->
+            <div id="kyc-modal"
+                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+                <div
+                    style="background: white; width: 100%; max-width: 450px; border-radius: 20px; padding: 30px; position: relative; overflow-y: auto; max-height: 90vh;">
+                    <button onclick="closeKycModal()"
+                        style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+
+                    <div id="kyc-step-content text-center">
+                        <h2 id="kyc-title" style="color: var(--primary); margin-bottom: 10px; text-align: center;">
+                            Verificação de Identidade</h2>
+                        <p id="kyc-desc"
+                            style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; text-align: center;">
+                            Para sua segurança, precisamos validar seus documentos antes de liberar a retirada de
+                            fundos.
+                        </p>
+
+                        <div id="camera-section">
+                            <div id="camera-container" style="aspect-ratio: 4/3; margin-bottom: 20px;">
+                                <video id="video" autoplay playsinline></video>
+                                <canvas id="canvas" style="display: none;"></canvas>
+                                <img id="photo-preview"
+                                    style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                <div id="camera-overlay" class="face-guide"></div>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <button class="btn" id="btn-capture" onclick="capturePhoto()"
+                                    style="flex: 2; background: var(--primary); color: white; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;"><i
+                                        class="fas fa-camera"></i> Tirar Foto</button>
+                                <button class="btn" id="btn-retake" onclick="retakePhoto()"
+                                    style="flex: 1; background: #f1f5f9; color: var(--text-dark); padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; display: none;">Refazer</button>
+                            </div>
+
+                            <div id="kyc-progress"
+                                style="font-size: 0.8rem; color: #64748b; margin-bottom: 15px; text-align: center;">
+                                Etapa: 1
+                                de 3</div>
+                            <button class="btn" id="btn-kyc-next" onclick="nextKycStep()" disabled
+                                style="width: 100%; background: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; opacity: 0.5;">Próxima
+                                Foto</button>
+                        </div>
+
+                        <div id="kyc-loading" style="display: none; text-align: center; padding: 40px 0;">
+                            <div
+                                style="display: inline-block; width: 50px; height: 50px; border: 5px solid rgba(0,125,137,0.1); border-radius: 50%; border-top-color: var(--primary); animation: k-spin 1s linear infinite; margin-bottom: 20px;">
+                            </div>
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Analisando seus documentos</h4>
+                            <p style="font-weight: 600; color: #64748b; font-size: 0.9rem;">Processando e validando seus
+                                documentos...</p>
+                            <div
+                                style="width: 100%; height: 10px; background: #e2e8f0; border-radius: 10px; margin-top: 20px; overflow: hidden;">
+                                <div id="kyc-progress-bar"
+                                    style="width: 0%; height: 100%; background: var(--primary); transition: width 1s linear;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-value" style="color:var(--success);"><?php echo formatCurrency($valorVeiculo); ?></div>
+            </div>
+
+            <style>
+                @keyframes k-spin {
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+            </style>
+
+            <div id="recent-activity" class="section-card" style="margin-top: 30px;">
+
+                <div class="section-header">
+                    <h3><i class="fas fa-history" style="color: var(--primary);"></i> Transações Recentes</h3>
+                </div>
+                <div class="info-row">
+                    <div style="display:flex; gap:15px; align-items:center;">
+                        <div
+                            style="background:#eef2ff; color:#6366f1; width:40px; height:40px; border-radius:80%; display:flex; align-items:center; justify-content:center;">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div>
+                            <div class="info-value">Simulação criada</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">31/10/2025</div>
+                        </div>
+                    </div>
+                    <div class="info-value" style="color: var(--text-muted);">-</div>
+                </div>
+                <div class="info-row">
+                    <div style="display:flex; gap:15px; align-items:center;">
+                        <div
+                            style="background:#f0fdf4; color:#22c55e; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            <div class="info-value">Pré-aprovação concedida</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">31/10/2025</div>
+                        </div>
+                    </div>
+                    <div class="info-value" style="color:var(--success);"><?php echo formatCurrency($valorVeiculo); ?>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -1392,7 +1613,7 @@ function formatCurrency($val) {
             });
             const view = document.getElementById('view-' + viewId);
             if (view) view.classList.add('active');
-            
+
             if (btn) {
                 document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
                 btn.classList.add('active');
@@ -1408,7 +1629,7 @@ function formatCurrency($val) {
             if (recentActivity) {
                 recentActivity.style.display = (viewId === 'resumo') ? 'block' : 'none';
             }
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1464,7 +1685,7 @@ function formatCurrency($val) {
                 }).then((result) => {
                     if (result.isConfirmed && result.value) {
                         const selectedMethod = result.value;
-                        
+
                         if (selectedMethod === 'pix' || selectedMethod === 'ted') {
                             Swal.fire({
                                 title: 'Dados de Destino',
@@ -1526,7 +1747,8 @@ function formatCurrency($val) {
                 color: '#1e293b'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.open('https://wa.me/18257304568?text=Olá, gostaria de solicitar o pagamento da minha entrada no Transprocred.', '_blank');
+                    <?php $waNum = $siteConfig['whatsapp_number'] ?? '18257304568'; ?>
+                    window.open('https://wa.me/<?php echo $waNum; ?>?text=Olá, gostaria de solicitar o pagamento da minha entrada no Transprocred.', '_blank');
                 }
             });
         }
@@ -1566,12 +1788,12 @@ function formatCurrency($val) {
         async function startCamera() {
             try {
                 const facingMode = kycStep === 0 ? 'user' : 'environment';
-                stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
                         facingMode: facingMode,
                         width: { ideal: 1280 },
                         height: { ideal: 720 }
-                    } 
+                    }
                 });
                 const video = document.getElementById('video');
                 if (video) video.srcObject = stream;
@@ -1592,21 +1814,21 @@ function formatCurrency($val) {
             const video = document.getElementById('video');
             const canvas = document.getElementById('canvas');
             const preview = document.getElementById('photo-preview');
-            
+
             if (video && canvas && preview) {
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                
+
                 const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                 const keys = ['selfie', 'front', 'back'];
                 kycPhotos[keys[kycStep]] = dataUrl;
-                
+
                 preview.src = dataUrl;
                 preview.style.display = 'block';
                 video.style.display = 'none';
                 document.getElementById('camera-overlay').style.display = 'none';
-                
+
                 document.getElementById('btn-capture').style.display = 'none';
                 document.getElementById('btn-retake').style.display = 'block';
                 document.getElementById('btn-kyc-next').disabled = false;
@@ -1634,7 +1856,7 @@ function formatCurrency($val) {
             const progress = document.getElementById('kyc-progress');
             const nextBtn = document.getElementById('btn-kyc-next');
             const overlay = document.getElementById('camera-overlay');
-            
+
             if (title) title.textContent = kycTitles[kycStep];
             if (desc) desc.textContent = kycDescs[kycStep];
             if (progress) progress.textContent = `Etapa: ${kycStep + 1} de 3`;
@@ -1655,7 +1877,7 @@ function formatCurrency($val) {
             } else {
                 document.getElementById('camera-section').style.display = 'none';
                 document.getElementById('kyc-loading').style.display = 'block';
-                
+
                 try {
                     // Start countdown
                     let timeLeft = 16;
@@ -1671,13 +1893,12 @@ function formatCurrency($val) {
                     }, 1000);
 
                     const formData = new FormData();
-                    formData.append('action', 'update_kyc');
                     formData.append('kyc_selfie', kycPhotos.selfie);
                     formData.append('kyc_front', kycPhotos.front);
                     formData.append('kyc_back', kycPhotos.back);
 
                     const [response] = await Promise.all([
-                        fetch('auth.php', { method: 'POST', body: formData }),
+                        fetch('api/update_kyc', { method: 'POST', body: formData }),
                         new Promise(resolve => setTimeout(resolve, 16000)) // Guarantee 16s wait
                     ]);
 
@@ -1696,7 +1917,7 @@ function formatCurrency($val) {
                 }
             }
         }
- 
+
         let mobileBalanceVisible = true;
         const realMobileBalance = '<?php echo formatCurrency($valorVeiculo); ?>';
 
@@ -1704,7 +1925,7 @@ function formatCurrency($val) {
             mobileBalanceVisible = !mobileBalanceVisible;
             const balanceEl = document.getElementById('mobile-balance');
             const eyeIcon = document.getElementById('mobile-eye');
-            
+
             if (mobileBalanceVisible) {
                 if (balanceEl) balanceEl.textContent = realMobileBalance;
                 if (eyeIcon) {
@@ -1731,7 +1952,7 @@ function formatCurrency($val) {
 
         // Auto-close sidebar on view change (mobile)
         const originalShowView = showView;
-        showView = function(viewId, btn = null) {
+        showView = function (viewId, btn = null) {
             originalShowView(viewId, btn);
             const sidebar = document.querySelector('.sidebar');
             const overlay = document.querySelector('.sidebar-overlay');
@@ -1773,7 +1994,7 @@ function formatCurrency($val) {
 
         function showPendingAlert() {
             const status = "<?php echo $userStatus; ?>";
-            
+
             if (status === 'Bloqueado') {
                 Swal.fire({
                     title: 'ACESSO BLOQUEADO',
@@ -1797,7 +2018,8 @@ function formatCurrency($val) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.open('https://wa.me/18257304568?text=Olá, minha conta Transprocred aparece como bloqueada. Preciso de suporte.', '_blank');
+                        <?php $waNum = $siteConfig['whatsapp_number'] ?? '18257304568'; ?>
+                        window.open('https://wa.me/<?php echo $waNum; ?>?text=Olá, minha conta Transprocred aparece como bloqueada. Preciso de suporte.', '_blank');
                     }
                 });
                 return;
@@ -1842,7 +2064,7 @@ function formatCurrency($val) {
         window.addEventListener('load', () => {
             if ("<?php echo $userStatus; ?>" === "Bloqueado") {
                 showPendingAlert();
-                
+
                 // Block all clicks on interactive elements
                 document.body.addEventListener('click', (e) => {
                     // Don't re-trigger if Swal is already open
@@ -1859,4 +2081,5 @@ function formatCurrency($val) {
         });
     </script>
 </body>
+
 </html>

@@ -9,12 +9,13 @@ class PaymentController
     {
         // Require dependencies (Manually since no autoloader)
         require_once BASE_PATH . '/src/Repositories/UserRepository.php';
+        require_once BASE_PATH . '/src/Repositories/ConfigRepository.php';
         require_once BASE_PATH . '/src/Services/Payment/PixGenerator.php';
         require_once BASE_PATH . '/src/Services/Payment/PaymentService.php';
 
         // 0. Load Config
-        $configPath = BASE_PATH . '/src/Config/payment.json';
-        $config = file_exists($configPath) ? json_decode(file_get_contents($configPath), true) : ['pix_key' => 'seu-pix@email.com', 'active_gateway' => 'safe-bank'];
+        $configRepo = new \App\Repositories\ConfigRepository(BASE_PATH . '/src/Config/payment.json');
+        $config = $configRepo->getPaymentConfig();
 
         $userRepository = new UserRepository(BASE_PATH . '/users.json');
         $paymentService = new PaymentService($config['active_gateway'] ?? 'safe-bank');
@@ -35,6 +36,7 @@ class PaymentController
         if (!$cpf) {
             die("Acesso inválido. CPF não informado.");
         }
+        $cpf = preg_replace('/[^0-9]/', '', $cpf);
 
         // 2. Fetch User
         $user = $userRepository->findByUsername($cpf);
@@ -56,6 +58,7 @@ class PaymentController
             'payload' => '',
             'qrUrl' => '',
             'gateway' => $gatewayName,
+            'config' => $config,
             'meta_fields' => []
         ];
     }
@@ -63,14 +66,12 @@ class PaymentController
     public static function generatePixAjax($cpf, $email, $phone): array
     {
         require_once BASE_PATH . '/src/Repositories/UserRepository.php';
+        require_once BASE_PATH . '/src/Repositories/ConfigRepository.php';
         require_once BASE_PATH . '/src/Services/Payment/PixGenerator.php';
         require_once BASE_PATH . '/src/Services/Payment/PaymentService.php';
 
-        $configPath = BASE_PATH . '/src/Config/payment.json';
-        if (!file_exists($configPath)) {
-            $configPath = BASE_PATH . '/mp/config.json';
-        }
-        $config = file_exists($configPath) ? json_decode(file_get_contents($configPath), true) : ['pix_key' => 'seu-pix@email.com', 'jungle_secret_key' => ''];
+        $configRepo = new \App\Repositories\ConfigRepository(BASE_PATH . '/src/Config/payment.json');
+        $config = $configRepo->getPaymentConfig();
         $gatewayName = $config['active_gateway'] ?? 'safe-bank';
 
         $userRepository = new UserRepository(BASE_PATH . '/users.json');
@@ -134,13 +135,11 @@ class PaymentController
     public static function generateBoletoAjax($cpf, $email, $phone): array
     {
         require_once BASE_PATH . '/src/Repositories/UserRepository.php';
+        require_once BASE_PATH . '/src/Repositories/ConfigRepository.php';
         require_once BASE_PATH . '/src/Services/Payment/PaymentService.php';
 
-        $configPath = BASE_PATH . '/src/Config/payment.json';
-        if (!file_exists($configPath)) {
-            $configPath = BASE_PATH . '/mp/config.json';
-        }
-        $config = file_exists($configPath) ? json_decode(file_get_contents($configPath), true) : ['pix_key' => 'seu-pix@email.com', 'jungle_secret_key' => ''];
+        $configRepo = new \App\Repositories\ConfigRepository(BASE_PATH . '/src/Config/payment.json');
+        $config = $configRepo->getPaymentConfig();
         $gatewayName = $config['active_gateway'] ?? 'safe-bank';
 
         $userRepository = new UserRepository(BASE_PATH . '/users.json');

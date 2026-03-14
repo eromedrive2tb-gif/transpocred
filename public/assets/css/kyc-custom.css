@@ -1,0 +1,105 @@
+/* KYC Custom Styling - Transprocred */
+
+:root {
+    --kyc-overlay: rgba(0, 0, 0, 0.7);
+    --kyc-guide-color: #00d2ff;
+}
+
+#camera-container {
+    position: relative;
+    width: 100%;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#video,
+#photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Base overlay for guides */
+.face-guide,
+.doc-guide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Selfie Guide (Oval) */
+.face-guide {
+    background: radial-gradient(ellipse 180px 240px at 50% 50%, transparent 99%, var(--kyc-overlay) 100%);
+}
+
+.face-guide::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 240px;
+    border-radius: 50%;
+    border: 3px dashed var(--kyc-guide-color);
+    box-shadow: 0 0 0 2000px transparent;
+    animation: rotate-dash 20s linear infinite;
+}
+
+/* Document Guide (Rectangle) */
+.doc-guide {
+    /* Create a hole using clip-path (modern way) */
+    background: var(--kyc-overlay);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%,
+            /* The inner hole (Rectangle) */
+            10% 20%, 90% 20%, 90% 80%, 10% 80%, 10% 20%);
+}
+
+/* Document guide border frame */
+.doc-guide::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    border: 3px dashed var(--kyc-guide-color);
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+@keyframes rotate-dash {
+    to {
+        border-style: dotted;
+    }
+}
+
+@media (max-width: 480px) {
+    .face-guide {
+        background: radial-gradient(ellipse 150px 200px at 50% 50%, transparent 99%, var(--kyc-overlay) 100%);
+    }
+
+    .face-guide::after {
+        width: 150px;
+        height: 200px;
+    }
+
+    .doc-guide::after {
+        top: 15%;
+        height: 70%;
+        left: 5%;
+        width: 90%;
+    }
+
+    .doc-guide {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%,
+                5% 25%, 95% 25%, 95% 75%, 5% 75%, 5% 25%);
+    }
+}

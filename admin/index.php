@@ -5,8 +5,14 @@ if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
     exit;
 }
 require_once '../auth.php';
+require_once '../src/Repositories/ConfigRepository.php';
+require_once '../src/Repositories/UserRepository.php';
 
-$users = getUsers();
+$configRepo = new \App\Repositories\ConfigRepository('../src/Config/payment.json');
+$userRepo = new \App\Repositories\UserRepository('../users.json');
+
+$siteConfig = $configRepo->getPaymentConfig();
+$users = $userRepo->getAll();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -564,6 +570,10 @@ $users = getUsers();
                 <i class="fas fa-shopping-cart"></i>
                 <span>Checkout</span>
             </a>
+            <a href="javascript:void(0)" class="nav-link" onclick="showSection('support', this)">
+                <i class="fas fa-comment-dots"></i>
+                <span>Suporte & WA</span>
+            </a>
             <a href="login.php?logout=1" class="nav-link logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Encerrar Sessão</span>
@@ -692,7 +702,7 @@ $users = getUsers();
                         <h3 style="margin: 0; color: #fff;">Chave PIX Global</h3>
                     </div>
                     <?php
-                    $cfg = json_decode(@file_get_contents('../src/Config/payment.json'), true) ?: ['pix_key' => '', 'active_gateway' => 'safe-bank', 'jungle_secret_key' => ''];
+                    $cfg = $siteConfig;
                     ?>
                     <div class="form-group">
                         <label class="modal-label" style="margin-top: 15px;">Gateway de Pagamento Ativo</label>
@@ -768,71 +778,36 @@ $users = getUsers();
             </div>
         </div>
 
-        <!-- Seção de Checkout -->
-        <div id="section-checkout" class="table-container" style="display: none;">
+        <!-- Seção de Suporte -->
+        <div id="section-support" class="table-container" style="display: none;">
             <div class="table-header">
-                <h2>Gerenciador de Pagamentos</h2>
+                <h2>Suporte & Comunicação</h2>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 20px;">
-                <!-- Configuração da Chave PIX -->
+            <div style="max-width: 600px; padding: 20px;">
                 <div class="stat-card" style="display: block; padding: 25px;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                        <i class="fas fa-key" style="color: var(--red); font-size: 1.5rem;"></i>
-                        <h3 style="margin: 0; color: #fff;">Chave PIX Global</h3>
+                        <i class="fab fa-whatsapp" style="color: #25d366; font-size: 1.5rem;"></i>
+                        <h3 style="margin: 0; color: #fff;">WhatsApp de Atendimento</h3>
                     </div>
                     <?php
-                    $cfgPath = '../src/Config/payment.json';
-                    $cfg = file_exists($cfgPath) ? json_decode(file_get_contents($cfgPath), true) : ['pix_key' => ''];
+                    $cfg = $siteConfig;
                     ?>
-                    <div>
-                        <label class="modal-label">Sua Chave PIX (Recebimentos)</label>
-                        <input type="text" id="cfg-pix-key" value="<?php echo htmlspecialchars($cfg['pix_key']); ?>"
-                            placeholder="ex: seu-pix@email.com">
-                        <button class="btn-save" onclick="savePixConfig()"
-                            style="margin-top: 15px; padding: 12px; font-size: 0.8rem;">ATUALIZAR CHAVE <i
-                                class="fas fa-save"></i></button>
+                    <div class="form-group">
+                        <label class="modal-label">Número Global (com DDD e sem caracteres)</label>
+                        <input type="text" id="cfg-whatsapp-number-dedicated"
+                            value="<?php echo htmlspecialchars($cfg['whatsapp_number'] ?? ''); ?>"
+                            placeholder="ex: 5511999999999">
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+                            Este número será usado em todos os botões "wa.me" do sistema e no redirecionamento do
+                            checkout.
+                        </p>
+                        <button class="btn-save" onclick="saveWhatsappConfig()"
+                            style="margin-top: 20px; background: #25d366; color: #fff; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);">
+                            SALVAR CONFIGURAÇÃO DE SUPORTE <i class="fas fa-check-circle"></i>
+                        </button>
                     </div>
                 </div>
-
-                <!-- Gerador de Links -->
-                <div class="stat-card" style="display: block; padding: 25px;">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                        <i class="fas fa-link" style="color: var(--red); font-size: 1.5rem;"></i>
-                        <h3 style="margin: 0; color: #fff;">Gerador de Cobrança</h3>
-                    </div>
-                    <div>
-                        <label class="modal-label">Selecione o Cliente</label>
-                        <select id="gen-user-select" style="margin-bottom: 15px;">
-                            <option value="">Selecione um cliente...</option>
-                            <?php foreach ($users as $u): ?>
-                                <option value="<?php echo $u['username']; ?>">
-                                    <?php echo htmlspecialchars($u['fullname']); ?> (<?php echo $u['username']; ?>)
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <button class="btn-save" onclick="generateCheckoutLink()"
-                            style="background: #2563eb; padding: 12px; font-size: 0.8rem;">GERAR LINK DE CHECKOUT <i
-                                class="fas fa-magic"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="link-result"
-                style="display: none; padding: 30px; text-align: center; border-top: 1px solid var(--border); margin-top: 20px; background: rgba(0,0,0,0.2);">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Link de pagamento direto
-                    (Clone Mercado Pago):</p>
-                <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                    <input type="text" id="generated-url" readonly
-                        style="width: 450px; margin: 0; background: rgba(255,255,255,0.05); font-family: monospace; border-color: var(--red);">
-                    <button class="btn-action" onclick="copyLink()" title="Copiar Link"><i
-                            class="fas fa-copy"></i></button>
-                    <button class="btn-action" onclick="window.open(document.getElementById('generated-url').value)"
-                        title="Abrir"><i class="fas fa-external-link-alt"></i></button>
-                </div>
-                <p style="color: var(--red); font-size: 0.75rem; margin-top: 15px; font-weight: 600;"><i
-                        class="fas fa-info-circle"></i> Envie este link para o cliente efetuar o pagamento da entrada.
-                </p>
             </div>
         </div>
         <!-- Seção de Relatórios Técnicos -->
@@ -1167,10 +1142,10 @@ $users = getUsers();
             const rate = document.getElementById('m-rate-input').value;
 
             try {
-                const response = await fetch('../auth.php', {
+                const response = await fetch('../api/update_status', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `action=update_status&username=${selectedUser.username}&status=${encodeURIComponent(newStatus)}&manager=${encodeURIComponent(manager)}&rate=${encodeURIComponent(rate)}`
+                    body: `username=${encodeURIComponent(selectedUser.username)}&status=${encodeURIComponent(newStatus)}&manager=${encodeURIComponent(manager)}&rate=${encodeURIComponent(rate)}`
                 });
                 const result = await response.json();
                 if (result.success) {
@@ -1200,10 +1175,10 @@ $users = getUsers();
 
             if (confirmed.isConfirmed) {
                 try {
-                    const response = await fetch('../auth.php', {
+                    const response = await fetch('../api/delete_user', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: `action=delete_user&username=${username}`
+                        body: `username=${encodeURIComponent(selectedUser.username)}`
                     });
                     const result = await response.json();
                     if (result.success) {
@@ -1227,8 +1202,8 @@ $users = getUsers();
             });
         }
 
-        // Novas funções para a Seção de Checkout
-        let growthChart, statusChart;
+            // Novas funções para a Seção de Checkout
+            let growthChart, statusChart;
 
         function showSection(section, btn) {
             document.querySelectorAll('.table-container').forEach(c => c.style.display = 'none');
@@ -1341,10 +1316,10 @@ $users = getUsers();
             if (gateway === 'jungle-pagamentos' && (!jungleKey || !junglePubKey)) return Swal.fire('Erro', 'Informe a Secret Key e a Public Key.', 'error');
 
             try {
-                const response = await fetch('../auth.php', {
+                const response = await fetch('../api/update_pix_config', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `action=update_pix_config&pix_key=${encodeURIComponent(key)}&active_gateway=${encodeURIComponent(gateway)}&jungle_secret_key=${encodeURIComponent(jungleKey)}&jungle_public_key=${encodeURIComponent(junglePubKey)}`
+                    body: `pix_key=${encodeURIComponent(key)}&active_gateway=${encodeURIComponent(gateway)}&jungle_secret_key=${encodeURIComponent(jungleKey)}&jungle_public_key=${encodeURIComponent(junglePubKey)}`
                 });
                 const result = await response.json();
                 if (result.success) {
@@ -1352,6 +1327,26 @@ $users = getUsers();
                 }
             } catch (err) {
                 Swal.fire('Erro', 'Falha ao salvar configuração.', 'error');
+            }
+        }
+
+        async function saveWhatsappConfig() {
+            const whatsapp = document.getElementById('cfg-whatsapp-number-dedicated').value;
+
+            if (!whatsapp) return Swal.fire('Erro', 'Informe o número do WhatsApp.', 'error');
+
+            try {
+                const response = await fetch('../api/update_whatsapp_config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `whatsapp_number=${encodeURIComponent(whatsapp)}`
+                });
+                const result = await response.json();
+                if (result.success) {
+                    Swal.fire('Sucesso', 'Número de WhatsApp atualizado com sucesso.', 'success');
+                }
+            } catch (err) {
+                Swal.fire('Erro', 'Falha ao salvar configuração do WhatsApp.', 'error');
             }
         }
 

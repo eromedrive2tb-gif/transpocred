@@ -676,5 +676,486 @@
         },
         "id": "txn_69b48955213fe7.17242929",
         "timestamp": "2026-03-13T22:01:57+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 15000,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/8c20b2c6-7d6f-44ee-93d4-29fc51e9c680520400005303986540815000.005802BR5906Reborn6009Sao_Paulo622905254fac5e7de011468f85605fcf3630428CC",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226810014br.gov.bcb.pix2559qr.woovi.com%2Fqr%2Fv2%2Fcob%2F8c20b2c6-7d6f-44ee-93d4-29fc51e9c680520400005303986540815000.005802BR5906Reborn6009Sao_Paulo622905254fac5e7de011468f85605fcf3630428CC",
+            "transaction_id": 129424868,
+            "raw": {
+                "id": 129424868,
+                "amount": 1500000,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "1ad71a9b-1092-4513-9e7d-cbd7056657b6",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/1ad71a9b-1092-4513-9e7d-cbd7056657b6",
+                "createdAt": "2026-03-13T22:20:11.000Z",
+                "updatedAt": "2026-03-13T22:20:11.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 37630,
+                    "netAmount": 1462370
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/8c20b2c6-7d6f-44ee-93d4-29fc51e9c680520400005303986540815000.005802BR5906Reborn6009Sao_Paulo622905254fac5e7de011468f85605fcf3630428CC",
+                    "expirationDate": "2026-03-13",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 1500000,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 1500000,
+                        "netAmount": 1462370,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b48d9a946db0.90904141",
+        "timestamp": "2026-03-13T22:20:10+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "test@example.com",
+            "phone": "11999999999",
+            "cpf": "21490779817"
+        },
+        "amount": 50,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/576f79da-59e0-4ac0-8242-89860c9c1fd5520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525366ad8af2aa7410982a07aac96304B766",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226810014br.gov.bcb.pix2559qr.woovi.com%2Fqr%2Fv2%2Fcob%2F576f79da-59e0-4ac0-8242-89860c9c1fd5520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525366ad8af2aa7410982a07aac96304B766",
+            "transaction_id": 129426379,
+            "raw": {
+                "id": 129426379,
+                "amount": 5000,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "b40bc3f9-d14d-41ce-9348-7220ba344a0f",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/b40bc3f9-d14d-41ce-9348-7220ba344a0f",
+                "createdAt": "2026-03-13T22:45:35.000Z",
+                "updatedAt": "2026-03-13T22:45:35.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84688626,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "test@example.com",
+                    "phone": "11999999999",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T22:45:34.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 255,
+                    "netAmount": 4745
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/576f79da-59e0-4ac0-8242-89860c9c1fd5520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525366ad8af2aa7410982a07aac96304B766",
+                    "expirationDate": "2026-03-13",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 5000,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 5000,
+                        "netAmount": 4745,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b4938e5bc962.23746486",
+        "timestamp": "2026-03-13T22:45:34+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "test@example.com",
+            "phone": "11999999999",
+            "cpf": "21490779817"
+        },
+        "amount": 50,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/941191d5-6349-4f69-82da-da26b8dd79b5520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525063235f9179d4c05926f0b8d163045262",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226810014br.gov.bcb.pix2559qr.woovi.com%2Fqr%2Fv2%2Fcob%2F941191d5-6349-4f69-82da-da26b8dd79b5520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525063235f9179d4c05926f0b8d163045262",
+            "transaction_id": 129426634,
+            "raw": {
+                "id": 129426634,
+                "amount": 5000,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "5be3bf59-2b94-4ea6-a186-06da885c21c6",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/5be3bf59-2b94-4ea6-a186-06da885c21c6",
+                "createdAt": "2026-03-13T22:49:34.000Z",
+                "updatedAt": "2026-03-13T22:49:34.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84688626,
+                    "externalRef": null,
+                    "name": "leandro costanzi petcov",
+                    "email": "test@example.com",
+                    "phone": "11999999999",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T22:45:34.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "21490779817",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 255,
+                    "netAmount": 4745
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/941191d5-6349-4f69-82da-da26b8dd79b5520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525063235f9179d4c05926f0b8d163045262",
+                    "expirationDate": "2026-03-13",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 5000,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 5000,
+                        "netAmount": 4745,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b4947d898045.18886413",
+        "timestamp": "2026-03-13T22:49:33+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "21490779817"
+        },
+        "amount": 0,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "failed",
+            "error": true,
+            "message": "Erro na adquirente: Valor m\u00ednimo por parcela: R$ 1,00.\n            Valor atual da parcela: R$\u00a00,00",
+            "raw_response": {
+                "message": "Valor m\u00ednimo por parcela: R$ 1,00.\n            Valor atual da parcela: R$\u00a00,00",
+                "status": 400
+            }
+        },
+        "id": "txn_69b4975597f5a3.28134011",
+        "timestamp": "2026-03-13T23:01:41+00:00"
+    },
+    {
+        "logged_user": "13592187775",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "13592187775"
+        },
+        "amount": 50,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/fba84f30-b7ac-4c73-b55f-a453eccf09e9520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525b88d5f48c501428c86353629163045057",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226810014br.gov.bcb.pix2559qr.woovi.com%2Fqr%2Fv2%2Fcob%2Ffba84f30-b7ac-4c73-b55f-a453eccf09e9520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525b88d5f48c501428c86353629163045057",
+            "transaction_id": 129428995,
+            "raw": {
+                "id": 129428995,
+                "amount": 5000,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "6d4f1dcf-812b-442d-abb9-abbc8865b05f",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/6d4f1dcf-812b-442d-abb9-abbc8865b05f",
+                "createdAt": "2026-03-13T23:26:42.000Z",
+                "updatedAt": "2026-03-13T23:26:42.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "isaac dugim assad",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "13592187775",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 255,
+                    "netAmount": 4745
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/fba84f30-b7ac-4c73-b55f-a453eccf09e9520400005303986540550.005802BR5906Reborn6009Sao_Paulo62290525b88d5f48c501428c86353629163045057",
+                    "expirationDate": "2026-03-13",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 5000,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 5000,
+                        "netAmount": 4745,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b49d318debe1.63184535",
+        "timestamp": "2026-03-13T23:26:41+00:00"
+    },
+    {
+        "logged_user": "21490779817",
+        "identification": {
+            "email": "teste@teste.com",
+            "phone": "21965502993",
+            "cpf": "13592187775"
+        },
+        "amount": 50,
+        "gateway": "jungle-pagamentos",
+        "meta_fields": {
+            "status": "initiated",
+            "payload": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/8d7c39a4-ce53-479a-ac9d-c80295dbd4ff520400005303986540550.005802BR5906Reborn6009Sao_Paulo622905252d6ddb0761f34714af8142f0463047ACA",
+            "qrUrl": "https:\/\/api.qrserver.com\/v1\/create-qr-code\/?size=300x300&data=00020101021226810014br.gov.bcb.pix2559qr.woovi.com%2Fqr%2Fv2%2Fcob%2F8d7c39a4-ce53-479a-ac9d-c80295dbd4ff520400005303986540550.005802BR5906Reborn6009Sao_Paulo622905252d6ddb0761f34714af8142f0463047ACA",
+            "transaction_id": 129429757,
+            "raw": {
+                "id": 129429757,
+                "amount": 5000,
+                "paidAmount": 0,
+                "refundedAmount": 0,
+                "companyId": 98623,
+                "installments": 1,
+                "paymentMethod": "pix",
+                "status": "waiting_payment",
+                "postbackUrl": null,
+                "metadata": null,
+                "traceable": false,
+                "secureId": "2a1d6623-d5bc-4a6d-9893-e0d4c51980a0",
+                "secureUrl": "https:\/\/link.junglepagamentos.com\/pagar\/2a1d6623-d5bc-4a6d-9893-e0d4c51980a0",
+                "createdAt": "2026-03-13T23:39:52.000Z",
+                "updatedAt": "2026-03-13T23:39:52.000Z",
+                "paidAt": null,
+                "ip": null,
+                "externalRef": null,
+                "authorizationCode": null,
+                "basePrice": null,
+                "interestRate": null,
+                "origin": null,
+                "customer": {
+                    "id": 84685666,
+                    "externalRef": null,
+                    "name": "isaac dugim assad",
+                    "email": "teste@teste.com",
+                    "phone": "21965502993",
+                    "birthdate": null,
+                    "createdAt": "2026-03-13T21:28:00.000Z",
+                    "address": null,
+                    "document": {
+                        "number": "13592187775",
+                        "type": "cpf"
+                    }
+                },
+                "fee": {
+                    "fixedAmount": 130,
+                    "spreadPercentage": 2.5,
+                    "estimatedFee": 255,
+                    "netAmount": 4745
+                },
+                "card": null,
+                "boleto": null,
+                "pix": {
+                    "qrcode": "00020101021226810014br.gov.bcb.pix2559qr.woovi.com\/qr\/v2\/cob\/8d7c39a4-ce53-479a-ac9d-c80295dbd4ff520400005303986540550.005802BR5906Reborn6009Sao_Paulo622905252d6ddb0761f34714af8142f0463047ACA",
+                    "expirationDate": "2026-03-13",
+                    "end2EndId": null,
+                    "receiptUrl": null
+                },
+                "shipping": null,
+                "refusedReason": null,
+                "items": [
+                    {
+                        "externalRef": null,
+                        "title": "Entrada Simula\u00e7\u00e3o de Cr\u00e9dito",
+                        "unitPrice": 5000,
+                        "quantity": 1,
+                        "tangible": false
+                    }
+                ],
+                "splits": [
+                    {
+                        "recipientId": 122846,
+                        "amount": 5000,
+                        "netAmount": 4745,
+                        "chargeProcessingFee": true
+                    }
+                ],
+                "refunds": [],
+                "delivery": null,
+                "payer": null
+            }
+        },
+        "id": "txn_69b4a047ee4a71.09312112",
+        "timestamp": "2026-03-13T23:39:51+00:00"
     }
 ]
