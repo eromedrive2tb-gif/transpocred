@@ -7,12 +7,18 @@ if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
 require_once '../auth.php';
 require_once '../src/Repositories/ConfigRepository.php';
 require_once '../src/Repositories/UserRepository.php';
+require_once '../src/Repositories/KuberaRepository.php';
+require_once '../src/Repositories/MimirRepository.php';
 
 $configRepo = new \App\Repositories\ConfigRepository('../src/Config/payment.json');
 $userRepo = new \App\Repositories\UserRepository('../users.json');
+$kuberaRepo = new \App\Repositories\KuberaRepository('../src/Storage/transactions.json');
+$mimirRepo = new \App\Repositories\MimirRepository('../debug_api.log');
 
 $siteConfig = $configRepo->getPaymentConfig();
 $users = $userRepo->getAll();
+$transactions = $kuberaRepo->getAll();
+$logs = $mimirRepo->getEntries(50);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -570,6 +576,14 @@ $users = $userRepo->getAll();
                 <i class="fas fa-shopping-cart"></i>
                 <span>Checkout</span>
             </a>
+            <a href="javascript:void(0)" class="nav-link" onclick="showSection('transactions', this)">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transações</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-link" onclick="showSection('logs', this)">
+                <i class="fas fa-terminal"></i>
+                <span>Logs de Sistema</span>
+            </a>
             <a href="javascript:void(0)" class="nav-link" onclick="showSection('support', this)">
                 <i class="fas fa-comment-dots"></i>
                 <span>Suporte & WA</span>
@@ -687,6 +701,11 @@ $users = $userRepo->getAll();
                 </tbody>
             </table>
         </div>
+
+        <?php
+        include 'views/tabs/transactions.php';
+        include 'views/tabs/logs.php';
+        ?>
 
         <!-- Seção de Checkout -->
         <div id="section-checkout" class="table-container" style="display: none;">
@@ -1202,8 +1221,8 @@ $users = $userRepo->getAll();
             });
         }
 
-            // Novas funções para a Seção de Checkout
-            let growthChart, statusChart;
+        // Novas funções para a Seção de Checkout
+        let growthChart, statusChart;
 
         function showSection(section, btn) {
             document.querySelectorAll('.table-container').forEach(c => c.style.display = 'none');

@@ -10,8 +10,6 @@
 
 <?php require BASE_PATH . '/src/views/Atoms/ContentAnchor.php'; ?>
 
-<?php require BASE_PATH . '/src/views/Molecules/NotificationBanner.php'; ?>
-
 <?php require BASE_PATH . '/src/views/Molecules/BannerSlider.php'; ?>
 
 <?php require BASE_PATH . '/src/views/Molecules/TrustTagline.php'; ?>
