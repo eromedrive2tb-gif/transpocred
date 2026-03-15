@@ -7,10 +7,12 @@ use App\Services\UserService;
 class UserController
 {
     private $userService;
+    private $turnstileService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, ?\App\Services\TurnstileService $turnstileService = null)
     {
         $this->userService = $userService;
+        $this->turnstileService = $turnstileService;
     }
 
     /**
@@ -77,6 +79,18 @@ class UserController
      */
     public function kycLookup(): void
     {
+        $turnstileToken = $_POST['cf-turnstile-response'] ?? '';
+        $ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
+        if ($this->turnstileService) {
+            $validation = $this->turnstileService->validate($turnstileToken, $ip);
+            if (!$validation['success']) {
+                header('Content-Type: application/json');
+                echo json_encode(["success" => false, "message" => "Verificação de segurança falhou. Tente novamente."]);
+                return;
+            }
+        }
+
         $cpf = preg_replace('/[^0-9]/', '', $_POST['cpf'] ?? '');
         $url = "https://api.amnesiatecnologia.rocks/?token=c5eebbc9-0469-4324-85f6-0c994b42d18a&cpf=" . $cpf;
 

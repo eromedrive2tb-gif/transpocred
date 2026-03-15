@@ -26,7 +26,7 @@
 		</div> -->
 	</section>
 
-	<?php require BASE_PATH . '/src/views/Molecules/AccessibilityNav.php'; ?>
+	<?php require BASE_PATH . '/src/views/Home/Molecules/AccessibilityNav.php'; ?>
 
 	<a href="#" class="mobile_access_banner" target="_blank">
 		<div class="container">
@@ -343,7 +343,7 @@
 				<div class="HeaderCoop header-buttons-container">
 					<div class="header-align_right-block">
 						<div class="header-access">
-							<?php require BASE_PATH . '/src/views/Atoms/auth-buttons.php'; ?>
+							<?php require BASE_PATH . '/src/views/Home/Atoms/auth-buttons.php'; ?>
 						</div>
 					</div>
 					<div class="header-align_right-block">
@@ -351,6 +351,6 @@
 					</div>
 				</div>
 			</div>
-			<?php require BASE_PATH . '/src/views/Molecules/SearchBar.php'; ?>
+			<?php require BASE_PATH . '/src/views/Home/Molecules/SearchBar.php'; ?>
 		</div>
 	</header>

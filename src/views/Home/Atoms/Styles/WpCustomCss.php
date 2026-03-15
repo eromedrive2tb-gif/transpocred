@@ -856,7 +856,6 @@
 		.notification,
 		#telasMobile,
 		#telasGrandes,
-		.accessbility_nav,
 		.header-links-container,
 		.mobile_floater-search_button,
 		.mobile_floater-menu_button {

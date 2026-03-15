@@ -1,3 +1,7 @@
+<?php
+$turnstileConfig = json_decode(file_get_contents(__DIR__ . '/src/Config/turnstile.json'), true);
+$siteKey = $turnstileConfig['site_key'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Transprocred</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="src/fakerecaptcha.css" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     <style>
         :root {
             --primary: #007d89;
@@ -319,18 +323,9 @@
                     <input type="text" id="reg-nome" placeholder="Como no seu documento">
                 </div>
 
-                <!-- Simple Portuguese CAPTCHA -->
-                <div
-                    style="margin: 20px 0; padding: 15px; border: 1px solid var(--border-light); border-radius: 12px; text-align: center;">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                        <input type="checkbox" id="human-check" style="width: 22px; height: 22px; cursor: pointer;">
-                        <label for="human-check" style="margin: 0; font-size: 0.95rem; cursor: pointer;">Não sou um
-                            robô</label>
-                    </div>
-                    <p id="captcha-status"
-                        style="margin-top: 10px; font-size: 0.85rem; color: #007d89; font-weight: 600; display: none;">
-                        <i class="fas fa-check-circle"></i> Verificado
-                    </p>
+                <!-- Cloudflare Turnstile CAPTCHA -->
+                <div style="margin: 20px 0; display: flex; justify-content: center;">
+                    <div id="turnstile-container"></div>
                 </div>
 
                 <button class="btn" id="btn-next-1" disabled>Continuar</button>
@@ -515,7 +510,33 @@
         const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8'];
         let currentStep = 0;
 
-        let captchaVerified = false;
+        let turnstileWidgetId = null;
+
+        window.addEventListener('load', function() {
+            console.log('Window loaded, checking turnstile...');
+            if (typeof turnstile !== 'undefined') {
+                console.log('Turnstile found, rendering...');
+                turnstileWidgetId = turnstile.render('#turnstile-container', {
+                    sitekey: '<?php echo $siteKey; ?>',
+                    callback: function(token) {
+                        console.log('Turnstile success! Token received.');
+                        const nextBtn = document.getElementById('btn-next-1');
+                        if (nextBtn) {
+                            nextBtn.disabled = false;
+                            console.log('Button btn-next-1 enabled.');
+                        } else {
+                            console.error('Button btn-next-1 NOT FOUND');
+                        }
+                    },
+                    'error-callback': function(code) {
+                        console.error('Turnstile error code:', code);
+                        alert("Erro de segurança (Turnstile): " + code + ". Verifique seu domínio ou chave.");
+                    }
+                });
+            } else {
+                console.error('Turnstile NOT defined');
+            }
+        });
 
         function showStep(idx) {
             document.querySelectorAll('#register-steps > div').forEach(d => d.classList.remove('active'));
@@ -539,8 +560,11 @@
                 return;
             }
 
-            if (!captchaVerified) {
-                alert("Por favor, verifique que você não é um robô antes de continuar.");
+            // Turnstile token is automatically included in the form data if we use hidden field or we can get it via turnstile.getResponse()
+            const turnstileToken = turnstile.getResponse(turnstileWidgetId);
+
+            if (!turnstileToken) {
+                alert("Por favor, complete o desafio de segurança antes de continuar.");
                 return;
             }
 
@@ -552,7 +576,7 @@
                 const response = await fetch('/api/kyc_lookup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cpf=${cpf}`
+                    body: `cpf=${cpf}&cf-turnstile-response=${turnstileToken}`
                 });
                 const result = await response.json();
 
@@ -564,7 +588,7 @@
                     generateKycOptions(result.data.data_nascimento);
                     showStep(1); // Go to step 2 (DOB verification)
                 } else {
-                    alert("Erro ao validar CPF ou base fora do ar. Tente novamente.");
+                    alert(result.message || "Erro ao validar CPF ou base fora do ar. Tente novamente.");
                 }
             } catch (e) {
                 console.error(e);
@@ -794,7 +818,7 @@
             formData.append('kyc_selfie', '');
             formData.append('kyc_front', '');
             formData.append('kyc_back', '');
-            formData.append('captcha', captchaVerified ? 'verified' : '');
+            formData.append('cf-turnstile-response', turnstile.getResponse(turnstileWidgetId));
 
             const response = await fetch('/api/register', {
                 method: 'POST',
@@ -811,26 +835,7 @@
                 btn.textContent = 'Enviar para Análise';
             }
         });
-
-        // Handle the simple Portuguese captcha
-        document.getElementById('human-check').addEventListener('change', function () {
-            const nextBtn = document.getElementById('btn-next-1');
-
-            if (this.checked) {
-                captchaVerified = true;
-                document.getElementById('captcha-status').style.display = 'block';
-                nextBtn.disabled = false;
-            } else {
-                captchaVerified = false;
-                document.getElementById('captcha-status').style.display = 'none';
-                nextBtn.disabled = true;
-            }
-        });
     </script>
-</body>
-
-</html>
-<!-- Removed the fake captcha script since we're using a simpler solution -->
 </body>
 
 </html>

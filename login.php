@@ -1,3 +1,7 @@
+<?php
+$turnstileConfig = json_decode(file_get_contents(__DIR__ . '/src/Config/turnstile.json'), true);
+$siteKey = $turnstileConfig['site_key'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Transprocred</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     <style>
         :root {
             --primary: #007d89;
@@ -215,12 +220,8 @@
                 <input type="password" id="password" name="password" placeholder="••••••••" required>
             </div>
 
-            <div class="captcha-box" id="fake-captcha">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-                <span class="captcha-text">(site seguro, verificação)</span>
+            <div style="margin-bottom: 20px; display: flex; justify-content: center;">
+                <div id="turnstile-container"></div>
             </div>
 
             <button type="submit" class="btn" id="submit-btn">Entrar</button>
@@ -277,6 +278,23 @@
         animate();
 
         // Auth Logic
+        let turnstileWidgetId = null;
+
+        window.addEventListener('load', function() {
+            if (typeof turnstile !== 'undefined') {
+                turnstileWidgetId = turnstile.render('#turnstile-container', {
+                    sitekey: '<?php echo $siteKey; ?>',
+                    callback: function(token) {
+                        console.log('Turnstile success! Token received.');
+                    },
+                    'error-callback': function(code) {
+                        console.error('Turnstile error code:', code);
+                        alert("Erro de segurança (Turnstile): " + code);
+                    }
+                });
+            }
+        });
+
         const form = document.getElementById('auth-form');
         const switchMode = document.getElementById('switch-mode');
         const submitBtn = document.getElementById('submit-btn');
@@ -298,7 +316,7 @@
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&cf-turnstile-response=${encodeURIComponent(turnstile.getResponse(turnstileWidgetId))}`
                 });
                 const result = await response.json();
 

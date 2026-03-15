@@ -6,4 +6,4 @@
  * Atomic Design — Refactor Clean Architecture
  */
 
-require BASE_PATH . '/src/views/Templates/main-layout.php';
+require BASE_PATH . '/src/views/Home/Templates/main-layout.php';

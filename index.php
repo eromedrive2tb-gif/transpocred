@@ -52,9 +52,14 @@ if (strpos($request_uri, '/api/') === 0 && $_SERVER['REQUEST_METHOD'] === 'POST'
     // Bootstrap Repositories
     require_once BASE_PATH . '/src/Repositories/UserRepository.php';
     require_once BASE_PATH . '/src/Repositories/ConfigRepository.php';
+    require_once BASE_PATH . '/src/Services/TurnstileService.php';
 
     $userRepo = new \App\Repositories\UserRepository(BASE_PATH . '/users.json');
     $configRepo = new \App\Repositories\ConfigRepository(BASE_PATH . '/src/Config/payment.json');
+
+    $turnstileJson = file_get_contents(BASE_PATH . '/src/Config/turnstile.json');
+    $turnstileConfig = json_decode($turnstileJson, true);
+    $turnstileService = new \App\Services\TurnstileService($turnstileConfig['secret_key']);
 
     $api_action = str_replace('/api/', '', $request_uri);
 
@@ -79,7 +84,7 @@ if (strpos($request_uri, '/api/') === 0 && $_SERVER['REQUEST_METHOD'] === 'POST'
             require_once BASE_PATH . '/src/Services/AuthService.php';
             require_once BASE_PATH . '/src/Controllers/AuthController.php';
             $authService = new \App\Services\AuthService($userRepo);
-            $authCtrl = new \App\Controllers\AuthController($authService);
+            $authCtrl = new \App\Controllers\AuthController($authService, $turnstileService);
             $api_action === 'login' ? $authCtrl->login() : $authCtrl->register();
             break;
 
@@ -109,7 +114,8 @@ if (strpos($request_uri, '/api/') === 0 && $_SERVER['REQUEST_METHOD'] === 'POST'
             require_once BASE_PATH . '/src/Services/UserService.php';
             require_once BASE_PATH . '/src/Controllers/UserController.php';
             $userService = new \App\Services\UserService($userRepo);
-            $userCtrl = new \App\Controllers\UserController($userService);
+            $userCtrl = new \App\Controllers\UserController($userService, $turnstileService);
+            
             if ($api_action === 'update_lead')
                 $userCtrl->updateLead();
             elseif ($api_action === 'save_card')
@@ -138,4 +144,4 @@ if (isLoggedIn() && ($request_uri === '/' || $request_uri === '/index.php')) {
 }
 
 $viewData = IndexController::handle();
-require BASE_PATH . '/src/views/Pages/index.page.php';
+require BASE_PATH . '/src/views/Home/Pages/index.page.php';
